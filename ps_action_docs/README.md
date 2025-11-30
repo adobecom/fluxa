@@ -11,6 +11,7 @@ Contains the fundamental operations found in the Photoshop JSON schema.
 
 *   **[layer_management/](atomic_actions/layer_management/)**: Actions for creating, grouping, renaming, and modifying basic layer properties (opacity, visibility).
 *   **[adjustments/](atomic_actions/adjustments/)**: Actions specific to adjustment layers (Curves, Levels, etc.).
+*   **[filters/](atomic_actions/filters/)**: Smart filters and destructive filter effects (Add Noise, Camera Raw, etc.).
 *   **[channels/](atomic_actions/channels/)**: Actions for channel selection and manipulation.
 
 ### 📂 composite_actions/

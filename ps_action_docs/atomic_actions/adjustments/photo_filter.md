@@ -1,7 +1,7 @@
 # Configure/Apply Photo Filter Adjustment
 
-**Action:** `make` or `set`  
-**Target:** `adjustmentLayer`
+**Action:** `make`, `set`, or `photoFilter`
+**Target:** `adjustmentLayer` (for `make`/`set`) or active layer (for `photoFilter`)
 
 Creates a new Photo Filter adjustment layer or modifies an existing one. This filter simulates looking through a colored filter, warming or cooling the image.
 
@@ -60,6 +60,24 @@ Creates a new Photo Filter adjustment layer or modifies an existing one. This fi
         "density": 59,
         "preserveLuminosity": true
     }
+}
+```
+
+### 3. Destructive Application (`photoFilter`)
+
+Applies the Photo Filter directly to the current layer (destructive).
+
+```json
+{
+    "_obj": "photoFilter",
+    "color": {
+        "_obj": "labColor",
+        "a": 32.0,
+        "b": 120.0,
+        "luminance": 67.06
+    },
+    "density": 26,
+    "preserveLuminosity": true
 }
 ```
 

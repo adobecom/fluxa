@@ -34,4 +34,4 @@ Creates a layer mask on the currently selected layer.
     - `_value`: 
         - `revealAll`: White mask (shows everything).
         - `hideAll`: Black mask (hides everything).
-
+        - `revealSelection`: Creates mask based on current selection (white where selected, black where not).

@@ -38,12 +38,16 @@ Creates a new group containing the currently selected layers.
         "_ref": "layer",
         "_value": "targetEnum"
     },
-    "name": "Group from Selection"
+    "using": {
+        "_obj": "layerSection",
+        "name": "Group from Selection"
+    }
 }
 ```
 
 ## Parameters
 
-- `name`: The name of the new group.
+- `name`: The name of the new group (can be top-level or inside `using`).
 - `from`: (Optional) If present, specifies that the new group should contain the referenced layers (usually `targetEnum` for currently selected layers).
-- `layerSectionStart` / `layerSectionEnd`: (Optional) Internal indices for the group range.
+- `using`: (Optional) Alternative way to specify properties like `name`.
+    - `name`: Name of the group.

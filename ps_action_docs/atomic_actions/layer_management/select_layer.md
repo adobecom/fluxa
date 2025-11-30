@@ -17,16 +17,15 @@ Selects a specific layer by ID, name, or relative position.
             "_value": "forwardEnum" 
         }
     ],
-    "layerID": [ 152 ], 
     "makeVisible": false
 }
 ```
 
-> Note: `_value` can be `forwardEnum`, `backwardEnum`, or `targetEnum`. `layerID` is often included by Photoshop but might be optional if selecting purely by relative position.
+> Note: `_value` can be `forwardEnum`, `backwardEnum`, or `targetEnum`.
 
-## Select by Name (Hypothetical)
+## Select by Name
 
-*If referencing a specific layer by name:*
+Selects a specific layer by its name.
 
 ```json
 {
@@ -34,14 +33,26 @@ Selects a specific layer by ID, name, or relative position.
     "_target": [
         {
             "_ref": "layer",
-            "_name": "Background"
+            "_name": "Rain 1"
         }
-    ]
+    ],
+    "makeVisible": false,
+    "selectionModifier": {
+        "_enum": "selectionModifierType",
+        "_value": "addToSelectionContinuous"
+    }
 }
 ```
 
 ## Parameters
 
-- `makeVisible`: Boolean, whether to toggle visibility upon selection.
 - `_target`: Specifies which layer to select.
-
+    - `_name`: Name of the layer to select.
+    - `_enum`: `ordinal` for relative selection.
+    - `_value`: `forwardEnum` (layer above), `backwardEnum` (layer below).
+- `makeVisible`: (Boolean) Whether to toggle visibility upon selection.
+- `selectionModifier`: (Optional) Modifies how the selection is applied.
+    - `_value`:
+        - `addToSelection`: Adds to current selection.
+        - `addToSelectionContinuous`: Adds to selection (often used for multi-select).
+        - `removeFromSelection`: Removes from selection.
