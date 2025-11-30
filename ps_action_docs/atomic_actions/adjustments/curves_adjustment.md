@@ -1,18 +1,20 @@
-# Configure Curves Adjustment
+# Configure/Apply Curves Adjustment
 
-**Action:** `set`  
-**Target:** `adjustmentLayer` (current) -> `curves`
+**Action:** `set` or `curves`
+**Target:** `adjustmentLayer` or active layer
 
-Sets the curve points for specific channels in a Curves adjustment layer. This action supports complex color grading by defining independent curves for the Composite (RGB), Red, Green (Grain), and Blue channels.
+Sets the curve points for specific channels. This can be done by configuring an existing adjustment layer (`set`), creating a new adjustment layer (`make`), or applying it destructively to the active layer (`curves`).
 
-> **Note:** The `curves` object structure defined here can be used in two contexts:
-> 1.  **Modifying (`set`):** As shown in the examples below, to update an existing layer.
-> 2.  **Creating (`make`):** As the `using.type` object when creating a new adjustment layer (see `create_adjustment_layer.md`).
+> **Note:** The `curves` object structure defined here is used in three contexts:
+> 1.  **Modifying (`set`):** To update an existing adjustment layer.
+> 2.  **Creating (`make`):** As the `using` object when creating a new adjustment layer.
+> 3.  **Applying (`curves`):** Directly applying the adjustment to the active layer (destructive).
 
 ## JSON Structure
 
-### Basic Example
-A simple S-curve for contrast.
+### 1. Modifying an Adjustment Layer (`set`)
+
+**Basic Example:**
 
 ```json
 {
@@ -48,7 +50,8 @@ A simple S-curve for contrast.
 }
 ```
 
-### Complex Multi-Channel Example
+### 2. Complex Multi-Channel Example (`set`)
+
 This example demonstrates a "Color Pop" style adjustment. It uses multiple points to create a matte look (lifting blacks) on the composite channel, and adjusts individual color channels to warm the image.
 
 **Key Notes:**
@@ -119,9 +122,37 @@ This example demonstrates a "Color Pop" style adjustment. It uses multiple point
 }
 ```
 
+### 3. Applying Destructively (`curves`)
+
+Directly applies the curves adjustment to the current layer.
+
+```json
+{
+    "_obj": "curves",
+    "adjustment": [
+        {
+            "_obj": "curvesAdjustment",
+            "channel": {
+                "_enum": "channel",
+                "_ref": "channel",
+                "_value": "composite" 
+            },
+            "curve": [
+                { "_obj": "paint", "horizontal": 0.0, "vertical": 0.0 },
+                { "_obj": "paint", "horizontal": 255.0, "vertical": 255.0 }
+            ]
+        }
+    ],
+    "presetKind": {
+        "_enum": "presetKindType",
+        "_value": "presetKindCustom"
+    }
+}
+```
+
 ## Parameters
 
-- `to.adjustment`: Array of channel configurations.
+- `adjustment`: Array of channel configurations.
 - `channel._value`: Target channel.
     - `composite`: The main RGB channel.
     - `red`: Red channel.
