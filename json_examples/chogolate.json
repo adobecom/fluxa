@@ -1,0 +1,227 @@
+[
+    // Make layer
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "layer"
+            }
+        ],
+        "layerID": 473
+    },
+    // Merge Visible
+    {
+        "_obj": "mergeVisible",
+        "duplicate": true
+    },
+    // Camera Raw Filter
+    {
+        "$AuCA": 0,
+        "$BHue": 0,
+        "$BSat": 0,
+        "$Bk12": -3,
+        "$BlkB": 0,
+        "$CMod": "Filter",
+        "$CNR": 0,
+        "$CP_D": "54650A341B5B5CCAE8442D0B43A92BCE",
+        "$CamP": "Embedded",
+        "$Cl12": 6,
+        "$Cr12": 9,
+        "$CrvB": [
+            0,
+            0,
+            255,
+            255
+        ],
+        "$CrvG": [
+            0,
+            0,
+            255,
+            255
+        ],
+        "$CrvR": [
+            0,
+            0,
+            255,
+            255
+        ],
+        "$CtoG": false,
+        "$DPGH": 60,
+        "$DPGL": 40,
+        "$DPHH": 70,
+        "$DPHL": 30,
+        "$DfGA": 0,
+        "$DfPA": 0,
+        "$Dhze": 0,
+        "$Ex12": 0.0,
+        "$GHue": 0,
+        "$GRNA": 0,
+        "$GSat": 0,
+        "$GuUr": "<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"Adobe XMP Core 5.6-c140 79.160451, 2017/05/06-01:08:21 \">\n <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n <rdf:Description rdf:about=\"\"\n xmlns:crs=\"http://ns.adobe.com/camera-raw-settings/1.0/\"\n crs:UprightFourSegmentsCount=\"0\"/>\n </rdf:RDF>\n</x:xmpmeta>\n",
+        "$HA_A": 0,
+        "$HA_B": 0,
+        "$HA_G": 0,
+        "$HA_M": 0,
+        "$HA_O": 0,
+        "$HA_P": 0,
+        "$HA_R": 0,
+        "$HA_Y": 0,
+        "$Hi12": -13,
+        "$LA_A": 0,
+        "$LA_B": 0,
+        "$LA_G": 0,
+        "$LA_M": 0,
+        "$LA_O": 0,
+        "$LA_P": 0,
+        "$LA_R": 0,
+        "$LA_Y": 0,
+        "$LCs": "",
+        "$LNR": 0,
+        "$LPEn": 0,
+        "$MDis": 0,
+        "$PCVA": 0,
+        "$PC_1": 25,
+        "$PC_2": 50,
+        "$PC_3": 75,
+        "$PC_D": 0,
+        "$PC_H": 0,
+        "$PC_L": 0,
+        "$PC_S": 0,
+        "$PerA": 0,
+        "$PerH": 0,
+        "$PerR": 0.0,
+        "$PerS": 100,
+        "$PerU": 0,
+        "$PerV": 0,
+        "$PerX": 0.0,
+        "$PerY": 0.0,
+        "$PrVe": 167772160,
+        "$REye": "",
+        "$RHue": 0,
+        "$RSat": 0,
+        "$Rtch": "",
+        "$SA_A": 0,
+        "$SA_B": 0,
+        "$SA_G": 0,
+        "$SA_M": 0,
+        "$SA_O": 0,
+        "$SA_P": 0,
+        "$SA_R": 0,
+        "$SA_Y": 0,
+        "$STB": -89,
+        "$STHH": 215,
+        "$STHS": 4,
+        "$STSH": 212,
+        "$STSS": 3,
+        "$Sett": {
+            "_enum": "$Sett",
+            "_value": "customEnum"
+        },
+        "$Sh12": 18,
+        "$ShpD": 25,
+        "$ShpM": 0,
+        "$ShpR": 1.0,
+        "$Temp": -8,
+        "$Tint": 4,
+        "$Upri": "<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"Adobe XMP Core 5.6-c140 79.160451, 2017/05/06-01:08:21 \">\n <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n <rdf:Description rdf:about=\"\"\n xmlns:crs=\"http://ns.adobe.com/camera-raw-settings/1.0/\"\n crs:UprightVersion=\"151388160\"\n crs:UprightCenterMode=\"0\"\n crs:UprightCenterNormX=\"0.5\"\n crs:UprightCenterNormY=\"0.5\"\n crs:UprightFocalMode=\"0\"\n crs:UprightFocalLength35mm=\"35\"\n crs:UprightPreview=\"False\"\n crs:UprightTransformCount=\"6\"/>\n </rdf:RDF>\n</x:xmpmeta>\n",
+        "$Vibr": -11,
+        "$VigA": 0,
+        "$WBal": {
+            "_enum": "$WBal",
+            "_value": "customEnum"
+        },
+        "$Wh12": 10,
+        "_obj": "Adobe Camera Raw Filter",
+        "curve": [
+            0,
+            22,
+            59,
+            63,
+            129,
+            130,
+            197,
+            202,
+            255,
+            255
+        ],
+        "saturation": -6,
+        "sharpen": 0
+    },
+    // Make Group
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "layerSection"
+            }
+        ],
+        "from": {
+            "_enum": "ordinal",
+            "_ref": "layer",
+            "_value": "targetEnum"
+        },
+        "layerSectionEnd": 102,
+        "layerSectionStart": 101,
+        "name": "Group 1"
+    },
+    // Set current layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "Matte Cool"
+        }
+    },
+    // Select backward layer
+    {
+        "_obj": "select",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "backwardEnum"
+            }
+        ],
+        "layerID": [
+            273
+        ],
+        "makeVisible": false
+    },
+    // Set current layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "Matte Cool"
+        }
+    },
+    // Select forward layer
+    {
+        "_obj": "select",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "forwardEnum"
+            }
+        ],
+        "layerID": [
+            274
+        ],
+        "makeVisible": false
+    }
+]

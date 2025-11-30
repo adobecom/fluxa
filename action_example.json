@@ -1,0 +1,47 @@
+[
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "adjustmentLayer"
+            }
+        ],
+        "using": {
+            "_obj": "adjustmentLayer",
+            "type": {
+                "_obj": "curves",
+                "adjustment": [
+                    {
+                        "_obj": "curvesAdjustment",
+                        "channel": {
+                            "_enum": "channel",
+                            "_ref": "channel",
+                            "_value": "composite"
+                        },
+                        "curve": [
+                            {
+                                "_obj": "paint",
+                                "horizontal": 0.0,
+                                "vertical": 0.0
+                            },
+                            {
+                                "_obj": "paint",
+                                "horizontal": 128.0,
+                                "vertical": 90.0
+                            },
+                            {
+                                "_obj": "paint",
+                                "horizontal": 255.0,
+                                "vertical": 255.0
+                            }
+                        ]
+                    }
+                ],
+                "presetKind": {
+                    "_enum": "presetKindType",
+                    "_value": "presetKindCustom"
+                }
+            }
+        }
+    }
+]

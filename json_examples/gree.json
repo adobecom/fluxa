@@ -1,0 +1,44 @@
+[
+    // Make Group
+    {"_obj":"make","_target":[{"_ref":"layerSection"}],"layerSectionEnd":117,"layerSectionStart":116,"name":"Group 1"},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Cinematic Photoshop Action - Green Shadow"}},
+    // Make adjustment layer
+    {"_obj":"make","_target":[{"_ref":"adjustmentLayer"}],"using":{"_obj":"adjustmentLayer","type":{"_obj":"colorBalance","highlightLevels":[0,0,0],"midtoneLevels":[0,0,0],"preserveLuminosity":true,"shadowLevels":[0,0,0]}}},
+    // Set current adjustment layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"adjustmentLayer","_value":"targetEnum"}],"to":{"_obj":"colorBalance","highlightLevels":[-7,-9,0],"shadowLevels":[-7,30,-10]}},
+    // Make adjustment layer
+    {"_obj":"make","_target":[{"_ref":"adjustmentLayer"}],"using":{"_obj":"adjustmentLayer","type":{"_obj":"curves","presetKind":{"_enum":"presetKindType","_value":"presetKindDefault"}}}},
+    // Select backward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"backwardEnum"}],"layerID":[35],"makeVisible":false},
+    // Select backward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"backwardEnum"}],"layerID":[34],"makeVisible":false},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[1133],"makeVisible":false},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[1134],"makeVisible":false},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[1131],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Instagram - Green Shadow"}},
+    // Select backward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"backwardEnum"}],"layerID":[17],"makeVisible":false},
+    // Select backward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"backwardEnum"}],"layerID":[16],"makeVisible":false},
+    // Select RGB channel
+    {"_obj":"select","_target":[{"_enum":"channel","_ref":"channel","_value":"RGB"}],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Color Balance"}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[17],"makeVisible":false},
+    // Select RGB channel
+    {"_obj":"select","_target":[{"_enum":"channel","_ref":"channel","_value":"RGB"}],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Curves"}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[14],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Free Instagram Photoshop Actions - Green Shadow"}},
+    // Make
+    {"_obj":"make","at":{"_enum":"channel","_ref":"channel","_value":"mask"},"new":{"_class":"channel"},"using":{"_enum":"userMaskEnabled","_value":"revealAll"}}
+    ]

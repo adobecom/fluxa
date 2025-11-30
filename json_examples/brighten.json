@@ -1,0 +1,145 @@
+[
+    // Make Group
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "layerSection"
+            }
+        ],
+        "layerSectionEnd": 100,
+        "layerSectionStart": 99,
+        "name": "Group 1"
+    },
+    // Set current layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "Fashion Brighten"
+        }
+    },
+    // Make adjustment layer
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "adjustmentLayer"
+            }
+        ],
+        "using": {
+            "_obj": "adjustmentLayer",
+            "type": {
+                "_obj": "curves",
+                "presetKind": {
+                    "_enum": "presetKindType",
+                    "_value": "presetKindDefault"
+                }
+            }
+        }
+    },
+    // Set current adjustment layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "adjustmentLayer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "curves",
+            "adjustment": [
+                {
+                    "_obj": "curvesAdjustment",
+                    "channel": {
+                        "_enum": "channel",
+                        "_ref": "channel",
+                        "_value": "composite"
+                    },
+                    "curve": [
+                        {
+                            "_obj": "paint",
+                            "horizontal": 0.0,
+                            "vertical": 0.0
+                        },
+                        {
+                            "_obj": "paint",
+                            "horizontal": 47.0,
+                            "vertical": 54.0
+                        },
+                        {
+                            "_obj": "paint",
+                            "horizontal": 114.0,
+                            "vertical": 133.0
+                        },
+                        {
+                            "_obj": "paint",
+                            "horizontal": 189.0,
+                            "vertical": 215.0
+                        },
+                        {
+                            "_obj": "paint",
+                            "horizontal": 255.0,
+                            "vertical": 255.0
+                        }
+                    ]
+                }
+            ],
+            "presetKind": {
+                "_enum": "presetKindType",
+                "_value": "presetKindCustom"
+            }
+        }
+    },
+    // Select RGB channel
+    {
+        "_obj": "select",
+        "_target": [
+            {
+                "_enum": "channel",
+                "_ref": "channel",
+                "_value": "RGB"
+            }
+        ],
+        "makeVisible": false
+    },
+    // Set current layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "Brighten"
+        }
+    },
+    // Select forward layer
+    {
+        "_obj": "select",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "forwardEnum"
+            }
+        ],
+        "layerID": [
+            190
+        ],
+        "makeVisible": false
+    }
+]

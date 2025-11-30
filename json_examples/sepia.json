@@ -1,0 +1,44 @@
+[
+    // Make Group
+    {"_obj":"make","_target":[{"_ref":"layerSection"}],"layerSectionEnd":120,"layerSectionStart":119,"name":"Group 1"},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Sepia Pro"}},
+    // Make adjustment layer
+    {"_obj":"make","_target":[{"_ref":"adjustmentLayer"}],"using":{"_obj":"adjustmentLayer","type":{"_obj":"hueSaturation","colorize":false,"presetKind":{"_enum":"presetKindType","_value":"presetKindDefault"}}}},
+    // Set current adjustment layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"adjustmentLayer","_value":"targetEnum"}],"to":{"_obj":"hueSaturation","adjustment":[{"_obj":"hueSatAdjustmentV2","channel":{"_enum":"channel","_value":"composite"},"hue":21,"lightness":-7,"saturation":19}],"colorize":true,"presetKind":{"_enum":"presetKindType","_value":"presetKindCustom"}}},
+    // Make adjustment layer
+    {"_obj":"make","_target":[{"_ref":"adjustmentLayer"}],"using":{"_obj":"adjustmentLayer","type":{"_obj":"curves","presetKind":{"_enum":"presetKindType","_value":"presetKindDefault"}}}},
+    // Set current adjustment layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"adjustmentLayer","_value":"targetEnum"}],"to":{"_obj":"curves","adjustment":[{"_obj":"curvesAdjustment","channel":{"_enum":"channel","_ref":"channel","_value":"composite"},"curve":[{"_obj":"paint","horizontal":0.0,"vertical":0.0},{"_obj":"paint","horizontal":58.0,"vertical":48.0},{"_obj":"paint","horizontal":126.0,"vertical":130.0},{"_obj":"paint","horizontal":172.0,"vertical":182.0},{"_obj":"paint","horizontal":255.0,"vertical":255.0}]}],"presetKind":{"_enum":"presetKindType","_value":"presetKindCustom"}}},
+    // Make adjustment layer
+    {"_obj":"make","_target":[{"_ref":"adjustmentLayer"}],"using":{"_obj":"adjustmentLayer","type":{"_obj":"photoFilter","color":{"_obj":"labColor","a":32.0,"b":120.0,"luminance":67.06},"density":25,"preserveLuminosity":true}}},
+    // Set current adjustment layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"adjustmentLayer","_value":"targetEnum"}],"to":{"_obj":"photoFilter","density":29}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[178],"makeVisible":false},
+    // Select backward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"backwardEnum"}],"layerID":[171],"makeVisible":false},
+    // Select RGB channel
+    {"_obj":"select","_target":[{"_enum":"channel","_ref":"channel","_value":"RGB"}],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Color Filter"}},
+    // Select backward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"backwardEnum"}],"layerID":[170],"makeVisible":false},
+    // Select RGB channel
+    {"_obj":"select","_target":[{"_enum":"channel","_ref":"channel","_value":"RGB"}],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Curves "}},
+    // Select backward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"backwardEnum"}],"layerID":[169],"makeVisible":false},
+    // Select RGB channel
+    {"_obj":"select","_target":[{"_enum":"channel","_ref":"channel","_value":"RGB"}],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Sepia"}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[170],"makeVisible":false},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[171],"makeVisible":false},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[167],"makeVisible":false}
+    ]

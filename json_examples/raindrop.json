@@ -1,0 +1,840 @@
+[
+    // Purge
+    {
+        "_obj": "purge",
+        "null": {
+            "_enum": "purgeItem",
+            "_value": "allEnum"
+        }
+    },
+    // Reset Swatches
+    {
+        "_obj": "reset",
+        "_target": [
+            {
+                "_property": "colors",
+                "_ref": "color"
+            }
+        ]
+    },
+    // Make layer
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "layer"
+            }
+        ]
+    },
+    // Fill
+    {
+        "_obj": "fill",
+        "mode": {
+            "_enum": "blendMode",
+            "_value": "normal"
+        },
+        "opacity": {
+            "_unit": "percentUnit",
+            "_value": 100.0
+        },
+        "using": {
+            "_enum": "fillContents",
+            "_value": "gray"
+        }
+    },
+    // Add Noise
+    {
+        "$FlRs": 1981205,
+        "_obj": "addNoise",
+        "distort": {
+            "_enum": "distort",
+            "_value": "uniformDistribution"
+        },
+        "monochromatic": true,
+        "noise": {
+            "_unit": "percentUnit",
+            "_value": 51.85
+        }
+    },
+    // Levels
+    {
+        "_obj": "levels",
+        "adjustment": [
+            {
+                "_obj": "levelsAdjustment",
+                "channel": {
+                    "_enum": "channel",
+                    "_ref": "channel",
+                    "_value": "composite"
+                },
+                "gamma": 0.33,
+                "input": [
+                    0,
+                    238
+                ]
+            }
+        ],
+        "presetKind": {
+            "_enum": "presetKindType",
+            "_value": "presetKindCustom"
+        }
+    },
+    // Transform current layer
+    {
+        "_obj": "transform",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "freeTransformCenterState": {
+            "_enum": "quadCenterState",
+            "_value": "QCSAverage"
+        },
+        "height": {
+            "_unit": "percentUnit",
+            "_value": 300.0
+        },
+        "interfaceIconFrameDimmed": {
+            "_enum": "interpolationType",
+            "_value": "bicubic"
+        },
+        "linked": true,
+        "offset": {
+            "_obj": "offset",
+            "horizontal": {
+                "_unit": "distanceUnit",
+                "_value": 0.0
+            },
+            "vertical": {
+                "_unit": "distanceUnit",
+                "_value": 0.0
+            }
+        },
+        "width": {
+            "_unit": "percentUnit",
+            "_value": 300.0
+        }
+    },
+    // Levels
+    {
+        "_obj": "levels",
+        "adjustment": [
+            {
+                "_obj": "levelsAdjustment",
+                "channel": {
+                    "_enum": "channel",
+                    "_ref": "channel",
+                    "_value": "composite"
+                },
+                "gamma": 0.13
+            }
+        ],
+        "presetKind": {
+            "_enum": "presetKindType",
+            "_value": "presetKindCustom"
+        }
+    },
+    // Set current layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "mode": {
+                "_enum": "blendMode",
+                "_value": "screen"
+            }
+        }
+    },
+    // Motion Blur
+    {
+        "descriptor": {
+            "_obj": "motionBlur",
+            "angle": 70,
+            "distance": {
+                "_unit": "pixelsUnit",
+                "_value": 58.0
+            }
+        },
+        "options": {
+            "dialogOptions": "display"
+        }
+    },
+    // Levels
+    {
+        "_obj": "levels",
+        "adjustment": [
+            {
+                "_obj": "levelsAdjustment",
+                "channel": {
+                    "_enum": "channel",
+                    "_ref": "channel",
+                    "_value": "composite"
+                },
+                "gamma": 0.69,
+                "input": [
+                    0,
+                    176
+                ]
+            }
+        ],
+        "presetKind": {
+            "_enum": "presetKindType",
+            "_value": "presetKindCustom"
+        }
+    },
+    // Set current layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "Rain 1"
+        }
+    },
+    // Set Selection
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_property": "selection",
+                "_ref": "channel"
+            }
+        ],
+        "to": {
+            "_enum": "ordinal",
+            "_value": "allEnum"
+        }
+    },
+    // Crop
+    {
+        "_obj": "crop",
+        "delete": true
+    },
+    // Set Selection
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_property": "selection",
+                "_ref": "channel"
+            }
+        ],
+        "to": {
+            "_enum": "ordinal",
+            "_value": "none"
+        }
+    },
+    // Duplicate current layer
+    {
+        "_obj": "duplicate",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "name": "Rain 2",
+        "version": 5
+    },
+    // Transform current layer
+    {
+        "_obj": "transform",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "freeTransformCenterState": {
+            "_enum": "quadCenterState",
+            "_value": "QCSAverage"
+        },
+        "height": {
+            "_unit": "percentUnit",
+            "_value": 200.0
+        },
+        "interfaceIconFrameDimmed": {
+            "_enum": "interpolationType",
+            "_value": "bicubic"
+        },
+        "linked": true,
+        "offset": {
+            "_obj": "offset",
+            "horizontal": {
+                "_unit": "distanceUnit",
+                "_value": 0.0
+            },
+            "vertical": {
+                "_unit": "distanceUnit",
+                "_value": 0.0
+            }
+        },
+        "width": {
+            "_unit": "percentUnit",
+            "_value": 200.0
+        }
+    },
+    // Unsharp Mask
+    {
+        "_obj": "unsharpMask",
+        "amount": {
+            "_unit": "percentUnit",
+            "_value": 500.0
+        },
+        "radius": {
+            "_unit": "pixelsUnit",
+            "_value": 0.6
+        },
+        "threshold": 0
+    },
+    // Levels
+    {
+        "_obj": "levels",
+        "adjustment": [
+            {
+                "_obj": "levelsAdjustment",
+                "channel": {
+                    "_enum": "channel",
+                    "_ref": "channel",
+                    "_value": "composite"
+                },
+                "gamma": 0.79
+            }
+        ],
+        "presetKind": {
+            "_enum": "presetKindType",
+            "_value": "presetKindCustom"
+        }
+    },
+    // Duplicate current layer
+    {
+        "_obj": "duplicate",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "name": "Rain 3",
+        "version": 5
+    },
+    // Transform current layer
+    {
+        "_obj": "transform",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "freeTransformCenterState": {
+            "_enum": "quadCenterState",
+            "_value": "QCSAverage"
+        },
+        "height": {
+            "_unit": "percentUnit",
+            "_value": 200.0
+        },
+        "interfaceIconFrameDimmed": {
+            "_enum": "interpolationType",
+            "_value": "bicubic"
+        },
+        "offset": {
+            "_obj": "offset",
+            "horizontal": {
+                "_unit": "distanceUnit",
+                "_value": 0.0
+            },
+            "vertical": {
+                "_unit": "distanceUnit",
+                "_value": 0.0
+            }
+        }
+    },
+    // Levels
+    {
+        "_obj": "levels",
+        "adjustment": [
+            {
+                "_obj": "levelsAdjustment",
+                "channel": {
+                    "_enum": "channel",
+                    "_ref": "channel",
+                    "_value": "composite"
+                },
+                "gamma": 0.47,
+                "input": [
+                    0,
+                    200
+                ]
+            }
+        ],
+        "presetKind": {
+            "_enum": "presetKindType",
+            "_value": "presetKindCustom"
+        }
+    },
+    // Make layer
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "layer"
+            }
+        ],
+        "using": {
+            "_obj": "layer",
+            "name": "Rain 4"
+        }
+    },
+    // Fill
+    {
+        "_obj": "fill",
+        "mode": {
+            "_enum": "blendMode",
+            "_value": "normal"
+        },
+        "opacity": {
+            "_unit": "percentUnit",
+            "_value": 100.0
+        },
+        "using": {
+            "_enum": "fillContents",
+            "_value": "gray"
+        }
+    },
+    // Add Noise
+    {
+        "$FlRs": 2213847,
+        "_obj": "addNoise",
+        "distort": {
+            "_enum": "distort",
+            "_value": "uniformDistribution"
+        },
+        "monochromatic": true,
+        "noise": {
+            "_unit": "percentUnit",
+            "_value": 25.98
+        }
+    },
+    // Set current layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "mode": {
+                "_enum": "blendMode",
+                "_value": "screen"
+            }
+        }
+    },
+    // Motion Blur
+    {
+        "descriptor": {
+            "_obj": "motionBlur",
+            "angle": 70,
+            "distance": {
+                "_unit": "pixelsUnit",
+                "_value": 58.0
+            }
+        },
+        "options": {
+            "dialogOptions": "display"
+        }
+    },
+    // Transform current layer
+    {
+        "_obj": "transform",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "freeTransformCenterState": {
+            "_enum": "quadCenterState",
+            "_value": "QCSAverage"
+        },
+        "height": {
+            "_unit": "percentUnit",
+            "_value": 150.0
+        },
+        "interfaceIconFrameDimmed": {
+            "_enum": "interpolationType",
+            "_value": "bicubic"
+        },
+        "linked": true,
+        "offset": {
+            "_obj": "offset",
+            "horizontal": {
+                "_unit": "distanceUnit",
+                "_value": 0.0
+            },
+            "vertical": {
+                "_unit": "distanceUnit",
+                "_value": 0.0
+            }
+        },
+        "width": {
+            "_unit": "percentUnit",
+            "_value": 150.0
+        }
+    },
+    // Levels
+    {
+        "_obj": "levels",
+        "adjustment": [
+            {
+                "_obj": "levelsAdjustment",
+                "channel": {
+                    "_enum": "channel",
+                    "_ref": "channel",
+                    "_value": "composite"
+                },
+                "gamma": 0.15,
+                "input": [
+                    0,
+                    190
+                ]
+            }
+        ],
+        "presetKind": {
+            "_enum": "presetKindType",
+            "_value": "presetKindCustom"
+        }
+    },
+    // Unsharp Mask
+    {
+        "_obj": "unsharpMask",
+        "amount": {
+            "_unit": "percentUnit",
+            "_value": 500.0
+        },
+        "radius": {
+            "_unit": "pixelsUnit",
+            "_value": 2.8
+        },
+        "threshold": 0
+    },
+    // Levels
+    {
+        "_obj": "levels",
+        "adjustment": [
+            {
+                "_obj": "levelsAdjustment",
+                "channel": {
+                    "_enum": "channel",
+                    "_ref": "channel",
+                    "_value": "composite"
+                },
+                "gamma": 0.59
+            }
+        ],
+        "presetKind": {
+            "_enum": "presetKindType",
+            "_value": "presetKindCustom"
+        }
+    },
+    // Select layer “Rain 1”
+    {
+        "_obj": "select",
+        "_target": [
+            {
+                "_name": "Rain 1",
+                "_ref": "layer"
+            }
+        ],
+        "makeVisible": false,
+        "selectionModifier": {
+            "_enum": "selectionModifierType",
+            "_value": "addToSelectionContinuous"
+        }
+    },
+    // Make Group
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "layerSection"
+            }
+        ],
+        "from": {
+            "_enum": "ordinal",
+            "_ref": "layer",
+            "_value": "targetEnum"
+        },
+        "using": {
+            "_obj": "layerSection",
+            "name": "Rain"
+        }
+    },
+    // Make layer
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "layer"
+            }
+        ],
+        "using": {
+            "_obj": "layer",
+            "name": "Fog"
+        }
+    },
+    // Fill
+    {
+        "_obj": "fill",
+        "mode": {
+            "_enum": "blendMode",
+            "_value": "normal"
+        },
+        "opacity": {
+            "_unit": "percentUnit",
+            "_value": 100.0
+        },
+        "using": {
+            "_enum": "fillContents",
+            "_value": "gray"
+        }
+    },
+    // Difference Clouds
+    {
+        "_obj": "differenceClouds"
+    },
+    // Difference Clouds
+    {
+        "_obj": "differenceClouds"
+    },
+    // Difference Clouds
+    {
+        "_obj": "differenceClouds"
+    },
+    // Difference Clouds
+    {
+        "_obj": "differenceClouds"
+    },
+    // Difference Clouds
+    {
+        "_obj": "differenceClouds"
+    },
+    // Transform current layer
+    {
+        "_obj": "transform",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "freeTransformCenterState": {
+            "_enum": "quadCenterState",
+            "_value": "QCSAverage"
+        },
+        "height": {
+            "_unit": "percentUnit",
+            "_value": 300.0
+        },
+        "interfaceIconFrameDimmed": {
+            "_enum": "interpolationType",
+            "_value": "bicubic"
+        },
+        "linked": true,
+        "offset": {
+            "_obj": "offset",
+            "horizontal": {
+                "_unit": "distanceUnit",
+                "_value": 0.0
+            },
+            "vertical": {
+                "_unit": "distanceUnit",
+                "_value": 0.0
+            }
+        },
+        "width": {
+            "_unit": "percentUnit",
+            "_value": 300.0
+        }
+    },
+    // Gaussian Blur
+    {
+        "_obj": "gaussianBlur",
+        "radius": {
+            "_unit": "pixelsUnit",
+            "_value": 63.5
+        }
+    },
+    // Color Range
+    {
+        "_obj": "colorRange",
+        "colorModel": 1,
+        "colors": {
+            "_enum": "colors",
+            "_value": "midtones"
+        },
+        "dimension": 5,
+        "negGaussClusters": 0,
+        "negGaussParams": [],
+        "negGaussTolerance": 591199978352644500000.0,
+        "negSpaGaussTolerance": 1.0,
+        "posGaussClusters": 1,
+        "posGaussParams": [
+            0.0,
+            0.0,
+            0.5921630859375,
+            0.5,
+            0.5,
+            0.19541382789611816,
+            0.5,
+            0.5,
+            0.19541382789611816,
+            0.228515625,
+            0.228515625,
+            1.0,
+            0.53662109375,
+            0.53662109375,
+            1.0
+        ],
+        "posGaussTolerance": 0.5921630859375,
+        "posSpaGaussTolerance": 1.0
+    },
+    // Select layer “Rain”
+    {
+        "_obj": "select",
+        "_target": [
+            {
+                "_name": "Rain",
+                "_ref": "layer"
+            }
+        ],
+        "makeVisible": false
+    },
+    // Make
+    {
+        "_obj": "make",
+        "at": {
+            "_enum": "channel",
+            "_ref": "channel",
+            "_value": "mask"
+        },
+        "new": {
+            "_class": "channel"
+        },
+        "using": {
+            "_enum": "userMaskEnabled",
+            "_value": "revealSelection"
+        }
+    },
+    // Hide layer “Fog”
+    {
+        "_obj": "hide",
+        "null": [
+            {
+                "_name": "Fog",
+                "_ref": "layer"
+            }
+        ]
+    },
+    // Delete hidden layer
+    {
+        "_obj": "delete",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "hidden"
+            }
+        ]
+    },
+    // Set Selection
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_property": "selection",
+                "_ref": "channel"
+            }
+        ],
+        "to": {
+            "_enum": "ordinal",
+            "_value": "allEnum"
+        }
+    },
+    // Levels
+    {
+        "_obj": "levels",
+        "adjustment": [
+            {
+                "_obj": "levelsAdjustment",
+                "channel": {
+                    "_enum": "ordinal",
+                    "_ref": "channel",
+                    "_value": "targetEnum"
+                },
+                "output": [
+                    155,
+                    255
+                ]
+            }
+        ],
+        "presetKind": {
+            "_enum": "presetKindType",
+            "_value": "presetKindCustom"
+        }
+    },
+    // Gaussian Blur
+    {
+        "_obj": "gaussianBlur",
+        "radius": {
+            "_unit": "pixelsUnit",
+            "_value": 69.2
+        }
+    },
+    // Crop
+    {
+        "_obj": "crop",
+        "delete": true
+    },
+    // Set Selection
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_property": "selection",
+                "_ref": "channel"
+            }
+        ],
+        "to": {
+            "_enum": "ordinal",
+            "_value": "none"
+        }
+    }
+]

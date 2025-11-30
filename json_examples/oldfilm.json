@@ -1,0 +1,76 @@
+[
+    // Make layer
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "layer"
+            }
+        ],
+        "layerID": 5
+    },
+    // Merge Visible
+    {
+        "_obj": "mergeVisible",
+        "duplicate": true
+    },
+    // Desaturate
+    {
+        "_obj": "desaturate"
+    },
+    // Brightness/Contrast
+    {
+        "_obj": "brightnessEvent",
+        "brightness": 32,
+        "center": 28,
+        "useLegacy": false
+    },
+    // Brightness/Contrast
+    {
+        "_obj": "brightnessEvent",
+        "brightness": 0,
+        "center": 34,
+        "useLegacy": false
+    },
+    // Set current layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "B&W_Old film"
+        }
+    },
+    // Photo Filter
+    {
+        "_obj": "photoFilter",
+        "color": {
+            "_obj": "labColor",
+            "a": 32.0,
+            "b": 120.0,
+            "luminance": 67.06
+        },
+        "density": 26,
+        "preserveLuminosity": true
+    },
+    // Add Noise
+    {
+        "$FlRs": 27027181,
+        "_obj": "addNoise",
+        "distort": {
+            "_enum": "distort",
+            "_value": "gaussianDistribution"
+        },
+        "monochromatic": true,
+        "noise": {
+            "_unit": "percentUnit",
+            "_value": 2.96
+        }
+    }
+]

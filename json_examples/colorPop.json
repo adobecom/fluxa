@@ -1,0 +1,25 @@
+[
+    // Make Group
+    {"_obj":"make","_target":[{"_ref":"layerSection"}],"layerSectionEnd":46,"layerSectionStart":45,"name":"Group 1"},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Fashion Colors POP"}},
+    // Make adjustment layer
+    {"_obj":"make","_target":[{"_ref":"adjustmentLayer"}],"using":{"_obj":"adjustmentLayer","type":{"_obj":"curves","presetKind":{"_enum":"presetKindType","_value":"presetKindDefault"}}}},
+    // Set current adjustment layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"adjustmentLayer","_value":"targetEnum"}],"to":{"_obj":"curves","adjustment":[{"_obj":"curvesAdjustment","channel":{"_enum":"channel","_ref":"channel","_value":"composite"},"curve":[{"_obj":"paint","horizontal":0.0,"vertical":16.0},{"_obj":"paint","horizontal":71.0,"vertical":53.0},{"_obj":"paint","horizontal":118.0,"vertical":130.0},{"_obj":"paint","horizontal":210.0,"vertical":223.0},{"_obj":"paint","horizontal":255.0,"vertical":245.0}]},{"_obj":"curvesAdjustment","channel":{"_enum":"channel","_ref":"channel","_value":"red"},"curve":[{"_obj":"paint","horizontal":0.0,"vertical":0.0},{"_obj":"paint","horizontal":122.0,"vertical":134.0},{"_obj":"paint","horizontal":255.0,"vertical":255.0}]},{"_obj":"curvesAdjustment","channel":{"_enum":"channel","_ref":"channel","_value":"grain"},"curve":[{"_obj":"paint","horizontal":0.0,"vertical":0.0},{"_obj":"paint","horizontal":122.0,"vertical":135.0},{"_obj":"paint","horizontal":255.0,"vertical":255.0}]},{"_obj":"curvesAdjustment","channel":{"_enum":"channel","_ref":"channel","_value":"blue"},"curve":[{"_obj":"paint","horizontal":0.0,"vertical":0.0},{"_obj":"paint","horizontal":128.0,"vertical":138.0},{"_obj":"paint","horizontal":255.0,"vertical":255.0}]}],"presetKind":{"_enum":"presetKindType","_value":"presetKindCustom"}}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[152],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","opacity":{"_unit":"percentUnit","_value":70.0}}},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","opacity":{"_unit":"percentUnit","_value":60.0}}},
+    // Select backward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"backwardEnum"}],"layerID":[135],"makeVisible":false},
+    // Select RGB channel
+    {"_obj":"select","_target":[{"_enum":"channel","_ref":"channel","_value":"RGB"}],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Colors POP"}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[133],"makeVisible":false}
+    ]
+    

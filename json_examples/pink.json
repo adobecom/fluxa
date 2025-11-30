@@ -1,0 +1,36 @@
+[
+    // Make Group
+    {"_obj":"make","_target":[{"_ref":"layerSection"}],"layerSectionEnd":49,"layerSectionStart":48,"name":"Group 1"},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Matte"}},
+    // Make adjustment layer
+    {"_obj":"make","_target":[{"_ref":"adjustmentLayer"}],"using":{"_obj":"adjustmentLayer","type":{"_obj":"curves","presetKind":{"_enum":"presetKindType","_value":"presetKindDefault"}}}},
+    // Set current adjustment layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"adjustmentLayer","_value":"targetEnum"}],"to":{"_obj":"curves","adjustment":[{"_obj":"curvesAdjustment","channel":{"_enum":"channel","_ref":"channel","_value":"composite"},"curve":[{"_obj":"paint","horizontal":0.0,"vertical":37.0},{"_obj":"paint","horizontal":255.0,"vertical":255.0}]},{"_obj":"curvesAdjustment","channel":{"_enum":"channel","_ref":"channel","_value":"red"},"curve":[{"_obj":"paint","horizontal":0.0,"vertical":0.0},{"_obj":"paint","horizontal":112.0,"vertical":141.0},{"_obj":"paint","horizontal":255.0,"vertical":255.0}]},{"_obj":"curvesAdjustment","channel":{"_enum":"channel","_ref":"channel","_value":"blue"},"curve":[{"_obj":"paint","horizontal":10.0,"vertical":0.0},{"_obj":"paint","horizontal":255.0,"vertical":255.0}]}],"presetKind":{"_enum":"presetKindType","_value":"presetKindCustom"}}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[126],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":" Cinematic Photoshop Action - Matte"}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[1],"makeVisible":false},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[71],"makeVisible":false},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[69],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":" Cinema Photoshop Action - Pink Shadow"}},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Instagram - Pink Shadow"}},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Free Instagram Photoshop Actions - Pink Shadow"}},
+    // Make
+    {"_obj":"make","at":{"_enum":"channel","_ref":"channel","_value":"mask"},"new":{"_class":"channel"},"using":{"_enum":"userMaskEnabled","_value":"revealAll"}},
+    // Select backward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"backwardEnum"}],"layerID":[32],"makeVisible":false},
+    // Select RGB channel
+    {"_obj":"select","_target":[{"_enum":"channel","_ref":"channel","_value":"RGB"}],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Curves"}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[30],"makeVisible":false}
+    ]

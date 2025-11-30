@@ -1,0 +1,107 @@
+[
+    // Make layer
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "layer"
+            }
+        ],
+        "layerID": 5
+    },
+    // Merge Visible
+    {
+        "_obj": "mergeVisible",
+        "duplicate": true
+    },
+    // Desaturate
+    {
+        "_obj": "desaturate"
+    },
+    // Curves
+    {
+        "_obj": "curves",
+        "adjustment": [
+            {
+                "_obj": "curvesAdjustment",
+                "channel": {
+                    "_enum": "channel",
+                    "_ref": "channel",
+                    "_value": "composite"
+                },
+                "curve": [
+                    {
+                        "_obj": "paint",
+                        "horizontal": 0.0,
+                        "vertical": 0.0
+                    },
+                    {
+                        "_obj": "paint",
+                        "horizontal": 51.0,
+                        "vertical": 45.0
+                    },
+                    {
+                        "_obj": "paint",
+                        "horizontal": 116.0,
+                        "vertical": 139.0
+                    },
+                    {
+                        "_obj": "paint",
+                        "horizontal": 190.0,
+                        "vertical": 212.0
+                    },
+                    {
+                        "_obj": "paint",
+                        "horizontal": 255.0,
+                        "vertical": 255.0
+                    }
+                ]
+            }
+        ],
+        "presetKind": {
+            "_enum": "presetKindType",
+            "_value": "presetKindCustom"
+        }
+    },
+    // Levels
+    {
+        "_obj": "levels",
+        "adjustment": [
+            {
+                "_obj": "levelsAdjustment",
+                "channel": {
+                    "_enum": "channel",
+                    "_ref": "channel",
+                    "_value": "composite"
+                },
+                "gamma": 1.22
+            }
+        ],
+        "presetKind": {
+            "_enum": "presetKindType",
+            "_value": "presetKindCustom"
+        }
+    },
+    // Set current layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "B&W_Classic"
+        }
+    },
+    // Brightness/Contrast
+    {
+        "_obj": "brightnessEvent",
+        "brightness": -11,
+        "center": 15,
+        "useLegacy": false
+    }
+]

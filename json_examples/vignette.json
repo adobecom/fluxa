@@ -1,0 +1,40 @@
+[
+    // Duplicate current layer
+    {"_obj":"duplicate","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"version":5},
+    // Make Group
+    {"_obj":"make","_target":[{"_ref":"layerSection"}],"from":{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"},"layerSectionEnd":104,"layerSectionStart":103,"name":"Group 1"},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Vignette"}},
+    // Select backward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"backwardEnum"}],"layerID":[102],"makeVisible":false},
+    // Lens Correction
+    {"$LnAc":false,"$LnAg":true,"$LnAs":true,"$LnAv":false,"$LnBy":0.0,"$LnFo":0.0,"$LnFt":2,"$LnGm":0.0,"$LnHp":0.0,"$LnI0":0.0,"$LnI1":0.0,"$LnI2":0.0,"$LnI3":1.0,"$LnIa":0.0,"$LnIh":0,"$LnIp":false,"$LnIs":{"_obj":"RGBColor","blue":127.0,"grain":127.0,"red":127.0},"$LnIv":0,"$LnNa":64,"$LnNm":false,"$LnPr":"<?xpacket begin=\"п»ї\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>\n<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"Adobe XMP Core 5.6-c142 79.160924, 2017/07/13-01:06:39 \">\n <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n <rdf:Description rdf:about=\"\"\n xmlns:photoshop=\"http://ns.adobe.com/photoshop/1.0/\"\n xmlns:stCamera=\"http://ns.adobe.com/photoshop/1.0/camera-profile\">\n <photoshop:CameraProfiles>\n <rdf:Seq>\n <rdf:li rdf:parseType=\"Resource\">\n <stCamera:CameraRawProfile>False</stCamera:CameraRawProfile>\n <stCamera:PerspectiveModel rdf:parseType=\"Resource\">\n <stCamera:Version>2</stCamera:Version>\n </stCamera:PerspectiveModel>\n </rdf:li>\n </rdf:Seq>\n </photoshop:CameraProfiles>\n </rdf:Description>\n </rdf:RDF>\n</x:xmpmeta>\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n<?xpacket end=\"w\"?>","$LnRa":0.0,"$LnRc":0.0,"$LnSb":-55.0,"$LnSi":100.0,"$LnSt":35,"$LnVp":0.0,"_obj":"$LnCr"},
+    // Make adjustment layer
+    {"_obj":"make","_target":[{"_ref":"adjustmentLayer"}],"using":{"_obj":"adjustmentLayer","type":{"_obj":"curves","presetKind":{"_enum":"presetKindType","_value":"presetKindDefault"}}}},
+    // Set current adjustment layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"adjustmentLayer","_value":"targetEnum"}],"to":{"_obj":"curves","adjustment":[{"_obj":"curvesAdjustment","channel":{"_enum":"channel","_ref":"channel","_value":"composite"},"curve":[{"_obj":"paint","horizontal":0.0,"vertical":0.0},{"_obj":"paint","horizontal":62.0,"vertical":62.0},{"_obj":"paint","horizontal":127.0,"vertical":136.0},{"_obj":"paint","horizontal":186.0,"vertical":196.0},{"_obj":"paint","horizontal":255.0,"vertical":255.0}]}],"presetKind":{"_enum":"presetKindType","_value":"presetKindCustom"}}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[130],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":" Cinematic Photoshop Action - Vignette"}},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Instagram - Vignette"}},
+    // Select backward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"backwardEnum"}],"layerID":[42],"makeVisible":false},
+    // Select backward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"backwardEnum"}],"layerID":[39],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Vignette"}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[42],"makeVisible":false},
+    // Select RGB channel
+    {"_obj":"select","_target":[{"_enum":"channel","_ref":"channel","_value":"RGB"}],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Curves"}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[40],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Free Instagram Photoshop Actions - Vignette"}},
+    // Make
+    {"_obj":"make","at":{"_enum":"channel","_ref":"channel","_value":"mask"},"new":{"_class":"channel"},"using":{"_enum":"userMaskEnabled","_value":"revealAll"}}
+    ]

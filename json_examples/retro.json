@@ -1,0 +1,42 @@
+[
+    // Make Group
+    {"_obj":"make","_target":[{"_ref":"layerSection"}],"layerSectionEnd":13,"layerSectionStart":12,"name":"Group 1"},
+    // Make layer
+    {"_obj":"make","_target":[{"_ref":"layer"}],"layerID":14},
+    // Merge Visible
+    {"_obj":"mergeVisible","duplicate":true},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"1"}},
+    // Make adjustment layer
+    {"_obj":"make","_target":[{"_ref":"adjustmentLayer"}],"using":{"_obj":"adjustmentLayer","type":{"_obj":"gradientMapClass","gradient":{"_obj":"gradientClassEvent","colors":[{"_obj":"colorStop","color":{"_obj":"RGBColor","blue":255.0,"grain":255.0,"red":255.0},"location":0,"midpoint":50,"type":{"_enum":"colorStopType","_value":"userStop"}},{"_obj":"colorStop","color":{"_obj":"RGBColor","blue":0.0,"grain":0.0,"red":0.0},"location":4096,"midpoint":50,"type":{"_enum":"colorStopType","_value":"userStop"}}],"gradientForm":{"_enum":"gradientForm","_value":"customStops"},"interfaceIconFrameDimmed":4096.0,"name":"Foreground to Background","transparency":[{"_obj":"transferSpec","location":0,"midpoint":50,"opacity":{"_unit":"percentUnit","_value":100.0}},{"_obj":"transferSpec","location":4096,"midpoint":50,"opacity":{"_unit":"percentUnit","_value":100.0}}]}}}},
+    // Set current adjustment layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"adjustmentLayer","_value":"targetEnum"}],"to":{"_obj":"gradientMapClass","gradient":{"_obj":"gradientClassEvent","colors":[{"_obj":"colorStop","color":{"_obj":"RGBColor","blue":89.00389328598976,"grain":10.000000353902578,"red":41.003892347216606},"location":0,"midpoint":50,"type":{"_enum":"colorStopType","_value":"userStop"}},{"_obj":"colorStop","color":{"_obj":"RGBColor","blue":0.0,"grain":124.00000020861626,"red":255.0},"location":4096,"midpoint":50,"type":{"_enum":"colorStopType","_value":"userStop"}}],"gradientForm":{"_enum":"gradientForm","_value":"customStops"},"interfaceIconFrameDimmed":4096.0,"name":"$$$/DefaultGradient/VioletOrange=Violet, Orange","transparency":[{"_obj":"transferSpec","location":0,"midpoint":50,"opacity":{"_unit":"percentUnit","_value":100.0}},{"_obj":"transferSpec","location":4096,"midpoint":50,"opacity":{"_unit":"percentUnit","_value":100.0}}]}}},
+    // Set current adjustment layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"adjustmentLayer","_value":"targetEnum"}],"to":{"_class":"gradientMapClass"}},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","opacity":{"_unit":"percentUnit","_value":72.0}}},
+    // Select RGB channel
+    {"_obj":"select","_target":[{"_enum":"channel","_ref":"channel","_value":"RGB"}],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"2"}},
+    // Make adjustment layer
+    {"_obj":"make","_target":[{"_ref":"adjustmentLayer"}],"using":{"_obj":"adjustmentLayer","type":{"_obj":"curves","presetKind":{"_enum":"presetKindType","_value":"presetKindDefault"}}}},
+    // Set current adjustment layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"adjustmentLayer","_value":"targetEnum"}],"to":{"_obj":"curves","adjustment":[{"_obj":"curvesAdjustment","channel":{"_enum":"channel","_ref":"channel","_value":"composite"},"curve":[{"_obj":"paint","horizontal":0.0,"vertical":0.0},{"_obj":"paint","horizontal":115.0,"vertical":136.0},{"_obj":"paint","horizontal":190.0,"vertical":226.0},{"_obj":"paint","horizontal":255.0,"vertical":255.0}]}],"presetKind":{"_enum":"presetKindType","_value":"presetKindCustom"}}},
+    // Select RGB channel
+    {"_obj":"select","_target":[{"_enum":"channel","_ref":"channel","_value":"RGB"}],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"3"}},
+    // Select layer “1”
+    {"_obj":"select","_target":[{"_name":"1","_ref":"layer"}],"layerID":[15,16,17],"makeVisible":false,"selectionModifier":{"_enum":"selectionModifierType","_value":"addToSelectionContinuous"}},
+    // Merge Layers
+    {"_obj":"mergeLayersNew"},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Retro Art"}},
+    // Select forward layer
+    {"_obj":"select","_target":[{"_enum":"ordinal","_ref":"layer","_value":"forwardEnum"}],"layerID":[55],"makeVisible":false},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Retro Art"}},
+    // Set current layer
+    {"_obj":"set","_target":[{"_enum":"ordinal","_ref":"layer","_value":"targetEnum"}],"to":{"_obj":"layer","name":"Free Retro Photoshop Actions - Retro Art"}}
+    ]

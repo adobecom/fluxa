@@ -1,0 +1,249 @@
+[
+    // Make Group
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "layerSection"
+            }
+        ],
+        "layerSectionEnd": 240,
+        "layerSectionStart": 239,
+        "name": "Group 1"
+    },
+    // Set current layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "Fashion B&W"
+        }
+    },
+    // Make adjustment layer
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "adjustmentLayer"
+            }
+        ],
+        "using": {
+            "_obj": "adjustmentLayer",
+            "type": {
+                "_obj": "blackAndWhite",
+                "blue": 20,
+                "cyan": 60,
+                "grain": 40,
+                "magenta": 80,
+                "presetKind": {
+                    "_enum": "presetKindType",
+                    "_value": "presetKindDefault"
+                },
+                "red": 40,
+                "tintColor": {
+                    "_obj": "RGBColor",
+                    "blue": 179.00115966796875,
+                    "grain": 211.00067138671875,
+                    "red": 225.00045776367188
+                },
+                "useTint": false,
+                "yellow": 60
+            }
+        }
+    },
+    // Set current adjustment layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "adjustmentLayer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "blackAndWhite",
+            "blue": 38,
+            "cyan": 33,
+            "grain": 21,
+            "magenta": 106,
+            "red": 27,
+            "yellow": 102
+        }
+    },
+    // Make adjustment layer
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "adjustmentLayer"
+            }
+        ],
+        "using": {
+            "_obj": "adjustmentLayer",
+            "type": {
+                "_obj": "curves",
+                "presetKind": {
+                    "_enum": "presetKindType",
+                    "_value": "presetKindDefault"
+                }
+            }
+        }
+    },
+    // Set current adjustment layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "adjustmentLayer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "curves",
+            "adjustment": [
+                {
+                    "_obj": "curvesAdjustment",
+                    "channel": {
+                        "_enum": "channel",
+                        "_ref": "channel",
+                        "_value": "composite"
+                    },
+                    "curve": [
+                        {
+                            "_obj": "paint",
+                            "horizontal": 0.0,
+                            "vertical": 26.0
+                        },
+                        {
+                            "_obj": "paint",
+                            "horizontal": 97.0,
+                            "vertical": 89.0
+                        },
+                        {
+                            "_obj": "paint",
+                            "horizontal": 175.0,
+                            "vertical": 192.0
+                        },
+                        {
+                            "_obj": "paint",
+                            "horizontal": 255.0,
+                            "vertical": 255.0
+                        }
+                    ]
+                }
+            ],
+            "presetKind": {
+                "_enum": "presetKindType",
+                "_value": "presetKindCustom"
+            }
+        }
+    },
+    // Select RGB channel
+    {
+        "_obj": "select",
+        "_target": [
+            {
+                "_enum": "channel",
+                "_ref": "channel",
+                "_value": "RGB"
+            }
+        ],
+        "makeVisible": false
+    },
+    // Set current layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "Curves "
+        }
+    },
+    // Select backward layer
+    {
+        "_obj": "select",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "backwardEnum"
+            }
+        ],
+        "layerID": [
+            195
+        ],
+        "makeVisible": false
+    },
+    // Select RGB channel
+    {
+        "_obj": "select",
+        "_target": [
+            {
+                "_enum": "channel",
+                "_ref": "channel",
+                "_value": "RGB"
+            }
+        ],
+        "makeVisible": false
+    },
+    // Set current layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "Black & White "
+        }
+    },
+    // Select forward layer
+    {
+        "_obj": "select",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "forwardEnum"
+            }
+        ],
+        "layerID": [
+            196
+        ],
+        "makeVisible": false
+    },
+    // Select forward layer
+    {
+        "_obj": "select",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "forwardEnum"
+            }
+        ],
+        "layerID": [
+            193
+        ],
+        "makeVisible": false
+    }
+]
