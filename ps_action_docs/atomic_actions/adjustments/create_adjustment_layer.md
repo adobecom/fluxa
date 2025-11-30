@@ -65,6 +65,6 @@ You can also define the adjustment settings (like curve points) directly within 
 
 ## Parameters
 
-- `using.type._obj`: The type of adjustment layer (e.g., `curves`, `levels`, `brightnessContrast`).
+- `using.type._obj`: The type of adjustment layer (e.g., `curves`, `levels`, `brightnessContrast`, `photoFilter`).
 - `using.type`: Can contain the full configuration object for the adjustment (matches the structure used in `set` actions for that adjustment type).
 
