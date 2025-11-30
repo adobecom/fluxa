@@ -57,10 +57,34 @@ Curves are represented as flat arrays of integers `[in1, out1, in2, out2, ...]`.
 
 ### Detail
 - `sharpen`: Sharpening amount (0-150).
+- `$ShpR`: Sharpening Radius (0.5 to 3.0, typically).
+- `$ShpD`: Sharpening Detail (0-100).
+- `$ShpM`: Sharpening Masking (0-100).
+- `$LNR`: Luminance Noise Reduction (0-100).
+- `$CNR`: Color Noise Reduction (0-100).
+- `$GRNA`: Grain Amount (0-100).
+
+### HSL Adjustments (Hue, Saturation, Luminance)
+Prefixes: `$HA_` (Hue), `$SA_` (Saturation), `$LA_` (Luminance).
+Suffixes: `R` (Red), `O` (Orange), `Y` (Yellow), `G` (Green), `A` (Aqua), `B` (Blue), `P` (Purple), `M` (Magenta).
+Example:
+- `$HA_R`: Red Hue Adjustment.
+- `$SA_B`: Blue Saturation Adjustment.
+- `$LA_O`: Orange Luminance Adjustment.
+
+### Effects & Vignetting
+- `$PC_1`: Post-Crop Vignetting Amount.
+- `$PC_2`: Midpoint.
+- `$PC_3`: Roundness.
+- `$PC_4`: Feather.
+- `$VigA`: Vignetting Amount.
 
 ### Other
 - `$CMod`: Process Version (e.g., "Filter").
 - `$CamP`: Profile (e.g., "Embedded").
+- `curve`: (Array) Composite Tone Curve points `[in1, out1, in2, out2...]`. Alternative to `$Crv`.
+- `saturation`: (Integer) Global Saturation (alternative/redundant to `$Sat`).
+
 
 ## Example from 'Chogolate' Effect
 
