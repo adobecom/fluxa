@@ -23,12 +23,12 @@ cp .env.example .env
 
 ### Basic usage:
 ```bash
-python aeroplane_remove.py input_images/image.jpg action.json
+python photoshop-actions.py input_images/image.jpg action.json
 ```
 
 ### Specify output path:
 ```bash
-python aeroplane_remove.py input_images/image.jpg action.json output_images/result.jpg
+python photoshop-actions.py input_images/image.jpg action.json output_images/result.jpg
 ```
 
 ## Directory Structure
