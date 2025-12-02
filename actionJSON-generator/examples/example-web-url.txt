@@ -1,0 +1,20 @@
+# Example Web Tutorial URLs
+
+# These are example URLs that could be used with Fluxa
+# The tool works best with structured tutorials with clear steps
+
+# Example format:
+fluxa https://example.com/photoshop-tutorial -o web-example.json
+
+# Good tutorial characteristics:
+# - Clear step-by-step instructions
+# - Numbered or bulleted lists
+# - Specific Photoshop operations mentioned
+# - Parameter values specified (e.g., "opacity 75%", "angle 135 degrees")
+
+# Example command:
+fluxa https://www.photoshopessentials.com/some-tutorial \
+  --output web-actions.json \
+  --verbose
+
+

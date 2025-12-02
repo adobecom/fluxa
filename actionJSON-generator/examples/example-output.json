@@ -1,0 +1,54 @@
+{
+  "_metadata": {
+    "generated_by": "Fluxa AI Tool",
+    "generated_at": "2024-01-15T10:30:00Z",
+    "version": "0.1.0",
+    "source": "https://example.com/emboss-tutorial",
+    "source_type": "web"
+  },
+  "actions": [
+    {
+      "_obj": "open",
+      "null": {
+        "_kind": "local",
+        "_path": "/images/sunflower.jpg"
+      },
+      "template": false
+    },
+    {
+      "_obj": "emboss",
+      "amount": 150,
+      "angle": 135,
+      "height": 5
+    },
+    {
+      "_obj": "set",
+      "_target": [
+        {
+          "_enum": "ordinal",
+          "_ref": "layer"
+        }
+      ],
+      "to": {
+        "_obj": "layer",
+        "opacity": {
+          "_unit": "percentUnit",
+          "_value": 75.0
+        }
+      }
+    },
+    {
+      "_obj": "save",
+      "as": {
+        "_obj": "JPEG",
+        "quality": 12
+      },
+      "in": {
+        "_kind": "local",
+        "_path": "/output/embossed-sunflower.jpg"
+      }
+    }
+  ]
+}
+
+

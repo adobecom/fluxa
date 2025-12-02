@@ -1,0 +1,24 @@
+{
+  "openai": {
+    "model": "gpt-4o",
+    "temperature": 0.1,
+    "max_tokens": 4000,
+    "timeout": 60
+  },
+  "output": {
+    "indent": 2,
+    "add_metadata": true,
+    "validate": true
+  },
+  "extraction": {
+    "youtube": {
+      "max_transcript_length": 50000
+    },
+    "web": {
+      "max_content_length": 100000,
+      "timeout": 30
+    }
+  }
+}
+
+

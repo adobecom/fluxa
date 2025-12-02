@@ -1,0 +1,220 @@
+{
+  "_metadata": {
+    "generated_by": "Fluxa AI Tool",
+    "generated_at": "2025-12-02T07:28:48.490814Z",
+    "version": "0.1.0",
+    "source": "https://www.youtube.com/watch?v=gF2qujOMtVI",
+    "source_type": "youtube"
+  },
+  "actions": [
+    {
+      "_obj": "select",
+      "_target": [
+        {
+          "_ref": "channel",
+          "_enum": "channel",
+          "_value": "RGB"
+        }
+      ],
+      "to": {
+        "_enum": "selectionModifier",
+        "_value": "subject"
+      }
+    },
+    {
+      "_obj": "inverse"
+    },
+    {
+      "_obj": "make",
+      "_target": [
+        {
+          "_ref": "layer"
+        }
+      ]
+    },
+    {
+      "_obj": "fill",
+      "mode": {
+        "_enum": "blendMode",
+        "_value": "normal"
+      },
+      "opacity": {
+        "_unit": "percentUnit",
+        "_value": 100.0
+      },
+      "using": {
+        "_enum": "fillContents",
+        "_value": "foregroundColor"
+      }
+    },
+    {
+      "_obj": "set",
+      "_target": [
+        {
+          "_ref": "channel",
+          "_enum": "channel",
+          "_value": "RGB"
+        }
+      ],
+      "to": {
+        "_enum": "selectionModifier",
+        "_value": "none"
+      }
+    },
+    {
+      "_obj": "make",
+      "_target": [
+        {
+          "_ref": "adjustmentLayer"
+        }
+      ],
+      "using": {
+        "_obj": "blackAndWhite"
+      }
+    },
+    {
+      "_obj": "make",
+      "_target": [
+        {
+          "_ref": "adjustmentLayer"
+        }
+      ],
+      "using": {
+        "_obj": "brightnessContrast",
+        "brightness": -50,
+        "contrast": 100
+      }
+    },
+    {
+      "_obj": "mergeVisible",
+      "duplicate": true
+    },
+    {
+      "_obj": "convertToSmartObject"
+    },
+    {
+      "_obj": "blur",
+      "radius": {
+        "_unit": "pixelsUnit",
+        "_value": 10
+      }
+    },
+    {
+      "_obj": "hide",
+      "null": [
+        {
+          "_enum": "ordinal",
+          "_ref": "layer"
+        }
+      ]
+    },
+    {
+      "_obj": "make",
+      "_target": [
+        {
+          "_ref": "layer"
+        }
+      ],
+      "using": {
+        "_obj": "textLayer",
+        "textKey": "Your text here",
+        "textStyleRange": [
+          {
+            "from": 0,
+            "to": 14,
+            "textStyle": {
+              "_obj": "textStyle",
+              "size": {
+                "_unit": "pointsUnit",
+                "_value": 12
+              },
+              "fontName": "Proxima Nova",
+              "fontStyleName": "Bold"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "_obj": "convertToSmartObject"
+    },
+    {
+      "_obj": "displace",
+      "horizontalScale": 10,
+      "verticalScale": 10,
+      "displacementMap": {
+        "_enum": "displacementMapType",
+        "_value": "stretchToFit"
+      },
+      "undefinedAreas": {
+        "_enum": "undefinedAreas",
+        "_value": "repeatEdgePixels"
+      }
+    },
+    {
+      "_obj": "move",
+      "_target": [
+        {
+          "_ref": "layer",
+          "_enum": "ordinal",
+          "_value": "targetEnum"
+        }
+      ],
+      "to": {
+        "_ref": "layer",
+        "_enum": "ordinal",
+        "_value": "back"
+      }
+    },
+    {
+      "_obj": "make",
+      "_target": [
+        {
+          "_ref": "layer"
+        }
+      ]
+    },
+    {
+      "_obj": "fill",
+      "mode": {
+        "_enum": "blendMode",
+        "_value": "normal"
+      },
+      "opacity": {
+        "_unit": "percentUnit",
+        "_value": 100.0
+      },
+      "using": {
+        "_enum": "fillContents",
+        "_value": "foregroundColor"
+      }
+    },
+    {
+      "_obj": "set",
+      "_target": [
+        {
+          "_enum": "ordinal",
+          "_ref": "layer"
+        }
+      ],
+      "to": {
+        "_obj": "layer",
+        "opacity": {
+          "_unit": "percentUnit",
+          "_value": 50.0
+        }
+      }
+    },
+    {
+      "_obj": "make",
+      "_target": [
+        {
+          "_ref": "adjustmentLayer"
+        }
+      ],
+      "using": {
+        "_obj": "gradientMap"
+      }
+    }
+  ]
+}

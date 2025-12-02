@@ -6,6 +6,7 @@ in pkgs.mkShell {
         # select Python packages here
         requests
         python-dotenv
+        dropbox
       ]))
     ];
 }

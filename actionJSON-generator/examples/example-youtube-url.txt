@@ -1,0 +1,21 @@
+# Example YouTube Tutorial URLs
+
+# These are example URLs that could be used with Fluxa
+# Note: The videos must have captions/transcripts enabled
+
+# Example format:
+fluxa https://www.youtube.com/watch?v=VIDEO_ID -o youtube-example.json
+
+# For testing, use any Photoshop tutorial with captions, such as:
+# - Beginner Photoshop tutorials
+# - Filter effect tutorials
+# - Layer manipulation tutorials
+# - Color correction tutorials
+
+# Example command with all options:
+fluxa https://www.youtube.com/watch?v=VIDEO_ID \
+  --output youtube-actions.json \
+  --verbose \
+  --estimate-cost
+
+
