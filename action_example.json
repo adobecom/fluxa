@@ -1,47 +1,98 @@
 [
     {
+        "_obj": "select",
+        "_target": [
+            {
+                "_ref": "layer",
+                "_name": "Background"
+            }
+        ],
+        "makeVisible": false
+    },
+    {
+        "_obj": "autoCutout",
+        "sampleAllLayers": false
+    },
+    {
         "_obj": "make",
         "_target": [
             {
-                "_ref": "adjustmentLayer"
+                "_ref": "layer"
+            }
+        ]
+    },
+    {
+        "_obj": "fill",
+        "mode": {
+            "_enum": "blendMode",
+            "_value": "normal"
+        },
+        "opacity": {
+            "_unit": "percentUnit",
+            "_value": 100.0
+        },
+        "using": {
+            "_enum": "fillContents",
+            "_value": "white"
+        }
+    },
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_ref": "channel",
+                "_property": "selection"
             }
         ],
-        "using": {
-            "_obj": "adjustmentLayer",
-            "type": {
-                "_obj": "curves",
-                "adjustment": [
-                    {
-                        "_obj": "curvesAdjustment",
-                        "channel": {
-                            "_enum": "channel",
-                            "_ref": "channel",
-                            "_value": "composite"
-                        },
-                        "curve": [
-                            {
-                                "_obj": "paint",
-                                "horizontal": 0.0,
-                                "vertical": 0.0
-                            },
-                            {
-                                "_obj": "paint",
-                                "horizontal": 128.0,
-                                "vertical": 90.0
-                            },
-                            {
-                                "_obj": "paint",
-                                "horizontal": 255.0,
-                                "vertical": 255.0
-                            }
-                        ]
-                    }
-                ],
-                "presetKind": {
-                    "_enum": "presetKindType",
-                    "_value": "presetKindCustom"
-                }
-            }
+        "to": {
+            "_enum": "ordinal",
+            "_value": "none"
         }
+    },
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "Subject Mask"
+        }
+    },
+    {
+        "_obj": "placeEvent",
+        "null": {
+            "_kind": "local",
+            "_path": "/path/to/second/image.jpg"
+        }
+    },
+    {
+        "_obj": "transform",
+        "freeTransformCenterState": {
+            "_enum": "quadCenterState",
+            "_value": "QCSAverage"
+        },
+        "width": {
+            "_unit": "percentUnit",
+            "_value": 100.0
+        },
+        "height": {
+            "_unit": "percentUnit",
+            "_value": 100.0
+        }
+    },
+    {
+        "_obj": "groupEvent",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ]
     }
 ]
