@@ -1,0 +1,38 @@
+{
+  "_metadata": {
+    "generated_by": "Fluxa AI Tool",
+    "generated_at": "2025-12-02T13:21:56.763696Z",
+    "version": "0.1.0",
+    "source": "https://www.youtube.com/watch?v=m_Qk8QsLbAs",
+    "source_type": "youtube"
+  },
+  "actions": [
+    {
+      "_obj": "autoCutout",
+      "sampleAllLayers": false
+    },
+    {
+      "_obj": "inverse"
+    },
+    {
+      "_obj": "gaussianBlur",
+      "radius": {
+        "_unit": "pixelsUnit",
+        "_value": 15.0
+      }
+    },
+    {
+      "_obj": "set",
+      "_target": [
+        {
+          "_ref": "channel",
+          "_property": "selection"
+        }
+      ],
+      "to": {
+        "_enum": "ordinal",
+        "_value": "none"
+      }
+    }
+  ]
+}

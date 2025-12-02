@@ -1,0 +1,29 @@
+[
+  {
+    "_obj": "autoCutout",
+    "sampleAllLayers": false
+  },
+  {
+    "_obj": "inverse"
+  },
+  {
+    "_obj": "gaussianBlur",
+    "radius": {
+      "_unit": "pixelsUnit",
+      "_value": 15.0
+    }
+  },
+  {
+    "_obj": "set",
+    "_target": [
+      {
+        "_ref": "channel",
+        "_property": "selection"
+      }
+    ],
+    "to": {
+      "_enum": "ordinal",
+      "_value": "none"
+    }
+  }
+]

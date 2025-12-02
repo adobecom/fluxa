@@ -7,7 +7,11 @@ in
       pkgs.python310
     ];
     shellHook = ''
-      ./setup.sh
-      source venv/bin/activate
+      if [ -d venv ]; then
+        source venv/bin/activate
+        echo "Fluxa venv detected. Activate and ready."
+      else
+        echo "Fluxa venv missing. Run ./setup.sh once before using nix-shell." >&2
+      fi
     '';
   }

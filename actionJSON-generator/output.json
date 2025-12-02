@@ -1,152 +1,38 @@
 {
   "_metadata": {
     "generated_by": "Fluxa AI Tool",
-    "generated_at": "2025-12-01T11:19:29.105844Z",
+    "generated_at": "2025-12-02T11:13:54.069183Z",
     "version": "0.1.0",
-    "source": "https://www.youtube.com/watch?v=MLOdYG0baDQ",
+    "source": "https://www.youtube.com/watch?v=m_Qk8QsLbAs",
     "source_type": "youtube"
   },
   "actions": [
     {
-      "_obj": "select",
+      "_obj": "autoCutout",
+      "sampleAllLayers": false
+    },
+    {
+      "_obj": "inverse"
+    },
+    {
+      "_obj": "gaussianBlur",
+      "radius": {
+        "_unit": "pixelsUnit",
+        "_value": 15.0
+      }
+    },
+    {
+      "_obj": "set",
       "_target": [
         {
           "_ref": "channel",
-          "_name": "subject"
-        }
-      ]
-    },
-    {
-      "_obj": "make",
-      "new": {
-        "_class": "layerSection"
-      },
-      "using": {
-        "_class": "mask"
-      }
-    },
-    {
-      "_obj": "make",
-      "_target": [
-        {
-          "_ref": "adjustmentLayer"
-        }
-      ],
-      "using": {
-        "_obj": "solidColorLayer",
-        "color": {
-          "_obj": "RGBColor",
-          "red": 128,
-          "green": 128,
-          "blue": 128
-        }
-      }
-    },
-    {
-      "_obj": "move",
-      "_target": [
-        {
-          "_ref": "layer",
-          "_name": "Solid Color"
+          "_property": "selection"
         }
       ],
       "to": {
-        "_ref": "layer",
-        "_index": 1
+        "_enum": "ordinal",
+        "_value": "none"
       }
-    },
-    {
-      "_obj": "set",
-      "_target": [
-        {
-          "_ref": "layer",
-          "_name": "Second Image"
-        }
-      ],
-      "to": {
-        "_obj": "layer",
-        "mode": {
-          "_enum": "blendMode",
-          "_value": "screen"
-        }
-      }
-    },
-    {
-      "_obj": "make",
-      "_target": [
-        {
-          "_ref": "layer",
-          "_name": "Second Image"
-        }
-      ],
-      "using": {
-        "_obj": "clippingMask"
-      }
-    },
-    {
-      "_obj": "make",
-      "_target": [
-        {
-          "_ref": "layer"
-        }
-      ],
-      "using": {
-        "_class": "mask"
-      }
-    },
-    {
-      "_obj": "set",
-      "_target": [
-        {
-          "_ref": "layer",
-          "_name": "Solid Color"
-        }
-      ],
-      "to": {
-        "_obj": "solidColorLayer",
-        "color": {
-          "_obj": "RGBColor",
-          "red": 255,
-          "green": 255,
-          "blue": 0
-        }
-      }
-    },
-    {
-      "_obj": "set",
-      "_target": [
-        {
-          "_ref": "layer",
-          "_name": "Bird's Layer"
-        }
-      ],
-      "to": {
-        "_obj": "layer",
-        "mode": {
-          "_enum": "blendMode",
-          "_value": "multiply"
-        }
-      }
-    },
-    {
-      "_obj": "make",
-      "_target": [
-        {
-          "_ref": "layer"
-        }
-      ],
-      "using": {
-        "_class": "mask"
-      }
-    },
-    {
-      "_obj": "mergeVisible"
-    },
-    {
-      "_obj": "convertToSmartObject"
-    },
-    {
-      "_obj": "cameraRawFilter"
     }
   ]
 }

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fluxa Pipeline Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>Fluxa Pipeline</h1>
+        <p>Generate Photoshop ActionJSON and render it via Adobe APIs.</p>
+      </header>
+
+      <form id="pipeline-form" class="card">
+        <label class="field">
+          <span>Tutorial URL</span>
+          <input
+            type="url"
+            id="tutorialUrl"
+            placeholder="https://www.youtube.com/watch?v=..."
+            required
+          />
+        </label>
+
+        <label class="field">
+          <span>Input images</span>
+          <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            multiple
+            required
+          />
+          <small
+            >You can select multiple images. They will be uploaded and processed
+            in order.</small
+          >
+        </label>
+
+        <button type="submit" id="submitButton">Apply Effects</button>
+      </form>
+
+      <section class="card" id="statusCard" hidden>
+        <h2>Status</h2>
+        <p id="statusMessage">Preparing request…</p>
+      </section>
+
+      <section class="card" id="resultCard" hidden>
+        <h2>Result</h2>
+        <div id="resultContent"></div>
+      </section>
+    </main>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>

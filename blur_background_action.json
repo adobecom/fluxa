@@ -1,0 +1,232 @@
+[
+    {
+        "//": "Step 01 – Activate the base Background layer per select_layer.md so subsequent duplicates source the correct pixels (tutorial 00:22).",
+        "_obj": "select",
+        "_target": [
+            {
+                "_ref": "layer",
+                "_name": "Background"
+            }
+        ],
+        "makeVisible": true
+    },
+    {
+        "//": "Step 02 – Duplicate Background to create a subject-only layer as described in duplicate_layer.md (00:27).",
+        "_obj": "duplicate",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "name": "Foreground Subject",
+        "version": 5
+    },
+    {
+        "//": "Step 03 – Use Select Subject (autoCutout) to isolate the foreground figure just like the tutorial’s subject selection pass (00:52). Note: autoCutout is essential but implicit in docs.",
+        "_obj": "autoCutout",
+        "sampleAllLayers": false
+    },
+    {
+        "//": "Step 04 – Expand the active selection by 5 px to capture fine edges, matching modify_selection.md guidance (00:59).",
+        "_obj": "expand",
+        "by": {
+            "_unit": "pixelsUnit",
+            "_value": 5.0
+        }
+    },
+    {
+        "//": "Step 05 – Turn the refined selection into a revealSelection mask (create_mask.md) so Foreground Subject keeps only the model (01:05).",
+        "_obj": "make",
+        "at": {
+            "_enum": "channel",
+            "_ref": "channel",
+            "_value": "mask"
+        },
+        "new": {
+            "_class": "channel"
+        },
+        "using": {
+            "_enum": "userMaskEnabled",
+            "_value": "revealSelection"
+        }
+    },
+    {
+        "//": "Step 06 – Clear the marching ants by setting selection to none before working on the background plate.",
+        "_obj": "set",
+        "_target": [
+            {
+                "_ref": "channel",
+                "_property": "selection"
+            }
+        ],
+        "to": {
+            "_enum": "ordinal",
+            "_value": "none"
+        }
+    },
+    {
+        "//": "Step 07 – Select the original Background layer underneath (select_layer.md) to prep the clean plate (01:20).",
+        "_obj": "select",
+        "_target": [
+            {
+                "_ref": "layer",
+                "_name": "Background"
+            }
+        ],
+        "makeVisible": true
+    },
+    {
+        "//": "Step 08 – Duplicate Background into a cleanup plate named Background Blur Base per duplicate_layer.md (01:27).",
+        "_obj": "duplicate",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "name": "Background Blur Base",
+        "version": 5
+    },
+    {
+        "//": "Step 09 – Re-run Select Subject on the cleanup plate to grab the same silhouette for content-aware removal.",
+        "_obj": "autoCutout",
+        "sampleAllLayers": false
+    },
+    {
+        "//": "Step 10 – Feather/expand slightly (3 px) so the fill blends softly with the surrounding pixels (modify_selection.md).",
+        "_obj": "expand",
+        "by": {
+            "_unit": "pixelsUnit",
+            "_value": 3.0
+        }
+    },
+    {
+        "//": "Step 11 – Remove the subject from Background Blur Base using Content-Aware Fill per fill.md before the blur pass (01:48).",
+        "_obj": "fill",
+        "mode": {
+            "_enum": "blendMode",
+            "_value": "normal"
+        },
+        "opacity": {
+            "_unit": "percentUnit",
+            "_value": 100.0
+        },
+        "using": {
+            "_enum": "fillContents",
+            "_value": "contentAware"
+        },
+        "colorAdaptation": true
+    },
+    {
+        "//": "Step 12 – Deselect to ensure the blur gallery hits the whole cleaned plate (channels/select_channel.md pattern for clearing selections).",
+        "_obj": "set",
+        "_target": [
+            {
+                "_ref": "channel",
+                "_property": "selection"
+            }
+        ],
+        "to": {
+            "_enum": "ordinal",
+            "_value": "none"
+        }
+    },
+    {
+        "//": "Step 13 – Convert Background Blur Base to a Smart Object (convert_to_smart_object.md) so Tilt-Shift is editable (02:25).",
+        "_obj": "newPlacedLayer"
+    },
+    {
+        "//": "Step 14 – Apply a strong Tilt-Shift Blur (blur_gallery.md) with ~100 px blur and 45% focus distance, mirroring the tutorial’s faux depth of field (02:36).",
+        "_obj": "tiltShiftBlur",
+        "blurAmount": {
+            "_unit": "pixelsUnit",
+            "_value": 100.0
+        },
+        "focusDistance": {
+            "_unit": "percentUnit",
+            "_value": 45.0
+        },
+        "symmetric": true,
+        "distortion": 0.0
+    },
+    {
+        "//": "Step 15 – Add subtle monochromatic noise (add_noise.md) so the blurred plate keeps texture (07:41).",
+        "_obj": "addNoise",
+        "distribution": {
+            "_enum": "distributionType",
+            "_value": "gaussianDistribution"
+        },
+        "monochromatic": true,
+        "noise": {
+            "_unit": "percentUnit",
+            "_value": 2.0
+        }
+    },
+    {
+        "//": "Step 16 – Reselect the masked Foreground Subject so finishing adjustments affect the in-focus subject (select_layer.md).",
+        "_obj": "select",
+        "_target": [
+            {
+                "_ref": "layer",
+                "_name": "Foreground Subject"
+            }
+        ],
+        "makeVisible": true
+    },
+    {
+        "//": "Step 17 – Drop in a gentle Curves pop (create_adjustment_layer.md + curves_adjustment.md) to match the tutorial’s Camera Raw contrast polish (09:51).",
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "adjustmentLayer"
+            }
+        ],
+        "using": {
+            "_obj": "adjustmentLayer",
+            "name": "Focus Pop Curves",
+            "type": {
+                "_obj": "curves",
+                "adjustment": [
+                    {
+                        "_obj": "curvesAdjustment",
+                        "channel": {
+                            "_enum": "channel",
+                            "_ref": "channel",
+                            "_value": "composite"
+                        },
+                        "curve": [
+                            {
+                                "_obj": "paint",
+                                "horizontal": 0.0,
+                                "vertical": 8.0
+                            },
+                            {
+                                "_obj": "paint",
+                                "horizontal": 70.0,
+                                "vertical": 60.0
+                            },
+                            {
+                                "_obj": "paint",
+                                "horizontal": 185.0,
+                                "vertical": 210.0
+                            },
+                            {
+                                "_obj": "paint",
+                                "horizontal": 255.0,
+                                "vertical": 255.0
+                            }
+                        ]
+                    }
+                ],
+                "presetKind": {
+                    "_enum": "presetKindType",
+                    "_value": "presetKindCustom"
+                }
+            }
+        }
+    }
+]
+

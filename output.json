@@ -1,0 +1,21 @@
+[
+  {
+    "_obj": "duplicate",
+    "_target": [
+      {
+        "_enum": "ordinal",
+        "_ref": "layer",
+        "_value": "background"
+      }
+    ]
+  },
+  {
+    "_obj": "desaturate",
+    "_target": [
+      {
+        "_enum": "ordinal",
+        "_ref": "layer"
+      }
+    ]
+  }
+]

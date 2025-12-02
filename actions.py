@@ -73,7 +73,13 @@ def download_from_r2(s3_client, object_key, local_path):
     s3_client.download_file(R2_BUCKET_NAME, object_key, local_path)
 
 
-def process_with_actionjson(input_images, action_json_file, output_path=None):
+def process_with_actionjson(
+    input_images,
+    action_json_file,
+    output_path=None,
+    preview_format="image/png",
+    preview_output_path=None,
+):
     """
     Process images using Adobe actionJSON endpoint with multiple inputs.
     
@@ -128,8 +134,17 @@ def process_with_actionjson(input_images, action_json_file, output_path=None):
     base_name = os.path.splitext(output_filename)[0]
     output_r2_key = f"output_{timestamp}_{unique_id}_{base_name}.psd"
     output_url = generate_r2_presigned_url(r2_client, output_r2_key, operation='put_object')
+
+    preview_r2_key = None
+    preview_url = None
+    if preview_format:
+        ext = ".png" if "png" in preview_format else ".jpg"
+        preview_r2_key = f"preview_{timestamp}_{unique_id}_{base_name}{ext}"
+        preview_url = generate_r2_presigned_url(r2_client, preview_r2_key, operation='put_object')
     
     print(f"\n[OUTPUT] Output will be: {output_r2_key}")
+    if preview_r2_key:
+        print(f"[OUTPUT] Preview will be: {preview_r2_key}")
     
     # Get Adobe access token
     print("\n[ADOBE] Getting access token...")
@@ -156,6 +171,12 @@ def process_with_actionjson(input_images, action_json_file, output_path=None):
             "href": output_url
         }]
     }
+    if preview_r2_key and preview_url:
+        data["outputs"].append({
+            "storage": "external",
+            "type": preview_format,
+            "href": preview_url
+        })
     
     # Add additional images if present
     if len(input_urls) > 1:
@@ -220,17 +241,36 @@ def process_with_actionjson(input_images, action_json_file, output_path=None):
     print(f"\n[DOWNLOAD] Downloading result to: {output_path}")
     os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else '.', exist_ok=True)
     download_from_r2(r2_client, output_r2_key, output_path)
+
+    preview_local_path = None
+    if preview_r2_key and preview_url:
+        if preview_output_path is None:
+            os.makedirs("output_images", exist_ok=True)
+            preview_output_path = f"output_images/{base_name}_preview.png"
+        print(f"[DOWNLOAD] Downloading preview to: {preview_output_path}")
+        os.makedirs(os.path.dirname(preview_output_path) if os.path.dirname(preview_output_path) else '.', exist_ok=True)
+        download_from_r2(r2_client, preview_r2_key, preview_output_path)
+        preview_local_path = preview_output_path
     
     # Cleanup R2 files
     print("\n[CLEANUP] Cleaning up temporary files...")
-    for key in r2_keys + [output_r2_key]:
+    cleanup_keys = r2_keys + [output_r2_key]
+    if preview_r2_key:
+        cleanup_keys.append(preview_r2_key)
+
+    for key in cleanup_keys:
         try:
             r2_client.delete_object(Bucket=R2_BUCKET_NAME, Key=key)
         except Exception as e:
             print(f"  Warning: Could not delete {key}: {e}")
     
     print(f"\n[COMPLETE] Output saved to: {output_path}")
-    return output_path
+    if preview_local_path:
+        print(f"[COMPLETE] Preview saved to: {preview_local_path}")
+    return {
+        "output_path": output_path,
+        "preview_path": preview_local_path
+    }
 
 
 if __name__ == '__main__':
@@ -253,7 +293,12 @@ if __name__ == '__main__':
     result = process_with_actionjson(input_images, action_json_file, output_path)
     
     if result:
-        print(f"\n✓ Success! Output: {result}")
+        if isinstance(result, dict):
+            print(f"\n✓ Success! Output: {result.get('output_path')}")
+            if result.get('preview_path'):
+                print(f"Preview: {result.get('preview_path')}")
+        else:
+            print(f"\n✓ Success! Output: {result}")
         sys.exit(0)
     else:
         print("\n✗ Failed to process")
