@@ -17,6 +17,7 @@ from dotenv import load_dotenv
 
 from .extractors.factory import ExtractorFactory
 from .generators.photoshop_action_generator import PhotoshopActionGenerator
+from .generators.agent_photoshop_action_generator import AgentPhotoshopActionGenerator
 from .utils.formatter import format_output, add_metadata
 from .utils.validator import validate_json
 
@@ -35,7 +36,7 @@ def load_config() -> dict:
             return json.load(f)
     except Exception:
         return {
-            "openai": {"model": "gpt-4o", "temperature": 0.1, "max_tokens": 4000, "timeout": 60},
+            "openai": {"model": "gpt-5.1", "temperature": 0.1, "max_tokens": 4000, "timeout": 60},
             "output": {"indent": 2, "add_metadata": True, "validate": True},
             "extraction": {"youtube": {"max_transcript_length": 50000}, "web": {"max_content_length": 100000, "timeout": 30}}
         }
@@ -51,7 +52,7 @@ def load_config() -> dict:
 @click.option(
     '--model', '-m',
     type=str,
-    help='OpenAI model to use (default: gpt-4o)'
+    help='OpenAI model to use (default: gpt-5.1)'
 )
 @click.option(
     '--api-key',
@@ -79,6 +80,11 @@ def load_config() -> dict:
     is_flag=True,
     help='Show cost estimate and exit without generating'
 )
+@click.option(
+    '--use-agent',
+    is_flag=True,
+    help='Use agent-based generator with dynamic documentation reading'
+)
 def main(
     url: str,
     output: Optional[str],
@@ -87,7 +93,8 @@ def main(
     verbose: bool,
     no_metadata: bool,
     no_validate: bool,
-    estimate_cost: bool
+    estimate_cost: bool,
+    use_agent: bool
 ) -> None:
     """
     Fluxa - Convert Photoshop tutorials to API JSON
@@ -147,14 +154,22 @@ def main(
                 console.print(f"[red]✗[/red] Extraction failed: {str(e)}")
                 sys.exit(1)
         
-        # Step 2: Cost estimate (if requested)
-        generator = PhotoshopActionGenerator(
-            api_key=api_key,
-            model=model,
-            temperature=config['openai']['temperature'],
-            max_tokens=config['openai']['max_tokens'],
-            timeout=config['openai']['timeout']
-        )
+        # Step 2: Initialize generator (agent-based or standard)
+        if use_agent:
+            console.print("[cyan]Using agent-based generator with dynamic documentation[/cyan]")
+            generator = AgentPhotoshopActionGenerator(
+                api_key=api_key,
+                model=model,
+                timeout=config['openai']['timeout']
+            )
+        else:
+            generator = PhotoshopActionGenerator(
+                api_key=api_key,
+                model=model,
+                temperature=config['openai']['temperature'],
+                max_tokens=config['openai']['max_tokens'],
+                timeout=config['openai']['timeout']
+            )
         
         cost_estimate = generator.estimate_cost(len(extracted['content']))
         
@@ -169,12 +184,13 @@ def main(
             sys.exit(0)
         
         # Step 3: Generate actions
+        generation_msg = "[cyan]Generating Photoshop actions with agent..." if use_agent else "[cyan]Generating Photoshop actions with AI..."
         with Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             console=console
         ) as progress:
-            task = progress.add_task("[cyan]Generating Photoshop actions with AI...", total=None)
+            task = progress.add_task(generation_msg, total=None)
             
             try:
                 result = generator.generate(

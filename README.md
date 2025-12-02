@@ -23,7 +23,7 @@ cp .env.example .env
 
 ### Basic usage:
 ```bash
-python photoshop-actions.py input_images/image.jpg action.json
+python photoshop-actions.py input_images/image.jpg action_example.json
 ```
 
 ### Specify output path:

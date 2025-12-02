@@ -1,0 +1,291 @@
+[
+    {
+        "_obj": "autoCutout",
+        "sampleAllLayers": false
+    },
+    {
+        "_obj": "make",
+        "at": {
+            "_enum": "channel",
+            "_ref": "channel",
+            "_value": "mask"
+        },
+        "new": {
+            "_class": "channel"
+        },
+        "using": {
+            "_enum": "userMaskEnabled",
+            "_value": "revealSelection"
+        }
+    },
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_ref": "channel",
+                "_property": "selection"
+            }
+        ],
+        "to": {
+            "_enum": "ordinal",
+            "_value": "none"
+        }
+    },
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "Isolated Subject"
+        }
+    },
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "textLayer"
+            }
+        ],
+        "using": {
+            "_obj": "textLayer",
+            "textKey": "SANDWICH",
+            "textClickPoint": {
+                "_obj": "paint",
+                "horizontal": {
+                    "_unit": "percentUnit",
+                    "_value": 50.0
+                },
+                "vertical": {
+                    "_unit": "percentUnit",
+                    "_value": 50.0
+                }
+            },
+            "textStyleRange": [
+                {
+                    "_obj": "textStyleRange",
+                    "from": 0,
+                    "to": 9,
+                    "textStyle": {
+                        "_obj": "textStyle",
+                        "fontPostScriptName": "Arial-BoldMT",
+                        "size": {
+                            "_unit": "pixelsUnit",
+                            "_value": 220
+                        },
+                        "color": {
+                            "_obj": "RGBColor",
+                            "red": 255.0,
+                            "grain": 255.0,
+                            "blue": 255.0
+                        }
+                    }
+                }
+            ],
+            "paragraphStyleRange": [
+                {
+                    "_obj": "paragraphStyleRange",
+                    "from": 0,
+                    "to": 9,
+                    "paragraphStyle": {
+                        "_obj": "paragraphStyle",
+                        "align": {
+                            "_enum": "alignmentType",
+                            "_value": "center"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "Filled Text"
+        }
+    },
+    {
+        "_obj": "transform",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "freeTransformCenterState": {
+            "_enum": "quadCenterState",
+            "_value": "QCSAverage"
+        },
+        "width": {
+            "_unit": "percentUnit",
+            "_value": 150.0
+        },
+        "height": {
+            "_unit": "percentUnit",
+            "_value": 150.0
+        },
+        "linked": true,
+        "interfaceIconFrameDimmed": {
+            "_enum": "interpolationType",
+            "_value": "bicubic"
+        }
+    },
+    {
+        "_obj": "newPlacedLayer"
+    },
+    {
+        "_obj": "move",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_enum": "ordinal",
+            "_ref": "layer",
+            "_value": "back"
+        },
+        "adjustment": true,
+        "version": 5
+    },
+    {
+        "_obj": "duplicate",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "name": "Outline Text"
+    },
+    {
+        "_obj": "move",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_enum": "ordinal",
+            "_ref": "layer",
+            "_value": "front"
+        },
+        "adjustment": true,
+        "version": 5
+    },
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "fillOpacity": {
+                "_unit": "percentUnit",
+                "_value": 0
+            }
+        }
+    },
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_property": "layerEffects",
+                "_ref": "property"
+            },
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layerEffects",
+            "frameFX": {
+                "_obj": "frameFX",
+                "enabled": true,
+                "present": true,
+                "showInDialog": true,
+                "style": {
+                    "_enum": "frameStyle",
+                    "_value": "outsetFrame"
+                },
+                "size": {
+                    "_unit": "pixelsUnit",
+                    "_value": 6
+                },
+                "mode": {
+                    "_enum": "blendMode",
+                    "_value": "normal"
+                },
+                "opacity": {
+                    "_unit": "percentUnit",
+                    "_value": 100
+                },
+                "paintType": {
+                    "_enum": "frameFill",
+                    "_value": "solidColor"
+                },
+                "color": {
+                    "_obj": "RGBColor",
+                    "red": 255.0,
+                    "grain": 255.0,
+                    "blue": 255.0
+                },
+                "overprint": false
+            },
+            "scale": {
+                "_unit": "percentUnit",
+                "_value": 100
+            }
+        }
+    },
+    {
+        "_obj": "select",
+        "_target": [
+            {
+                "_ref": "layer",
+                "_name": "Filled Text"
+            }
+        ],
+        "selectionModifier": {
+            "_enum": "selectionModifierType",
+            "_value": "addToSelectionContinuous"
+        },
+        "makeVisible": false
+    },
+    {
+        "_obj": "linkSelectedLayers",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ]
+    }
+]
+

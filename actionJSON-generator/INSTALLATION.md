@@ -118,7 +118,7 @@ Edit `config/default.json` to customize:
 ```json
 {
   "openai": {
-    "model": "gpt-4o",        # AI model to use
+    "model": "gpt-5.1",        # AI model to use
     "temperature": 0.1,       # Lower = more consistent
     "max_tokens": 4000,       # Max response length
     "timeout": 60             # Request timeout (seconds)

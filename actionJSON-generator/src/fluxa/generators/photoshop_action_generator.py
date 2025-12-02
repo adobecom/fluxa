@@ -20,7 +20,7 @@ class PhotoshopActionGenerator:
     def __init__(
         self,
         api_key: str,
-        model: str = "gpt-4o",
+        model: str = "gpt-5.1",
         temperature: float = 0.1,
         max_tokens: int = 4000,
         timeout: int = 60
@@ -30,7 +30,7 @@ class PhotoshopActionGenerator:
         
         Args:
             api_key: OpenAI API key
-            model: Model to use (default: gpt-4o)
+            model: Model to use (default: gpt-5.1)
             temperature: Generation temperature (0.0-1.0)
             max_tokens: Maximum tokens in response
             timeout: Request timeout in seconds

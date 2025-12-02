@@ -7,4 +7,9 @@ click>=8.1.0
 rich>=13.0.0
 lxml>=4.9.0
 
+# Agent-based generator dependencies
+deepagents>=0.2.8
+langchain>=0.3.0
+langchain-openai>=0.2.0
+
 

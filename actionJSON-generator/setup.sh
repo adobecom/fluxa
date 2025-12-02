@@ -57,7 +57,7 @@ if [ ! -f .env ]; then
 OPENAI_API_KEY=your_api_key_here
 
 # Optional: Override default model
-# OPENAI_MODEL=gpt-4o
+# OPENAI_MODEL=gpt-5.1
 
 # Optional: Set API timeout (seconds)
 # API_TIMEOUT=60
