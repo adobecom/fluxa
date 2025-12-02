@@ -12,10 +12,26 @@ class ActionValidator:
     def __init__(self):
         """Initialize validator with known operations"""
         self.known_operations = {
+            # Basic operations
             'emboss', 'open', 'save', 'close', 'make', 'delete', 'select',
             'show', 'hide', 'set', 'move', 'fill', 'reset', 'exchange',
             'duplicate', 'merge', 'flatten', 'crop', 'resize', 'rotate',
-            'transform', 'apply', 'copy', 'paste', 'cut'
+            'transform', 'apply', 'copy', 'paste', 'cut',
+            # Adjustments
+            'desaturate', 'invert', 'brightnessEvent', 'hueSaturation',
+            'vibrance', 'levels', 'curves', 'colorBalance', 'photoFilter',
+            'blackAndWhite', 'exposure', 'posterize', 'threshold',
+            # Filters
+            'gaussianBlur', 'motionBlur', 'radialBlur', 'surfaceBlur',
+            'addNoise', 'unsharpMask', 'highPass', 'differenceClouds',
+            'tiltShift', 'minimum', 'maximum',
+            # Selection
+            'autoCutout', 'inverse', 'colorRange', 'modifySelection',
+            # Layer operations
+            'mergeVisible', 'mergeLayersNew', 'newPlacedLayer', 'placeEvent',
+            'layerSection', 'contentAwareFill',
+            # Other
+            'Adobe Camera Raw Filter'
         }
     
     def validate(self, data: Any) -> Tuple[bool, List[str]]:

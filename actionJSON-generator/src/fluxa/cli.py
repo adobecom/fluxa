@@ -43,7 +43,7 @@ def load_config() -> dict:
 
 
 @click.command()
-@click.argument('url', type=str)
+@click.argument('url', type=str, required=False)
 @click.option(
     '--output', '-o',
     type=click.Path(),
@@ -85,8 +85,13 @@ def load_config() -> dict:
     is_flag=True,
     help='Use agent-based generator with dynamic documentation reading'
 )
+@click.option(
+    '--transcript', '-t',
+    type=click.Path(exists=True),
+    help='Path to transcript text file (use instead of URL)'
+)
 def main(
-    url: str,
+    url: Optional[str],
     output: Optional[str],
     model: Optional[str],
     api_key: Optional[str],
@@ -94,16 +99,18 @@ def main(
     no_metadata: bool,
     no_validate: bool,
     estimate_cost: bool,
-    use_agent: bool
+    use_agent: bool,
+    transcript: Optional[str]
 ) -> None:
     """
     Fluxa - Convert Photoshop tutorials to API JSON
     
-    Accepts YouTube video URLs or web article URLs and generates
-    executable Photoshop API action JSON files.
+    Accepts YouTube video URLs, web article URLs, or transcript files
+    and generates executable Photoshop API action JSON files.
     
-    Example:
+    Examples:
         fluxa https://www.youtube.com/watch?v=... -o actions.json
+        fluxa --transcript tutorial.txt -o actions.json --use-agent
     """
     config = load_config()
     
@@ -113,6 +120,14 @@ def main(
         "Tutorial → Photoshop API JSON",
         border_style="cyan"
     ))
+    
+    # Validate that either URL or transcript is provided
+    if not url and not transcript:
+        console.print("[red]Error:[/red] Either URL or --transcript must be provided.", style="bold")
+        console.print("\nExamples:")
+        console.print("  fluxa https://www.youtube.com/watch?v=... -o actions.json")
+        console.print("  fluxa --transcript tutorial.txt -o actions.json --use-agent")
+        sys.exit(1)
     
     # Validate API key
     if not api_key:
@@ -129,7 +144,7 @@ def main(
         output = 'output.json'
     
     try:
-        # Step 1: Extract content
+        # Step 1: Extract content (from URL or transcript file)
         with Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
@@ -138,9 +153,22 @@ def main(
             task = progress.add_task("[cyan]Extracting tutorial content...", total=None)
             
             try:
-                extracted = ExtractorFactory.extract(url, config['extraction'])
+                if transcript:
+                    # Read transcript from file
+                    with open(transcript, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    extracted = {
+                        'content': content,
+                        'source': transcript,
+                        'type': 'transcript_file'
+                    }
+                    console.print(f"[green]✓[/green] Transcript loaded from: {transcript}")
+                else:
+                    # Extract from URL
+                    extracted = ExtractorFactory.extract(url, config['extraction'])
+                    console.print("[green]✓[/green] Content extracted successfully")
+                
                 progress.update(task, completed=True)
-                console.print("[green]✓[/green] Content extracted successfully")
                 
                 if verbose:
                     console.print(f"\n[dim]Source:[/dim] {extracted['source']}")

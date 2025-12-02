@@ -1,0 +1,49 @@
+1. Prepare the Image
+
+Open your image in Photoshop.
+
+Duplicate the Background Layer: Press Ctrl + J (Windows) or Cmd + J (Mac). You now have "Layer 1".
+
+2. Convert to Black & White
+
+With "Layer 1" selected, remove the color by desaturating it.
+
+Shortcut: Press Ctrl + Shift + U (Windows) or Cmd + Shift + U (Mac).
+
+Alternative: Go to Image > Adjustments > Desaturate.
+
+3. Create the "Negative" Layer
+
+Duplicate the Desaturated Layer: Press Ctrl + J / Cmd + J again. You now have "Layer 1 copy".
+
+Invert the Colors: Press Ctrl + I / Cmd + I. The image will look like a film negative (dark areas become light, light areas become dark).
+
+4. The "Disappearing" Trick (Color Dodge)
+
+Change the Blending Mode of this top layer ("Layer 1 copy") from Normal to Color Dodge.
+
+Result: The image will likely turn almost completely white. This is normal! The sketch effect relies on the difference between this layer and the one below it.
+
+5. Reveal the Sketch (Gaussian Blur)
+
+Go to Filter > Blur > Gaussian Blur.
+
+A dialog box will appear. Adjust the Radius slider.
+
+What to look for: As you increase the radius, the pencil lines will start to appear.
+
+Low Radius: Thin, faint lines.
+
+High Radius: Thicker, darker lines with more shading.
+
+Recommended: Try a value between 10 and 50 pixels depending on your image resolution. Click OK.
+
+6. Darken the Lines (Levels)
+
+The sketch might look a bit faint or low contrast. To fix this, add a Levels adjustment layer.
+
+Click the Create new fill or adjustment layer icon (half-filled circle) at the bottom of the Layers panel and choose Levels.
+
+In the Properties panel, drag the Shadows slider (the black triangle on the left) slightly to the right to darken the blacks.
+
+Drag the Midtones slider (the gray triangle in the middle) to the right to clean up the grey noise and make the white paper background brighter.

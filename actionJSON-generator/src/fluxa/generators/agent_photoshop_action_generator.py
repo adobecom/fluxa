@@ -16,9 +16,21 @@ from deepagents import create_deep_agent
 from deepagents.backends import FilesystemBackend
 from langchain.chat_models import init_chat_model
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+# Configure logging with immediate flush
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
+
+# Force immediate flush on all log messages
+for handler in logging.root.handlers:
+    handler.flush()
+    if hasattr(handler, 'stream'):
+        handler.stream.flush()
 
 
 # System prompt for the agent
@@ -158,9 +170,22 @@ class AgentPhotoshopActionGenerator:
         # Create the agent with FilesystemBackend
         # IMPORTANT: Restrict backend to ps_action_docs folder only
         # This forces the agent to focus on the documentation
+        # virtual_mode=True sandboxes all paths under root_dir
+        self.backend = FilesystemBackend(root_dir=str(self.docs_path), virtual_mode=True)
+        
+        logger.info(f"FilesystemBackend created with root_dir: {self.docs_path}")
+        logger.info(f"FilesystemBackend cwd: {self.backend.cwd}")
+        
+        # Test the backend directly
+        try:
+            test_ls = self.backend.ls_info('.')
+            logger.info(f"Backend ls_info('.') test: {[f['path'] for f in test_ls[:3]]}...")
+        except Exception as e:
+            logger.error(f"Backend ls_info test failed: {e}")
+        
         self.agent = create_deep_agent(
             model=self.model,
-            backend=FilesystemBackend(root_dir=str(self.docs_path)),
+            backend=self.backend,
             system_prompt=AGENT_SYSTEM_PROMPT,
         )
         
@@ -227,13 +252,48 @@ Generate the ActionJSON now by following the steps above:"""
             try:
                 logger.info(f"Generation attempt {attempt + 1}/{max_retries}")
                 
-                # Invoke the agent
-                result = self.agent.invoke({
-                    "messages": [{"role": "user", "content": user_message}]
-                })
+                # Log backend state before invocation
+                logger.info(f"Backend cwd before invoke: {self.backend.cwd}")
+                
+                # Use streaming to get real-time tool call logs
+                print("\n--- AGENT EXECUTION (Real-time) ---", flush=True)
+                all_messages = []
+                
+                for event in self.agent.stream(
+                    {"messages": [{"role": "user", "content": user_message}]},
+                    stream_mode="updates"
+                ):
+                    # Log each event as it happens
+                    for node_name, node_output in event.items():
+                        if node_name == "tools":
+                            # Tool execution
+                            messages = node_output.get("messages", [])
+                            for msg in messages:
+                                all_messages.append(msg)
+                                tool_name = getattr(msg, "name", "unknown")
+                                content = str(getattr(msg, "content", ""))[:300]
+                                print(f"  [TOOL RESULT] {tool_name}: {content}", flush=True)
+                        elif node_name == "model":
+                            # Model response
+                            messages = node_output.get("messages", [])
+                            for msg in messages:
+                                all_messages.append(msg)
+                                if hasattr(msg, "tool_calls") and msg.tool_calls:
+                                    for tc in msg.tool_calls:
+                                        print(f"  [TOOL CALL] {tc.get('name', 'unknown')}: {tc.get('args', {})}", flush=True)
+                                elif hasattr(msg, "content") and msg.content:
+                                    content_preview = str(msg.content)[:200]
+                                    print(f"  [MODEL OUTPUT] {content_preview}", flush=True)
+                
+                print("--- END AGENT EXECUTION ---\n", flush=True)
+                
+                # Build result from collected messages
+                result = {"messages": all_messages}
+                
+                logger.info(f"Backend cwd after invoke: {self.backend.cwd}")
                 
                 # Log all messages for debugging
-                logger.info("=== AGENT MESSAGES ===")
+                print("\n=== AGENT MESSAGES ===", flush=True)
                 messages = result.get("messages", [])
                 for i, msg in enumerate(messages):
                     msg_type = getattr(msg, "type", type(msg).__name__)
@@ -241,16 +301,16 @@ Generate the ActionJSON now by following the steps above:"""
                     
                     # Log tool calls if present
                     if hasattr(msg, "tool_calls") and msg.tool_calls:
-                        logger.info(f"Message {i} [{msg_type}] has tool_calls:")
+                        print(f"Message {i} [{msg_type}] has tool_calls:", flush=True)
                         for tc in msg.tool_calls:
-                            logger.info(f"  Tool: {tc.get('name', 'unknown')}, Args: {tc.get('args', {})}")
+                            print(f"  Tool: {tc.get('name', 'unknown')}, Args: {tc.get('args', {})}", flush=True)
                     
                     # Log tool call id if it's a tool response
                     if hasattr(msg, "tool_call_id"):
-                        logger.info(f"Message {i} [{msg_type}] tool_call_id: {msg.tool_call_id}")
+                        print(f"Message {i} [{msg_type}] tool_call_id: {msg.tool_call_id}", flush=True)
                     
-                    logger.info(f"Message {i} [{msg_type}]: {msg_content}")
-                logger.info("=== END AGENT MESSAGES ===")
+                    print(f"Message {i} [{msg_type}]: {msg_content}", flush=True)
+                print("=== END AGENT MESSAGES ===", flush=True)
                 
                 # Extract the final response
                 raw_response = self._extract_final_response(result)
