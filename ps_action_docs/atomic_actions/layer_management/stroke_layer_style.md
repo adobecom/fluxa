@@ -6,9 +6,13 @@
 
 Applies a stroke (outline) effect to a layer. The stroke can be applied as a solid color, gradient, or pattern, and can be positioned outside, inside, or centered on the layer's edge.
 
-## Basic Stroke with Solid Color
+## Common Workflow
 
-Applies a simple stroke with a solid color to the currently selected layer.
+**Most common use case:** Add a white outline stroke to text layers for visibility and contrast against backgrounds. This is especially useful for text overlay effects where the text needs to stand out.
+
+## JSON Structure (Primary Use Case - White Stroke)
+
+⭐ **Use this format for text outline effects** - creates a visible white stroke.
 
 ```json
 {
@@ -37,7 +41,7 @@ Applies a simple stroke with a solid color to the currently selected layer.
             },
             "size": {
                 "_unit": "pixelsUnit",
-                "_value": 3
+                "_value": 6
             },
             "mode": {
                 "_enum": "blendMode",
@@ -54,8 +58,8 @@ Applies a simple stroke with a solid color to the currently selected layer.
             "color": {
                 "_obj": "RGBColor",
                 "red": 255.0,
-                "grain": 0.0,
-                "blue": 0.0
+                "grain": 255.0,
+                "blue": 255.0
             },
             "overprint": false
         },

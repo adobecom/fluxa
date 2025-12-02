@@ -44,38 +44,39 @@ You have access to a documentation folder. You MUST use the filesystem tools to 
 
 ## IMPORTANT: Use relative paths (no leading slash)
 - Use `ls .` to list current directory
-- Use `ls atomic_actions` NOT `ls /atomic_actions`
+- Use `read_file atomic_actions/index.md` to see ALL available operations
 - Use `read_file atomic_actions/filters/gaussian_blur.md` NOT `read_file /atomic_actions/...`
 
 ## MANDATORY WORKFLOW (Follow these steps IN ORDER)
 
-### Step 1: Explore the documentation structure
-First, use `ls .` to see the root directory structure.
-Then use `ls atomic_actions` to see available categories:
-- `adjustments/` - brightness, contrast, curves, levels, desaturate, etc.
-- `filters/` - gaussian_blur, motion_blur, add_noise, etc.
-- `layer_management/` - create_new_layer, duplicate_layer, select_layer, set_opacity, fill, create_mask, etc.
-- `selection/` - select_subject, color_range, subject_mask
-- `channels/` - channel operations
-- `image/` - crop, resize
-- `text_layer.md` - text operations
+### Step 1: READ THE INDEX FIRST
+**ALWAYS start by reading the index file:**
+```
+read_file atomic_actions/index.md
+```
+This index contains a complete list of ALL available operations with their exact file paths and descriptions.
 
 ### Step 2: Identify operations from the transcript
-Analyze the tutorial transcript and identify which Photoshop operations are mentioned:
-- "blur background" → look in atomic_actions/filters/gaussian_blur.md
-- "select subject" → look in atomic_actions/selection/select_subject.md
-- "duplicate layer" → look in atomic_actions/layer_management/duplicate_layer.md
-- "brightness" or "contrast" → look in atomic_actions/adjustments/brightness_contrast.md
-- "mask" → look in atomic_actions/layer_management/create_mask.md
-- "opacity" → look in atomic_actions/layer_management/set_opacity.md
-- etc.
+Analyze the tutorial transcript and match operations to files listed in the index:
+- "blur background" → `filters/gaussian_blur.md`
+- "select subject" → `selection/select_subject.md`
+- "duplicate layer" → `layer_management/duplicate_layer.md`
+- "reduce fill" or "fill to 0%" → `layer_management/fill_opacity.md`
+- "drag layer under/over" or "reorder" → `layer_management/layer_reorder.md`
+- "stroke" or "layer style stroke" → `layer_management/stroke_layer_style.md`
+- "clipping mask" → `layer_management/create_clipping_mask.md`
+- "link layers" → `layer_management/link_layers.md`
+- "convert to smart object" → `layer_management/convert_to_smart_object.md`
+- "add text" → `text_layer.md`
+- "transform" or "scale" → `layer_management/transform.md`
+- "mask" → `layer_management/create_mask.md`
 
 ### Step 3: Read the relevant documentation files
 For EACH operation you identified, use `read_file` to read the corresponding .md file.
-For example:
+Use the EXACT file paths from the index. For example:
 - `read_file atomic_actions/filters/gaussian_blur.md`
-- `read_file atomic_actions/selection/select_subject.md`
-- `read_file atomic_actions/layer_management/duplicate_layer.md`
+- `read_file atomic_actions/layer_management/fill_opacity.md`
+- `read_file atomic_actions/layer_management/stroke_layer_style.md`
 
 Each .md file contains the exact JSON structure you need to use.
 
@@ -233,16 +234,35 @@ Tutorial Transcript:
 
 **IMPORTANT: Use relative paths (no leading slash)**
 
-1. **FIRST**: Use `ls .` to see the root directory, then `ls atomic_actions` to see the documentation structure
-2. **SECOND**: Based on the transcript, identify which operations are needed (blur, layers, masks, brightness, etc.)
-3. **THIRD**: Use `read_file` to read EACH relevant .md file to get the exact JSON format
-   - For blur: `read_file atomic_actions/filters/gaussian_blur.md`
-   - For layers: `read_file atomic_actions/layer_management/duplicate_layer.md`
-   - For selection: `read_file atomic_actions/selection/select_subject.md`
-   - etc.
-4. **FOURTH**: ONLY after reading the docs, generate the final JSON array
+1. **FIRST - READ THE INDEX**: 
+   ```
+   read_file atomic_actions/index.md
+   ```
+   This index lists ALL available operations with their exact file paths.
 
-DO NOT skip reading the documentation. The JSON formats in the docs are REQUIRED.
+2. **SECOND - IDENTIFY OPERATIONS**: Based on the transcript, identify which operations are needed and find their exact file paths from the index:
+   - "duplicate layer" → `layer_management/duplicate_layer.md`
+   - "select subject" → `selection/select_subject.md`
+   - "add mask" → `layer_management/create_mask.md`
+   - "add text" → `text_layer.md`
+   - "transform/scale" → `layer_management/transform.md`
+   - "convert to smart object" → `layer_management/convert_to_smart_object.md`
+   - "drag layer under/over" → `layer_management/layer_reorder.md`
+   - "reduce fill to 0%" → `layer_management/fill_opacity.md`
+   - "stroke layer style" → `layer_management/stroke_layer_style.md`
+   - "clipping mask" → `layer_management/create_clipping_mask.md`
+   - "link layers" → `layer_management/link_layers.md`
+
+3. **THIRD - READ DOCUMENTATION**: Use `read_file` to read EACH relevant .md file:
+   ```
+   read_file atomic_actions/layer_management/duplicate_layer.md
+   read_file atomic_actions/layer_management/fill_opacity.md
+   read_file atomic_actions/layer_management/stroke_layer_style.md
+   ```
+   
+4. **FOURTH - GENERATE JSON**: ONLY after reading the docs, generate the final JSON array using the EXACT formats from the documentation.
+
+DO NOT guess file names. Use the index to find exact paths. DO NOT skip reading documentation.
 
 Generate the ActionJSON now by following the steps above:"""
 
