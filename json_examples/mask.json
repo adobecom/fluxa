@@ -1,0 +1,81 @@
+[
+    // Step 1: Select the subject FIRST (on the original image layer)
+    {
+        "_obj": "autoCutout",
+        "sampleAllLayers": false
+    },
+    // Step 2: Create a new layer (selection remains active)
+    {
+        "_obj": "make",
+        "_target": [
+            {
+                "_ref": "layer"
+            }
+        ]
+    },
+    // Step 3: Fill the selection with WHITE (subject)
+    {
+        "_obj": "fill",
+        "mode": {
+            "_enum": "blendMode",
+            "_value": "normal"
+        },
+        "opacity": {
+            "_unit": "percentUnit",
+            "_value": 100.0
+        },
+        "using": {
+            "_enum": "fillContents",
+            "_value": "white"
+        }
+    },
+    // Step 4: Invert the selection (now background is selected)
+    {
+        "_obj": "inverse"
+    },
+    // Step 5: Fill the inverted selection with BLACK (background)
+    {
+        "_obj": "fill",
+        "mode": {
+            "_enum": "blendMode",
+            "_value": "normal"
+        },
+        "opacity": {
+            "_unit": "percentUnit",
+            "_value": 100.0
+        },
+        "using": {
+            "_enum": "fillContents",
+            "_value": "black"
+        }
+    },
+    // Step 6: Deselect
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_ref": "channel",
+                "_property": "selection"
+            }
+        ],
+        "to": {
+            "_enum": "ordinal",
+            "_value": "none"
+        }
+    },
+    // Step 7: Rename the layer
+    {
+        "_obj": "set",
+        "_target": [
+            {
+                "_enum": "ordinal",
+                "_ref": "layer",
+                "_value": "targetEnum"
+            }
+        ],
+        "to": {
+            "_obj": "layer",
+            "name": "Subject Mask"
+        }
+    }
+]
