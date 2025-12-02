@@ -7,6 +7,7 @@ in pkgs.mkShell {
         requests
         python-dotenv
         dropbox
+        boto3
       ]))
     ];
 }
