@@ -100,6 +100,7 @@ form.addEventListener("submit", async (event) => {
       method: "POST",
       body: formData,
     });
+    debugger
 
     if (!response.ok) {
       throw new Error(`Pipeline failed. Status: ${response.status}`);

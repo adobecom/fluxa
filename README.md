@@ -23,6 +23,8 @@ Expose the workflow to a frontend by running the FastAPI server in `server/main.
    - `GET /health` – readiness probe (checks that the shared venv exists)
    - `POST /apply` – `multipart/form-data` request that accepts `tutorial_url`, optional `inline_render`, and one or more image files (field name `images`). Uploaded files are stored server-side and fed into the pipeline automatically.
 
+> **CORS**: When serving the frontend from a different origin (e.g., `npm run dev`), set the `FLUXA_CORS_ALLOW_ORIGINS` environment variable with a comma-separated list of allowed origins (for example `http://localhost:5173,http://localhost:4173`). If unset, the API defaults to `*`.
+
 
 Every request creates a unique run directory under `actionJSON-generator/runs/<job_id>` unless you provide explicit output paths. Responses include file paths plus, for apply/pipeline, `application.download_url` (served by `/download/{job_id}`), a `preview_path` (PNG used for inline previews), and an optional inline base64 payload when requested.
 

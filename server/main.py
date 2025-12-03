@@ -14,6 +14,7 @@ import mimetypes
 
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from fastapi.concurrency import run_in_threadpool
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, HttpUrl, validator
@@ -36,6 +37,26 @@ app = FastAPI(
         "Backend helper for generating Photoshop ActionJSON payloads with Fluxa and "
         "executing them via the Adobe Photoshop API."
     ),
+)
+
+
+def _parse_cors_origins(value: Optional[str]) -> list[str]:
+    """Split FLUXA_CORS_ALLOW_ORIGINS env var into a cleaned list."""
+    if not value:
+        return ["*"]
+    origins = [item.strip() for item in value.split(",")]
+    return [origin for origin in origins if origin]
+
+
+ALLOWED_ORIGINS = _parse_cors_origins(os.environ.get("FLUXA_CORS_ALLOW_ORIGINS"))
+ALLOW_CREDENTIALS = "*" not in ALLOWED_ORIGINS
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=ALLOW_CREDENTIALS,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 if FRONTEND_DIR.exists():
