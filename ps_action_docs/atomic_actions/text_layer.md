@@ -48,7 +48,7 @@ Creates a new text layer with specified text content, font properties, and styli
                     "fontPostScriptName": "Impact",
                     "size": {
                         "_unit": "pixelsUnit",
-                        "_value": 100
+                        "_value": 150
                     },
                     "color": {
                         "_obj": "RGBColor",

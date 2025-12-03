@@ -29,7 +29,10 @@ This index lists all available atomic actions for generating Photoshop ActionJSO
 | `filters/difference_clouds.md` | Generate cloud-like patterns |
 | `filters/displace.md` | Distort image using a displacement map |
 | `filters/gaussian_blur.md` | Apply smooth blur effect |
+| `filters/harmonize.md` | AI-powered color/lighting harmonization for compositing |
+| `filters/smart_filters.md` | Apply non-destructive filters to smart objects |
 | `filters/motion_blur.md` | Apply directional motion blur |
+| `filters/oil_paint.md` | Apply oil painting artistic effect |
 | `filters/unsharp_mask.md` | Sharpen image edges |
 
 ## Image (`image/`)
@@ -55,6 +58,8 @@ This index lists all available atomic actions for generating Photoshop ActionJSO
 | `layer_management/layer_reorder.md` | Move layers up/down in stack (bring to front, send to back) |
 | `layer_management/link_layers.md` | Link/unlink layers for synchronized transforms |
 | `layer_management/merge_layers.md` | Merge multiple layers into one |
+| `layer_management/place_image.md` | Place/import additional image (for multi-image compositing) |
+| `layer_management/remove_background.md` | AI-powered background removal (creates mask hiding background) |
 | `layer_management/rename_layer.md` | Rename a layer |
 | `layer_management/select_layer.md` | Select/target a specific layer |
 | `layer_management/set_layer_properties.md` | Set various layer properties |
@@ -77,6 +82,12 @@ This index lists all available atomic actions for generating Photoshop ActionJSO
 |------|-------------|
 | `text_layer.md` | Create and style text layers |
 
+## Tools (`tools/`)
+
+| File | Description |
+|------|-------------|
+| `tools/tool_selection.md` | Select Photoshop tools (Gradient, Brush, Move, Type, etc.) |
+
 ---
 
 ## Quick Reference: Common Operations
@@ -98,5 +109,10 @@ This index lists all available atomic actions for generating Photoshop ActionJSO
 | Gaussian blur | `filters/gaussian_blur.md` |
 | Desaturate | `adjustments/desaturate.md` |
 | Invert colors | `adjustments/levels_adjustment.md` (use curves/levels for invert) |
+| Select a tool (Gradient, Brush, etc.) | `tools/tool_selection.md` |
+| Place/import second image | `layer_management/place_image.md` |
+| Harmonize colors/lighting (AI) | `filters/harmonize.md` |
+| Remove background (AI) | `layer_management/remove_background.md` |
+<!-- doc -->
 
 

@@ -75,7 +75,7 @@ fluxa [URL] [OPTIONS]
 
 Options:
   -o, --output PATH       Output file path (default: output.json)
-  -m, --model TEXT       OpenAI model to use (default: gpt-4o)
+  -m, --model TEXT       OpenAI model to use (default: gpt-5.1)
   --api-key TEXT         OpenAI API key (or set OPENAI_API_KEY env variable)
   -v, --verbose          Show detailed processing information
   --no-metadata          Do not add metadata to output
@@ -178,7 +178,7 @@ Edit `config/default.json` to customize:
 ```json
 {
   "openai": {
-    "model": "gpt-4o",
+    "model": "gpt-5.1",
     "temperature": 0.1,
     "max_tokens": 4000,
     "timeout": 60
@@ -225,7 +225,7 @@ The tool may still generate usable JSON even with validation warnings. Review th
 
 - Use `--estimate-cost` to preview costs before generating
 - Consider using shorter tutorials
-- The gpt-4o model is cost-effective for this use case
+- The gpt-5.1 model is cost-effective for this use case
 
 ## Development
 

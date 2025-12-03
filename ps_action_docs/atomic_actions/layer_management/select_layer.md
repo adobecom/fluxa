@@ -5,6 +5,16 @@
 
 Selects a specific layer by ID, name, or relative position.
 
+## ⚠️ Important: When NOT to Use Select
+
+**After `placeEvent`:** The placed layer is **automatically selected**. Do NOT add a `select` action after `placeEvent` - it's unnecessary and may cause issues.
+
+**Edge case warning:** 
+- `forwardEnum` selects the layer ABOVE the current layer. If the current layer is already the **topmost layer**, this may select an unexpected layer or fail.
+- `backEnum` selects the layer BELOW the current layer. If the current layer is already the **bottom layer**, this may select an unexpected layer or fail.
+
+**Only use relative selection (`forwardEnum`/`backEnum`) when you are certain there is a layer in that direction.**
+
 ## Select by Relative Position (Forward/Backward)
 
 ```json
@@ -56,3 +66,10 @@ Selects a specific layer by its name.
         - `addToSelection`: Adds to current selection.
         - `addToSelectionContinuous`: Adds to selection (often used for multi-select).
         - `removeFromSelection`: Removes from selection.
+
+## Notes
+
+- **After `placeEvent`**: The placed layer is already selected. Do NOT use `select` immediately after `placeEvent`.
+- **After `duplicate`**: The duplicated layer is usually selected automatically.
+- **After `make` (new layer)**: The new layer is usually selected automatically.
+- Use `forwardEnum`/`backEnum` only when navigating between existing layers, not after creating/placing new layers.
