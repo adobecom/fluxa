@@ -40,3 +40,4 @@ Thumbs.db
 # Output images (optional - uncomment if you don't want to track output images)
 # output_images/*
 
+node_modules
