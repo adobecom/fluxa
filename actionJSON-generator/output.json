@@ -1,152 +1,66 @@
 {
   "_metadata": {
     "generated_by": "Fluxa AI Tool",
-    "generated_at": "2025-12-01T11:19:29.105844Z",
+    "generated_at": "2025-12-03T05:02:21.119745Z",
     "version": "0.1.0",
-    "source": "https://www.youtube.com/watch?v=MLOdYG0baDQ",
-    "source_type": "youtube"
+    "source": "../transcript.txt",
+    "source_type": "transcript_file"
   },
   "actions": [
     {
-      "_obj": "select",
+      "_obj": "placeEvent",
+      "null": {
+        "_kind": "local",
+        "_path": "ACTION_JSON_OPTIONS_ADDITIONAL_IMAGES_0"
+      },
+      "freeTransformCenterState": {
+        "_enum": "quadCenterState",
+        "_value": "QCSAverage"
+      },
+      "offset": {
+        "_obj": "offset",
+        "horizontal": {
+          "_unit": "pixelsUnit",
+          "_value": 0
+        },
+        "vertical": {
+          "_unit": "pixelsUnit",
+          "_value": 0
+        }
+      }
+    },
+    {
+      "_obj": "removeBackground"
+    },
+    {
+      "_obj": "rasterizeLayer",
       "_target": [
         {
-          "_ref": "channel",
-          "_name": "subject"
+          "_enum": "ordinal",
+          "_ref": "layer",
+          "_value": "targetEnum"
         }
       ]
     },
     {
-      "_obj": "make",
-      "new": {
-        "_class": "layerSection"
+      "_obj": "matchColor",
+      "imageStatisticsSource": {
+        "_enum": "matchColorImageMethod",
+        "_value": "source2"
       },
-      "using": {
-        "_class": "mask"
-      }
-    },
-    {
-      "_obj": "make",
-      "_target": [
-        {
-          "_ref": "adjustmentLayer"
-        }
-      ],
-      "using": {
-        "_obj": "solidColorLayer",
-        "color": {
-          "_obj": "RGBColor",
-          "red": 128,
-          "green": 128,
-          "blue": 128
-        }
-      }
-    },
-    {
-      "_obj": "move",
-      "_target": [
-        {
-          "_ref": "layer",
-          "_name": "Solid Color"
-        }
-      ],
-      "to": {
+      "matchColorSource": {
+        "_enum": "matchColorSource",
+        "_ref": "document",
+        "_value": "targetEnum"
+      },
+      "matchColorSourceLayer": {
+        "_enum": "ordinal",
         "_ref": "layer",
-        "_index": 1
-      }
-    },
-    {
-      "_obj": "set",
-      "_target": [
-        {
-          "_ref": "layer",
-          "_name": "Second Image"
-        }
-      ],
-      "to": {
-        "_obj": "layer",
-        "mode": {
-          "_enum": "blendMode",
-          "_value": "screen"
-        }
-      }
-    },
-    {
-      "_obj": "make",
-      "_target": [
-        {
-          "_ref": "layer",
-          "_name": "Second Image"
-        }
-      ],
-      "using": {
-        "_obj": "clippingMask"
-      }
-    },
-    {
-      "_obj": "make",
-      "_target": [
-        {
-          "_ref": "layer"
-        }
-      ],
-      "using": {
-        "_class": "mask"
-      }
-    },
-    {
-      "_obj": "set",
-      "_target": [
-        {
-          "_ref": "layer",
-          "_name": "Solid Color"
-        }
-      ],
-      "to": {
-        "_obj": "solidColorLayer",
-        "color": {
-          "_obj": "RGBColor",
-          "red": 255,
-          "green": 255,
-          "blue": 0
-        }
-      }
-    },
-    {
-      "_obj": "set",
-      "_target": [
-        {
-          "_ref": "layer",
-          "_name": "Bird's Layer"
-        }
-      ],
-      "to": {
-        "_obj": "layer",
-        "mode": {
-          "_enum": "blendMode",
-          "_value": "multiply"
-        }
-      }
-    },
-    {
-      "_obj": "make",
-      "_target": [
-        {
-          "_ref": "layer"
-        }
-      ],
-      "using": {
-        "_class": "mask"
-      }
-    },
-    {
-      "_obj": "mergeVisible"
-    },
-    {
-      "_obj": "convertToSmartObject"
-    },
-    {
-      "_obj": "cameraRawFilter"
+        "_value": "backwardEnum"
+      },
+      "luminance": 0,
+      "colorIntensity": 100,
+      "fade": 0
     }
   ]
 }

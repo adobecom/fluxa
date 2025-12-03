@@ -1,49 +1,37 @@
-1. Prepare the Image
+1. Prepare Your Layers
 
-Open your image in Photoshop.
+Open your Background Image in Photoshop.
 
-Duplicate the Background Layer: Press Ctrl + J (Windows) or Cmd + J (Mac). You now have "Layer 1".
+Place your Subject Image on top (File > Place Embedded).
 
-2. Convert to Black & White
+Remove the Background of your subject if it isn't already transparent (Select the layer > Click "Remove Background" in the Contextual Task Bar or Properties panel).
 
-With "Layer 1" selected, remove the color by desaturating it.
+2. Rasterize the Subject Layer
 
-Shortcut: Press Ctrl + Shift + U (Windows) or Cmd + Shift + U (Mac).
+Crucial Step: The "Match Color" option might be grayed out if your subject is a Smart Object.
 
-Alternative: Go to Image > Adjustments > Desaturate.
+Right-click on the text part of your Subject layer in the Layers panel.
 
-3. Create the "Negative" Layer
+Select Rasterize Layer. (Alternatively, you can select the layer and go to Layer > Rasterize > Smart Object).
 
-Duplicate the Desaturated Layer: Press Ctrl + J / Cmd + J again. You now have "Layer 1 copy".
+3. Apply Match Color
 
-Invert the Colors: Press Ctrl + I / Cmd + I. The image will look like a film negative (dark areas become light, light areas become dark).
+With the Subject layer selected, go to the top menu: Image > Adjustments > Match Color...
 
-4. The "Disappearing" Trick (Color Dodge)
+A dialog box will appear. Ignore the top "Image Options" for a moment and look at the Image Statistics section at the bottom:
 
-Change the Blending Mode of this top layer ("Layer 1 copy") from Normal to Color Dodge.
+Source: Click the dropdown and select the current file name you are working on.
 
-Result: The image will likely turn almost completely white. This is normal! The sketch effect relies on the difference between this layer and the one below it.
+Layer: Click the dropdown and select your Background layer (the one you want to match the colors from).
 
-5. Reveal the Sketch (Gaussian Blur)
+4. Adjust the Blending
 
-Go to Filter > Blur > Gaussian Blur.
+Now, go back up to the Image Options section to fine-tune the look:
 
-A dialog box will appear. Adjust the Radius slider.
+Luminance: Adjusts the brightness. Usually, you need to lower this if your subject is too bright for the scene.
 
-What to look for: As you increase the radius, the pencil lines will start to appear.
+Color Intensity: Controls how saturated the colors are. Adjust this until the subject's color saturation matches the background.
 
-Low Radius: Thin, faint lines.
+Fade: Controls the strength of the effect. If the color change is too drastic, increase the "Fade" slightly to bring back some of the original colors.
 
-High Radius: Thicker, darker lines with more shading.
-
-Recommended: Try a value between 10 and 50 pixels depending on your image resolution. Click OK.
-
-6. Darken the Lines (Levels)
-
-The sketch might look a bit faint or low contrast. To fix this, add a Levels adjustment layer.
-
-Click the Create new fill or adjustment layer icon (half-filled circle) at the bottom of the Layers panel and choose Levels.
-
-In the Properties panel, drag the Shadows slider (the black triangle on the left) slightly to the right to darken the blacks.
-
-Drag the Midtones slider (the gray triangle in the middle) to the right to clean up the grey noise and make the white paper background brighter.
+Click OK.
