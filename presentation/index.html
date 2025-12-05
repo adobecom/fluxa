@@ -4,113 +4,765 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>Fluxa - Hackathon Presentation</title>
+		<title>Fluxa - Presentation</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/black.css">
 
-		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-                <!-- Script: "We face the challenge, as an incumbent in a world of generative AI, of maintaining and even growing our market share." -->
-				<section data-auto-animate>
-					<h1>Fluxa</h1>
-				</section>
 
-                <!-- Script: "That said, our subscription revenue model is robust and continues to show growth due, in part, to our investment in embedding generative AI across our product offerings." -->
-				<section data-auto-animate>
-					<h1 style="font-size: 1.5em; color: #666;">Generative AI</h1>
-                    <h2 style="color: #42affa;">Robust Growth</h2>
-                    <p>Embedded in Product Offerings</p>
-				</section>
+          <!--Title Slide-->
+            <section data-auto-animate data-background-gradient="linear-gradient(180deg, #0E1526 0%, #0A1120 100%)">
+              <style>
+                .fluxa-title1 {
+                  font-size: 4rem;
+                  opacity: 1;
+                  font-weight: 800;
+                  margin-bottom: 22px;
+                  background: linear-gradient(90deg, #6cd1ff, #b978ff);
+                  -webkit-background-clip: text;
+                  -webkit-text-fill-color: transparent;
+                  display: inline-block; /* REQUIRED for gradient to show */
+                }
+            
+                .fluxa-sub {
+                  font-size: 1.6rem;
+                  font-weight: 400;
+                  color: #C8D4E8;
+                  opacity: 0.9;
+                }
+              </style>
 
-                <!-- Script: "Following this trend, we see a way to further leverage generative AI, this time as a way to funnel customers into our core products where they can enjoy all the features we have to offer." -->
-                <section>
-                    <h2>The Opportunity</h2>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                        <div style="border: 2px solid #fff; padding: 20px; width: 300px;">Generative AI</div>
-                        <div style="font-size: 2em;">&#8595;</div>
-                        <div style="background: #42affa; color: #000; padding: 20px; width: 300px; font-weight: bold;">Core Products</div>
-                    </div>
+              <h1 class="fluxa-title1">Fluxa</h1>
+              <p class="fluxa-sub">Tutorials to Action, in one click.</p>
+            </section>
+
+            <!--Funnel-->
+          <section 
+  data-background-gradient="linear-gradient(180deg, #0E1526 0%, #0A1120 100%)"
+  data-auto-animate
+>
+<style>
+  .full-image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0 40px;
+  }
+
+  .full-image {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+    border: 4px solid rgba(119, 197, 255, 0.35);
+    box-shadow: 0 0 25px rgba(0, 200, 255, 0.28);
+
+    /* 🔥 animation initial state */
+    opacity: 0;
+    transform: scale(0.88);
+    animation: imageEntrance 1s ease forwards 0.2s, glowPulse 3s ease-in-out infinite 1.4s;
+    object-fit: contain;
+  }
+
+  /* first animation: fade + scale */
+  @keyframes imageEntrance {
+    0% { opacity: 0; transform: scale(0.88); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  /* second animation: subtle glowing loop */
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 22px rgba(0, 200, 255, 0.25); }
+    50% { box-shadow: 0 0 42px rgba(0, 200, 255, 0.45); }
+  }
+
+  /* optional hover zoom for presenter mode */
+  .full-image:hover {
+    transform: scale(1.03);
+  }
+</style>
+
+<div class="full-image-wrapper">
+  <img src="assets/funnel2.png" alt="Funnel" class="full-image">
+</div>
+</section>
+
+
+
+            <!--frustrated image-->
+          <section 
+  data-background-gradient="linear-gradient(180deg, #0D1425 0%, #0A101F 100%)"
+  data-auto-animate
+>
+<style>
+  .cb-heading {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0;
+    text-align: center;
+    background: linear-gradient(90deg, #6DD5FF, #C68BFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: Adobe Clean, sans-serif !important;
+  }
+
+  .cb-subtext {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #BECBE3;
+    margin: 8px auto 45px;
+    opacity: 0.9;
+  }
+
+  .cb-img-row {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    width: 88%;
+    margin: 0 auto 55px;
+  }
+
+  /* default = hidden (before slide opens) */
+  .cb-img-side {
+    width: 50%;
+    height: 330px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.45);
+    opacity: 0;
+    transform: translateY(40px);
+    transition: transform .7s ease, opacity .7s ease;
+  }
+
+  /* 🔥 animate only when this slide is PRESENT */
+  .reveal section.present .cb-img-side {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* stagger animation delay */
+  .reveal section.present .cb-img-side:nth-child(2) {
+    transition-delay: .18s;
+  }
+
+  /* hover zoom */
+  .cb-img-side:hover {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+</style>
+
+<h2 class="cb-heading" data-auto-animate>The Creative Barrier</h2>
+<p class="cb-subtext" data-auto-animate>Why new users struggle to move from aspiration to creation.</p>
+
+<div class="cb-img-row" data-auto-animate>
+  <img class="cb-img-side" src="assets/img1.png" alt="Intimidating UI">
+  <img class="cb-img-side" src="assets/img2.png" alt="Tutorial Hell">
+</div>
+</section>
+
+
+
+
+
+            <!--easing the curve-->
+            <section data-background-gradient="linear-gradient(180deg, #0E1526 0%, #0A1120 100%)">
+              <!-- Enter Fluxa Slide -->
+              <section data-background-gradient="linear-gradient(180deg, #0E1526 0%, #0A1120 100%)"
+                       data-auto-animate style="text-align: center;">
+
+                <!-- Small top divider line -->
+                <div style="
+                  width: 90px;
+                  height: 4px;
+                  margin: 80px auto 40px auto;
+                  border-radius: 4px;
+                  background: linear-gradient(90deg, #6cd1ff, #b978ff);
+                "></div>
+
+                <!-- Main heading -->
+                <h1 style="
+                  font-size: 4rem;
+                  font-weight: 700;
+                  margin: 0;
+                  color: #ffffff;
+                ">
+                  Enter
+                  <span style="
+                    background: linear-gradient(90deg, #6cd1ff, #b978ff);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                  ">
+                    Fluxa
+                  </span>
+                </h1>
+              
+                <!-- Subtitle -->
+                <p style="
+                  margin-top: 25px;
+                  font-size: 1.4rem;
+                  font-weight: 300;
+                  color: #b5b5b5;
+                ">
+                  Easing the curve by turning content into action.
+                </p>
+              
+              </section>
+
+
+			        <!-- Workflow Step 1: Tutorial -> ActionJSON -->
+			        <section data-auto-animate>
+			        	<div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-top: 50px;">
+			        		<div style="text-align: center;">
+			        			<div style="font-size: 3em;">📝/📹</div>
+			        			<p>Tutorial</p>
+			        		</div>
+			        		<div style="font-size: 2em;">&#8594;</div>
+			        		<div style="text-align: center; border: 2px solid #42affa; padding: 20px; border-radius: 10px;">
+			        			<div>{ }</div>
+			        			<p>ActionJSON</p>
+			        		</div>
+			        	</div>
+			        </section>
+
+				      <!-- Workflow Step 2: Execution -->
+			        <section data-auto-animate>
+  <div style="transform-origin: top center;">
+
+    <!-- ActionJSON -->
+    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 18px;">
+      <div style="text-align: center; border: 2px solid #42affa; padding: 14px 22px; border-radius: 10px; font-size: 1.1rem;">
+        <div style="font-size: 1.4rem;">{ }</div>
+        <p style="margin: 6px 0 0 0;">ActionJSON</p>
+      </div>
+    </div>
+
+    <!-- Plus -->
+    <div style="font-size: 1.8rem; margin: 6px 0;">&#43;</div>
+
+    <!-- User Image -->
+    <div style="font-size: 1.25rem; margin-bottom: 6px;">User Image</div>
+
+    <!-- Arrow -->
+    <div style="font-size: 1.8rem; margin: 6px 0;">&#8595;</div>
+
+    <!-- PSD Output -->
+    <div style="background: #42affa; color: #000; padding: 28px 40px; border-radius: 12px; display: inline-block; margin-top: 12px; text-align:center;">
+      <h2 style="margin: 0; font-size: 1.8rem;">.PSD File</h2>
+      <p style="margin: 6px 0 0 0; font-size: 1.05rem;">Ready for Photoshop</p>
+    </div>
+
+  </div>
+</section>
+
+
+              <!-- Workflow: Original → Transformed → PSD -->
+<section data-auto-animate data-background="#0A1120">
+  <style>
+    .workflow-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 45px;
+      margin-top: 40px;
+    }
+    .workflow-img {
+      height: 175px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 2px solid rgba(108, 209, 255, 0.6);
+      box-shadow: 0 0 18px rgba(108, 209, 255, 0.25);
+      transition: transform 0.9s ease;
+      margin-bottom: 0;
+    }
+    .reveal section.present .workflow-img {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .workflow-arrow {
+      font-size: 3rem;
+      color: #6cd1ff;
+      font-weight: bold;
+      animation: pulseArrow 1.6s infinite ease-in-out;
+    }
+    @keyframes pulseArrow {
+      0% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.25); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.7; }
+    }
+    .workflow-label {
+      text-align: center;
+      color: #C8D4E8;
+      margin-top: 12px;
+      font-size: 1.2rem;
+    }
+  </style>
+
+  <div class="workflow-row">
+    <!-- Original -->
+    <div>
+      <img class="workflow-img" src="assets/slide4/original.png" alt="Original">
+      <p class="workflow-label">Original Image</p>
+    </div>
+
+    <!-- Arrow -->
+    <div class="workflow-arrow">➜</div>
+
+    <!-- Transformed -->
+    <div>
+      <img class="workflow-img" src="assets/slide4/modified.png" alt="Transformed">
+      <p class="workflow-label">Transformed Output</p>
+    </div>
+
+    <!-- Arrow -->
+    <div class="workflow-arrow">➜</div>
+
+    <!-- PSD -->
+    <div>
+      <img class="workflow-img" src="assets/slide4/psd.png" alt="PSD File">
+      <p class="workflow-label">PSD Layered File</p>
+    </div>
+  </div>
+</section>
+		</section>
+
+            <!--Demo title-->
+              <section data-background-gradient="linear-gradient(180deg, #0E1526 0%, #0A1120 100%)">
+                <style>
+                  .demo-title {
+                      font-size: 5rem;
+		              font-weight: 700;
+		              margin-bottom: 25px;
+		              background: linear-gradient(90deg, #78A8FF, #B68BFF);
+		              -webkit-background-clip: text;
+		              -webkit-text-fill-color: transparent;
+                  }
+                </style>
+
+                <h1 class="demo-title">DEMO</h1>
+              </section>
+
+
+              <!--Video-->
+              <section data-background-gradient="linear-gradient(180deg, #0D1425 0%, #0A101F 100%)">
+                <video 
+                  src="assets/demo.mp4" 
+                  autoplay 
+                  muted 
+                  loop 
+                  playsinline
+                  style="max-width: 100%; width:100%; border-radius: 16px; display:block; margin: 0 auto;"
+                ></video>
+              </section>
+
+              
+              <!--Fits in everywhere-->
+              <section>  <!-- Parent horizontal slide -->
+                <section data-background-gradient="linear-gradient(180deg, #0E1526 0%, #0A1120 100%)" data-auto-animate="" style="top: 119.5px; display: block;" class="present">
+  <style>
+    .ffits-heading {
+      font-size: 2.6rem;
+      font-weight: 800;
+      margin: 0 0 8px 0;
+      text-align: center;
+      background: linear-gradient(90deg, #6CD1FF 0%, #BD7CFF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: Adobe Clean !important;
+      opacity: 0;
+      transform: translateY(-12px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal section.present .ffits-heading {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .ffits-subtext {
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #B9C7DE;
+      text-align: center;
+      margin-bottom: 48px;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity .7s ease .3s, transform .7s ease .3s; /* delay */
+    }
+    .reveal section.present .ffits-subtext {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ------------------ GRID ------------------ */
+    .ffits-grid {
+      display: grid;
+      gap: 32px 54px;
+      justify-content: center;
+      align-items: center;
+      width: fit-content;
+      margin: auto;
+    }
+
+    .ffits-item {
+      width: 255px;
+      height: 138px;
+      background: rgba(255, 255, 255, 0.045);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transform: translateY(22px) scale(.97);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    /* ---------- STAGGER ANIMATION ---------- */
+    .reveal section.present .ffits-item:nth-child(1)  { transition-delay: .45s; }
+    .reveal section.present .ffits-item:nth-child(2)  { transition-delay: .60s; }
+    .reveal section.present .ffits-item:nth-child(3)  { transition-delay: .75s; }
+    .reveal section.present .ffits-item:nth-child(4)  { transition-delay: .90s; }
+    .reveal section.present .ffits-item:nth-child(5)  { transition-delay: 1.05s; }
+
+    .reveal section.present .ffits-item {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Hover enhancement */
+    .ffits-item:hover {
+      transform: scale(1.04);
+    }
+
+    .ffits-item img {
+      width: 42px;
+      height: 42px;
+      margin-bottom: 14px;
+    }
+
+    .ffits-item p {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #E4EDF8;
+      margin: 0;
+    }
+  </style>
+
+  <!-- heading + subheading -->
+  <h3 class="ffits-heading" style="
+    margin-bottom: 46px;
+">Fluxa fits in everywhere</h3>
+  
+
+  <!-- first row -->
+  <div class="ffits-grid" style="margin-bottom: 32px;grid-template-columns: repeat(3, 1fr);">
+    <div class="ffits-item"><img src="assets/icons/home.svg"><p>Adobe Home</p></div>
+    <div class="ffits-item"><img src="assets/icons/photoshop.svg"><p>Photoshop Page</p></div>
+    <div class="ffits-item"><img src="assets/icons/helpx.svg"><p>Helpx Pages</p></div>
+  </div>
+
+  <!-- second row -->
+  <div class="ffits-grid" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="ffits-item"><img src="assets/icons/community.svg"><p>Community Page</p></div>
+    <div class="ffits-item"><img src="assets/icons/learning.svg"><p>Adobe Learn</p></div>
+  </div>
+</section>
+                <!-- Shared zoom-in animation -->
+                <style>
+                  .zoom-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    opacity: 0;
+                    transform: scale(0.9);
+                    transition: transform 1.2s ease, opacity 1.2s ease;
+                  }
+                  .reveal section.present .zoom-image {
+                    opacity: 1;
+                    transform: scale(1);
+                    max-width: 100%;
+                    max-height: 100%;
+                  }
+                </style>
+
+                <!-- Slide 2 -->
+                <section data-transition="fade" data-background="#0A1120">
+                  <img class="zoom-image" src="assets/fits-in-everywhere/community.png" alt="Community">
+                </section>
+              
+                <!-- Slide 3 -->
+                <section data-transition="fade" data-background="#0A1120">
+                  <img class="zoom-image" src="assets/fits-in-everywhere/helpx.png" alt="Helpx">
+                </section>
+              
+                <!-- Slide 4 -->
+                <section data-transition="fade" data-background="#0A1120">
+                  <img class="zoom-image" src="assets/fits-in-everywhere/adobe-learn.png" alt="Learn">
                 </section>
 
-                <!-- Script: "Most of our flagship tools, Adobe Photoshop, for example, are made for creative professionals and experts, but they're often daunting to use for non-experts." -->
-                <!-- Vertical Stack for Problem Definition -->
-                <section>
-                    <section data-auto-animate>
-                        <h1>Adobe Photoshop</h1>
-                        <h3>The Expert Standard</h3>
-                    </section>
+              </section>
 
-                    <section data-auto-animate>
-                        <h1 style="opacity: 0.5; font-size: 1em;">Adobe Photoshop</h1>
-                        <h2 style="color: #ff5e5e;">The Barrier</h2>
-                        <p>Daunting for Non-Experts</p>
-                    </section>
 
-                    <!-- Script: "(We hypothesize) that many new users are liable to get stuck in tutorial hell and fail to make it past the initial difficulty curve of Adobe Photoshop to become long term subscribers." -->
-                    <section>
-                        <h2>The Problem</h2>
-                        <ul>
-                            <li class="fragment">Tutorial Hell</li>
-                            <li class="fragment">High Difficulty Curve</li>
-                            <li class="fragment fade-up" style="color: #ff5e5e; list-style: none; font-size: 1.5em; margin-top: 20px; font-weight: bold;">FAILED CONVERSION</li>
-                        </ul>
-                    </section>
-                </section>
 
-                <!-- Script: "Fluxa eases out this difficulty curve by taking a tutorial..." -->
-                <!-- Vertical Stack for Solution -->
-                <section>
-                    <section data-auto-animate>
-                        <h1 style="font-size: 4em; color: #42affa; text-transform: uppercase;">Fluxa</h1>
-                        <h3>Easing the Curve</h3>
-                    </section>
 
-                    <!-- Workflow Step 1: Tutorial -> ActionJSON -->
-                    <section data-auto-animate>
-                        <h3 style="color: #42affa;">Fluxa Workflow</h3>
-                        <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-top: 50px;">
-                            <div style="text-align: center;">
-                                <div style="font-size: 3em;">📝/📹</div>
-                                <p>Tutorial</p>
-                            </div>
-                            <div style="font-size: 2em;">&#8594;</div>
-                            <div style="text-align: center; border: 2px solid #42affa; padding: 20px; border-radius: 10px;">
-                                <div>{ }</div>
-                                <p>ActionJSON</p>
-                            </div>
-                        </div>
-                    </section>
 
-                    <!-- Workflow Step 2: Execution -->
-                    <section data-auto-animate>
-                        <h3 style="color: #42affa;">Fluxa Workflow</h3>
-                         <div style="display: flex; align-items: center; justify-content: center; gap: 30px; opacity: 0.3; transform: scale(0.8);">
-                            <div style="text-align: center; border: 2px solid #42affa; padding: 20px; border-radius: 10px;">
-                                <div>{ }</div>
-                                <p>ActionJSON</p>
-                            </div>
-                        </div>
-                        <div style="font-size: 2em; margin: 10px 0;">&#43;</div>
-                        <div style="font-size: 1.5em;">User Image</div>
-                        <div style="font-size: 2em; margin: 10px 0;">&#8595;</div>
-                        <div style="background: #333; padding: 10px 30px; display: inline-block; border-radius: 5px;">Executing...</div>
-                    </section>
 
-                    <!-- Workflow Step 3: Result -->
-                    <section data-auto-animate>
-                        <h3 style="color: #42affa;">Fluxa Workflow</h3>
-                        <div style="background: #42affa; color: #000; padding: 40px; border-radius: 15px; display: inline-block; margin-top: 50px;">
-                            <h2 style="margin: 0;">.PSD File</h2>
-                            <p style="margin: 10px 0 0 0;">Ready for Photoshop</p>
-                        </div>
-                    </section>
-                </section>
+<!--Business Growth-->
+<section data-background-gradient="linear-gradient(180deg, #0E1526 0%, #0A1120 100%)">
+  <style>
+    .bv-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 28px;
+      background: linear-gradient(90deg, #6CB6FF, #B38CFF);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .bv-sub {
+      font-size: 1.5rem;
+      font-weight: 500;
+      opacity: 0.85;
+      margin-bottom: 60px;
+    }
+
+    .bv-list {
+      width: 900px;
+      max-width: 90%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .bv-item {
+      background: rgba(255,255,255,0.05);
+      border-radius: 14px;
+      padding: 28px 32px;
+      backdrop-filter: blur(4px);
+      line-height: 1.55;
+      font-size: 1.25rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+      text-align: left;
+    }
+
+    .bv-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .strong {
+      background: linear-gradient(90deg, #6CB6FF, #B38CFF);
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 700;
+    }
+  </style>
+
+  <h2 class="bv-title">Business Value</h2>
+  <div class="bv-sub">Driving sustainable growth across Creative Cloud</div>
+
+  <div class="bv-list">
+    <div class="bv-item fragment fade-up">
+      <span class="strong">Increase MAU</span>: Lower barriers encourage frequent use.
+
+    </div>
+
+    <div class="bv-item fragment fade-up">
+      <span class="strong">Reduce Churn</span>: Beginners see immediate value, reducing abandonment.
+    </div>
+
+    <div class="bv-item fragment fade-up">
+      <span class="strong">New Revenue</span>: Paves the way for new subscribers.
+  </div>
+</section>
+
+ <section 
+  data-background-gradient="linear-gradient(180deg, #0E1526 0%, #0A1120 100%)"
+  data-auto-animate
+>
+<style>
+  .full-image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0 40px;
+  }
+
+  .full-image {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+    border: 4px solid rgba(119, 197, 255, 0.35);
+    box-shadow: 0 0 25px rgba(0, 200, 255, 0.28);
+
+    /* 🔥 animation initial state */
+    opacity: 0;
+    transform: scale(0.88);
+    animation: imageEntrance 1s ease forwards 0.2s, glowPulse 3s ease-in-out infinite 1.4s;
+    object-fit: contain;
+  }
+
+  /* first animation: fade + scale */
+  @keyframes imageEntrance {
+    0% { opacity: 0; transform: scale(0.88); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  /* second animation: subtle glowing loop */
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 22px rgba(0, 200, 255, 0.25); }
+    50% { box-shadow: 0 0 42px rgba(0, 200, 255, 0.45); }
+  }
+
+  /* optional hover zoom for presenter mode */
+  .full-image:hover {
+    transform: scale(1.03);
+  }
+</style>
+
+<div class="full-image-wrapper">
+  <img src="assets/aitools.png" alt="Funnel" class="full-image">
+</div>
+</section>
+
+
+<!--team members-->
+<section data-background-gradient="linear-gradient(180deg, #0E1526 0%, #0A1120 100%)">
+  <style>
+    .team-title {
+      font-size: 3.2rem;
+      font-weight: 800;
+      margin-bottom: 70px;
+      letter-spacing: 1px;
+      text-align: center;
+      color: #77C5FF;
+      text-shadow: 0px 0px 18px rgba(0, 200, 255, 0.28);
+    }
+
+    .team-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 65px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .member-card {
+      text-align: center;
+      width: 200px;
+    }
+
+    .member-photo {
+      width: 165px;
+      height: 165px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid #4CD3FF;
+      box-shadow: 0 0 18px rgba(76, 211, 255, 0.25);
+      margin-bottom: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .member-card:hover .member-photo {
+      transform: scale(1.05);
+    }
+
+    .member-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #F2F6FF;
+    }
+  </style>
+
+  <h2 class="team-title">TEAM MEMBERS</h2>
+
+  <div class="team-grid">
+
+    <div class="member-card">
+      <img class="member-photo" src="assets/team/bandana.png" alt="Bandana Laishram">
+      <div class="member-name">Bandana Laishram</div>
+    </div>
+
+    <div class="member-card">
+      <img class="member-photo" src="assets/team/drashti.png" alt="Drashti Modasara">
+      <div class="member-name">Drashti Modasara</div>
+    </div>
+
+    <div class="member-card">
+      <img class="member-photo" src="assets/team/raghav.png" alt="Raghav Sharma">
+      <div class="member-name">Raghav Sharma</div>
+    </div>
+
+    <div class="member-card">
+      <img class="member-photo" src="assets/team/suhani.png" alt="Suhani Jain">
+      <div class="member-name">Suhani Jain</div>
+    </div>
+
+    <div class="member-card">
+      <img class="member-photo" src="assets/team/ansh.png" alt="Ansh Anurag">
+      <div class="member-name">Ansh Anurag</div>
+    </div>
+
+    <div class="member-card">
+      <img class="member-photo" src="assets/team/snehal.jpg" alt="Snehal Sonawane">
+      <div class="member-name">Snehal Sonawane</div>
+    </div>
+
+  </div>
+</section>
+
+
+        <!-- Questions last slide -->
+		    <section data-background-gradient="linear-gradient(180deg, #0E1526 0%, #0A1120 100%)">
+		    	<style>
+				.questions-slide {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					height: 100%;
+					text-align: center;
+				}
+
+				.questions-title {
+					font-size: 5rem;
+					font-weight: 700;
+					margin-bottom: 25px;
+					background: linear-gradient(90deg, #78A8FF, #B68BFF);
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+				}
+
+				.questions-subtitle {
+					font-size: 1.6rem;
+					color: #c9c9c9;
+					font-weight: 400;
+				}
+			</style>
+
+			<div class="questions-slide">
+				<h1 class="questions-title">Questions?</h1>
+				<p class="questions-subtitle">Thank you!</p>
+			</div>
+		</section>
+    
+		
+
+      
 			</div>
 		</div>
 
@@ -124,7 +776,7 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-                // Learn about plugins: https://revealjs.com/plugins/
+				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
 		</script>
