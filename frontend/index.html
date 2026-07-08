@@ -3,15 +3,42 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Fluxa Pipeline Demo</title>
+    <title>Fluxa — Photoshop Automation by Adobe</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body >
+    <div class="bg-glow" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path
+            d="M20.06 6H29.5L19.9 26 15 16.2 20.06 6Z"
+            fill="url(#adobeGradient)"
+          />
+          <path d="M11.94 6H2.5L16 32l3.2-6.4L11.94 6Z" fill="url(#adobeGradient)" />
+          <defs>
+            <linearGradient id="adobeGradient" x1="2.5" y1="6" x2="29.5" y2="32" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#FF0000" />
+              <stop offset="1" stop-color="#4B0000" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-name">Fluxa</span>
+          <span class="brand-sub">by Adobe</span>
+        </div>
+      </div>
+    </header>
+
     <main class="container">
-      <header>
-        <h1>Fluxa Pipeline</h1>
-        <p>Generate Photoshop ActionJSON and render it via Adobe APIs.</p>
-      </header>
+      <section class="hero">
+        <h1>Turn any tutorial into a Photoshop action.</h1>
+        <p>
+          Drop your images below, paste a tutorial link, and Fluxa will
+          generate and apply the Photoshop ActionJSON automatically.
+        </p>
+      </section>
 
       <form id="pipeline-form" class="card">
         <label class="field">
@@ -24,26 +51,43 @@
           />
         </label>
 
-        <label class="field">
+        <div class="field">
           <span>Input images</span>
-          <input
-            type="file"
-            id="imageInput"
-            accept="image/*"
-            multiple
-            required
-          />
-          <small
-            >You can select multiple images. They will be uploaded and processed
-            in order.</small
-          >
-        </label>
+          <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload images">
+            <input
+              type="file"
+              id="imageInput"
+              accept="image/*"
+              multiple
+              required
+              hidden
+            />
+            <div id="dropzonePrompt" class="dropzone-prompt">
+              <svg class="dropzone-icon" viewBox="0 0 48 48" aria-hidden="true">
+                <path
+                  d="M24 6v24m0-24 9 9m-9-9-9 9M9 34v4a4 4 0 0 0 4 4h22a4 4 0 0 0 4-4v-4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <p class="dropzone-title">Drag &amp; drop images here</p>
+              <p class="dropzone-sub">or click to browse — PNG, JPG supported</p>
+            </div>
+            <img id="dropzonePreview" class="dropzone-preview" alt="" hidden />
+            <div id="fileList" class="file-list" hidden></div>
+          </div>
+        </div>
 
-        <button type="submit" id="submitButton">Apply Effects</button>
+        <button type="submit" id="submitButton">
+          <span>Apply Effects</span>
+        </button>
       </form>
 
-      <section class="card" id="statusCard" hidden>
-        <h2>Status</h2>
+      <section class="card status-card" id="statusCard" hidden>
+        <div class="spinner" aria-hidden="true"></div>
         <p id="statusMessage">Preparing request…</p>
       </section>
 
