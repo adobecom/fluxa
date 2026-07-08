@@ -1,0 +1,28 @@
+# Web server
+fastapi>=0.110.0
+uvicorn>=0.29.0
+python-multipart>=0.0.9
+pydantic>=2.0.0
+
+# Core utilities
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# Adobe Photoshop API + Cloudflare R2 storage
+boto3>=1.28.0
+
+# Transcript / content extraction
+youtube-transcript-api>=0.6.0
+yt-dlp>=2024.0.0          # audio download for Whisper fallback (no ffmpeg needed)
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Agent-based ActionJSON generation
+openai>=1.0.0
+deepagents>=0.2.8
+langchain>=0.3.0
+langchain-openai>=0.2.0
+
+# CLI (fluxa package)
+click>=8.1.0
+rich>=13.0.0

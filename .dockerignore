@@ -1,0 +1,25 @@
+# Secrets — provided via `fly secrets set`, never baked into the image
+.env
+
+# Python / virtualenv
+venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Runtime output (ephemeral on Fly)
+runs/
+output_images/
+*.log
+
+# VCS / IDE / OS
+.git/
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+
+# Frontend is served separately (not by this backend image)
+frontend/

@@ -1,0 +1,360 @@
+{
+  "operations": {
+    "emboss": {
+      "description": "Apply emboss filter effect to the image",
+      "structure": {
+        "_obj": "emboss",
+        "amount": "number (1-500, default: 100)",
+        "angle": "number (-360 to 360, default: 135)",
+        "height": "number (1-100, default: 3)"
+      },
+      "example": {
+        "_obj": "emboss",
+        "amount": 100,
+        "angle": 135,
+        "height": 3
+      }
+    },
+    "open": {
+      "description": "Open a document/image file",
+      "structure": {
+        "_obj": "open",
+        "null": {
+          "_kind": "local",
+          "_path": "string (file path)"
+        },
+        "template": "boolean (optional)"
+      },
+      "example": {
+        "_obj": "open",
+        "null": {
+          "_kind": "local",
+          "_path": "/path/to/image.jpg"
+        },
+        "template": false
+      }
+    },
+    "save": {
+      "description": "Save document to file",
+      "structure": {
+        "_obj": "save",
+        "as": {
+          "_obj": "format (e.g., TIFF, JPEG, PNG)",
+          "...": "format-specific options"
+        },
+        "in": {
+          "_kind": "local",
+          "_path": "string (output path)"
+        }
+      },
+      "example": {
+        "_obj": "save",
+        "as": {
+          "_obj": "JPEG",
+          "quality": 12
+        },
+        "in": {
+          "_kind": "local",
+          "_path": "/path/to/output.jpg"
+        }
+      }
+    },
+    "close": {
+      "description": "Close a document",
+      "structure": {
+        "_obj": "close",
+        "saving": {
+          "_enum": "yesNo",
+          "_value": "yes or no"
+        }
+      },
+      "example": {
+        "_obj": "close",
+        "saving": {
+          "_enum": "yesNo",
+          "_value": "no"
+        }
+      }
+    },
+    "make": {
+      "description": "Create new layer or object",
+      "structure": {
+        "_obj": "make",
+        "_target": [
+          {
+            "_ref": "layer"
+          }
+        ]
+      },
+      "example": {
+        "_obj": "make",
+        "_target": [
+          {
+            "_ref": "layer"
+          }
+        ]
+      }
+    },
+    "delete": {
+      "description": "Delete layer or object",
+      "structure": {
+        "_obj": "delete",
+        "_target": [
+          {
+            "_enum": "ordinal",
+            "_ref": "layer"
+          }
+        ]
+      },
+      "example": {
+        "_obj": "delete",
+        "_target": [
+          {
+            "_enum": "ordinal",
+            "_ref": "layer"
+          }
+        ]
+      }
+    },
+    "select": {
+      "description": "Select layer, tool, or make selection",
+      "structure": {
+        "_obj": "select",
+        "_target": [
+          {
+            "_ref": "layer or tool",
+            "_name": "optional name"
+          }
+        ]
+      },
+      "example": {
+        "_obj": "select",
+        "_target": [
+          {
+            "_ref": "layer",
+            "_name": "Background"
+          }
+        ]
+      }
+    },
+    "show": {
+      "description": "Show/unhide layer",
+      "structure": {
+        "_obj": "show",
+        "null": [
+          {
+            "_enum": "ordinal",
+            "_ref": "layer"
+          }
+        ]
+      },
+      "example": {
+        "_obj": "show",
+        "null": [
+          {
+            "_enum": "ordinal",
+            "_ref": "layer"
+          }
+        ]
+      }
+    },
+    "hide": {
+      "description": "Hide layer",
+      "structure": {
+        "_obj": "hide",
+        "null": [
+          {
+            "_enum": "ordinal",
+            "_ref": "layer"
+          }
+        ]
+      },
+      "example": {
+        "_obj": "hide",
+        "null": [
+          {
+            "_enum": "ordinal",
+            "_ref": "layer"
+          }
+        ]
+      }
+    },
+    "set": {
+      "description": "Set properties on layers or objects",
+      "structure": {
+        "_obj": "set",
+        "_target": [
+          {
+            "_enum": "ordinal or property",
+            "_ref": "layer or channel"
+          }
+        ],
+        "to": "object with properties to set"
+      },
+      "example": {
+        "_obj": "set",
+        "_target": [
+          {
+            "_enum": "ordinal",
+            "_ref": "layer"
+          }
+        ],
+        "to": {
+          "_obj": "layer",
+          "opacity": {
+            "_unit": "percentUnit",
+            "_value": 75.0
+          }
+        }
+      }
+    },
+    "move": {
+      "description": "Move layer to different position",
+      "structure": {
+        "_obj": "move",
+        "_target": [
+          {
+            "_enum": "ordinal",
+            "_ref": "layer"
+          }
+        ],
+        "to": {
+          "_index": "number",
+          "_ref": "layer"
+        }
+      },
+      "example": {
+        "_obj": "move",
+        "_target": [
+          {
+            "_enum": "ordinal",
+            "_ref": "layer"
+          }
+        ],
+        "to": {
+          "_index": 0,
+          "_ref": "layer"
+        }
+      }
+    },
+    "fill": {
+      "description": "Fill selection with color or pattern",
+      "structure": {
+        "_obj": "fill",
+        "mode": {
+          "_enum": "blendMode",
+          "_value": "normal, multiply, etc."
+        },
+        "opacity": {
+          "_unit": "percentUnit",
+          "_value": "number (0-100)"
+        },
+        "using": {
+          "_enum": "fillContents",
+          "_value": "foregroundColor, backgroundColor, pattern, etc."
+        }
+      },
+      "example": {
+        "_obj": "fill",
+        "mode": {
+          "_enum": "blendMode",
+          "_value": "normal"
+        },
+        "opacity": {
+          "_unit": "percentUnit",
+          "_value": 100.0
+        },
+        "using": {
+          "_enum": "fillContents",
+          "_value": "foregroundColor"
+        }
+      }
+    },
+    "reset": {
+      "description": "Reset colors to default",
+      "structure": {
+        "_obj": "reset",
+        "_target": [
+          {
+            "_property": "colors",
+            "_ref": "color"
+          }
+        ]
+      },
+      "example": {
+        "_obj": "reset",
+        "_target": [
+          {
+            "_property": "colors",
+            "_ref": "color"
+          }
+        ]
+      }
+    },
+    "exchange": {
+      "description": "Exchange foreground and background colors",
+      "structure": {
+        "_obj": "exchange",
+        "_target": [
+          {
+            "_property": "colors",
+            "_ref": "color"
+          }
+        ]
+      },
+      "example": {
+        "_obj": "exchange",
+        "_target": [
+          {
+            "_property": "colors",
+            "_ref": "color"
+          }
+        ]
+      }
+    }
+  },
+  "common_patterns": {
+    "layer_reference": {
+      "by_ordinal": {
+        "_enum": "ordinal",
+        "_ref": "layer"
+      },
+      "by_name": {
+        "_name": "Layer Name",
+        "_ref": "layer"
+      }
+    },
+    "units": {
+      "percent": {
+        "_unit": "percentUnit",
+        "_value": 100.0
+      },
+      "pixels": {
+        "_unit": "pixelsUnit",
+        "_value": 100
+      },
+      "angle": {
+        "_unit": "angleUnit",
+        "_value": 45.0
+      }
+    },
+    "enums": {
+      "blend_modes": [
+        "normal",
+        "multiply",
+        "screen",
+        "overlay",
+        "softLight",
+        "hardLight"
+      ],
+      "ordinals": [
+        "first",
+        "last",
+        "previous",
+        "next"
+      ]
+    }
+  }
+}
+
+
