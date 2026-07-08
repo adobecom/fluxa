@@ -323,6 +323,10 @@ button:disabled {
   gap: 1rem;
 }
 
+#restartButton {
+  margin-top: 1.5rem;
+}
+
 .status-card[hidden],
 .card[hidden] {
   display: none;
@@ -351,6 +355,7 @@ button:disabled {
 }
 
 .gallery-item {
+  position: relative;
   background: var(--surface-muted);
   border-radius: 0.75rem;
   border: 1px solid var(--border);
@@ -365,6 +370,21 @@ button:disabled {
   border-radius: 0.5rem;
   border: 1px solid var(--border);
   object-fit: cover;
+}
+
+.before-toggle {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  border-radius: 999px;
 }
 
 .links {
