@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fluxa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0B0E14;
+  --surface:#141A22;
+  --surface-2:#1B222C;
+  --line: rgba(255,255,255,0.08);
+  --text:#E8EDF2;
+  --muted:#7C8798;
+  --accent:#31A8FF;
+  --accent-dim: rgba(49,168,255,0.35);
+  --twist:#FF6B4A;
+  --twist-dim: rgba(255,107,74,0.35);
+  --mono:'JetBrains Mono', monospace;
+  --display:'Space Grotesk', sans-serif;
+  --body:'Inter', sans-serif;
+}
+
+html,body{ margin:0; height:100%; background:var(--bg); overflow:hidden; }
+.deck{ position:relative; width:100%; height:100vh; background:var(--bg); font-family:var(--body); color:var(--text); }
+
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; justify-content:center;
+  padding: 0 8vw; opacity:0; transition:opacity 0.35s ease;
+}
+.slide.active{ display:flex; opacity:1; }
+
+h1,h2,h3{
+  font-family:var(--display); font-weight:600; letter-spacing:-0.01em; margin:0 0 0.2em 0;
+  text-transform:none; color:var(--text);
+}
+h1{ font-size:3.4em; } h2{ font-size:2.2em; } h3{ font-size:1.4em; }
+p, li{ font-family:var(--body); font-size:0.95em; line-height:1.55; color:var(--text); margin:0.3em 0; }
+ul, ol{ display:block; padding-left:1.2em; }
+
+.eyebrow{
+  font-family:var(--mono); font-size:0.7em; letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:0.6em; display:block;
+}
+.eyebrow.twist{ color:var(--twist); }
+.muted{ color:var(--muted); }
+
+.beat-tag{
+  position:absolute; top:38px; right:5vw; font-family:var(--mono); font-size:0.62em;
+  letter-spacing:0.22em; color:var(--muted); text-transform:uppercase;
+}
+.beat-tag.on{ color:var(--accent); }
+.beat-tag.on-twist{ color:var(--twist); }
+
+.card{
+  background:var(--surface); border:1px solid var(--line); border-radius:6px;
+  padding:1.2em 1.4em;
+}
+
+/* ---------- LAYER STACK SIGNATURE ---------- */
+.stack{ position:relative; width:100%; height:340px; }
+.layer{
+  position:absolute; left:50%; border-radius:4px;
+  border:1px solid var(--line); background:var(--surface-2);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  font-family:var(--mono); font-size:0.6em; letter-spacing:0.1em;
+  color:var(--muted); display:flex; align-items:center; padding:0 1em;
+  transition: all 0.6s ease;
+}
+
+/* messy pile (Ki) */
+.stack.messy .layer:nth-child(1){ width:70%; height:64px; top:0px;   transform:translate(-65%,0) rotate(-6deg); opacity:0.55;}
+.stack.messy .layer:nth-child(2){ width:78%; height:64px; top:50px;  transform:translate(-40%,0) rotate(4deg); opacity:0.65;}
+.stack.messy .layer:nth-child(3){ width:66%; height:64px; top:100px; transform:translate(-58%,0) rotate(-3deg); opacity:0.75;}
+.stack.messy .layer:nth-child(4){ width:74%; height:64px; top:150px; transform:translate(-45%,0) rotate(7deg); opacity:0.85;}
+.stack.messy .layer:nth-child(5){ width:68%; height:64px; top:200px; transform:translate(-55%,0) rotate(-8deg); opacity:1;}
+
+/* labeled stack (Sho) */
+.stack.labeled .layer{ width:60%; height:52px; transform:translate(-50%,0) rotate(0deg); opacity:1; border-color:var(--accent-dim);}
+.stack.labeled .layer:nth-child(1){ top:0px; }
+.stack.labeled .layer:nth-child(2){ top:64px; }
+.stack.labeled .layer:nth-child(3){ top:128px; }
+.stack.labeled .layer:nth-child(4){ top:192px; }
+.stack.labeled .layer:nth-child(5){ top:256px; }
+.stack.labeled .layer span.n{ color:var(--accent); margin-right:0.8em; }
+
+/* pipeline (Ten) */
+.stack.pipeline{ display:flex; align-items:center; justify-content:center; gap:0; height:220px; }
+.stack.pipeline .layer{
+  position:relative; left:auto; width:170px; height:110px; top:auto;
+  transform:none; display:flex; flex-direction:column; align-items:flex-start;
+  justify-content:center; padding:1em; border-color:var(--twist-dim);
+}
+.stack.pipeline .arrow{ color:var(--twist); font-family:var(--mono); font-size:1.4em; padding:0 0.5em; }
+
+/* resolved (Ketsu) */
+.stack.resolved{ display:flex; align-items:center; justify-content:center; height:260px; }
+.stack.resolved .frame{
+  width:220px; height:220px; border-radius:6px; border:1px solid var(--accent-dim);
+  background:linear-gradient(160deg, var(--surface-2), var(--surface));
+  display:flex; align-items:center; justify-content:center; position:relative;
+  box-shadow:0 20px 60px rgba(49,168,255,0.12);
+}
+.stack.resolved .frame::after{
+  content:''; position:absolute; inset:14px; border:1px dashed var(--line); border-radius:4px;
+}
+.stack.resolved .frame span{ font-family:var(--mono); font-size:0.65em; color:var(--muted); }
+
+.pipe-io{ display:flex; align-items:center; justify-content:center; gap:1.4em; }
+.pipe-io .box{
+  font-family:var(--mono); font-size:0.68em; color:var(--muted); text-align:center;
+  border:1px solid var(--line); border-radius:6px; padding:1.4em 1.2em; background:var(--surface);
+  min-width:140px;
+}
+.pipe-io .box.accent{ border-color:var(--accent-dim); color:var(--text); }
+.pipe-io .box.twist{ border-color:var(--twist-dim); }
+.pipe-io .arrow{ color:var(--accent); font-family:var(--mono); font-size:1.3em; }
+
+.big-line{ font-family:var(--display); font-size:1.9em; font-weight:600; line-height:1.3; max-width:14ch; }
+.big-line em{ font-style:normal; color:var(--twist); }
+
+.two-col{ display:grid; grid-template-columns:1fr 1fr; gap:2.4em; align-items:start; }
+
+.code-block{
+  font-family:var(--mono); font-size:0.62em; background:var(--surface); border:1px solid var(--line);
+  border-radius:6px; padding:1.1em 1.3em; color:var(--muted); white-space:pre; line-height:1.6;
+}
+.code-block .k{ color:var(--accent); }
+.code-block .s{ color:var(--twist); }
+
+.placeholder{
+  border:1px dashed var(--line); border-radius:6px; padding:0.6em 1em; display:inline-flex;
+  align-items:center; gap:0.5em; font-family:var(--mono); font-size:0.62em; color:var(--muted);
+}
+.placeholder::before{ content:'◌'; color:var(--accent); }
+
+.image-row{
+  display:flex; gap:2.4em; align-items:flex-end; justify-content:center;
+  margin-top:1.4em; width:100%;
+}
+.img-ph{
+  border:1px dashed var(--line); border-radius:6px; background:var(--surface);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  font-family:var(--mono); font-size:0.62em; color:var(--muted); text-align:center;
+  line-height:1.5;
+}
+.img-ph::before{ content:'◌'; color:var(--accent); display:block; font-size:1.4em; margin-bottom:0.3em; }
+.img-ph.png-ph{ aspect-ratio: 616 / 406; width:40vw; max-width:540px; }
+.img-ph.gif-ph{ aspect-ratio: 498 / 278; width:32vw; max-width:440px; }
+
+.footer-mark{
+  position:absolute; bottom:28px; left:5vw; font-family:var(--mono); font-size:0.6em;
+  color:var(--muted); letter-spacing:0.1em;
+}
+
+.nav-ui{
+  position:fixed; bottom:0; left:0; right:0; height:3px; background:var(--surface);
+  z-index:20;
+}
+.nav-ui .bar{ height:100%; background:var(--accent); width:0%; transition:width 0.3s ease; }
+.counter{
+  position:fixed; bottom:20px; right:5vw; font-family:var(--mono); font-size:0.62em;
+  color:var(--muted); letter-spacing:0.08em; z-index:20;
+}
+.arrows{
+  position:fixed; bottom:16px; left:5vw; display:flex; gap:0.6em; z-index:20;
+}
+.arrows button{
+  background:var(--surface); border:1px solid var(--line); color:var(--muted);
+  width:32px; height:32px; border-radius:4px; cursor:pointer; font-family:var(--mono);
+  display:flex; align-items:center; justify-content:center; font-size:0.8em;
+}
+.arrows button:hover{ color:var(--accent); border-color:var(--accent-dim); }
+</style>
+</head>
+
+<body>
+<div class="deck" id="deck">
+
+<!-- 1 : TITLE -->
+<div class="slide">
+  <span class="eyebrow">Why follow a tutorial when an LLM can follow it for you?</span>
+  <h1>Fluxa</h1>
+  <p class="muted" style="max-width:32ch;">Turns a written Photoshop tutorial into the edit it describes.</p>
+  <div class="footer-mark">FLUXA — <span class="placeholder">event / date</span></div>
+</div>
+
+<!-- 2 : KI - the everyday world -->
+<div class="slide">
+  <span class="eyebrow">Everyone needs to modify a photo sometimes, but then</span>
+  <h2>You have a billion tabs open that <br>you're not looking at.</h2>
+  <ul class="muted" style="max-width:38ch; margin-top:0.8em;">
+    <li>Tutorials</li>
+    <li>Unhelpful Reddit Threads</li>
+    <li>Random Screenshots</li>
+    <li>A video paused halfway through</li>
+  </ul>
+</div>
+
+<!-- 3 : KI cont — placeholder -->
+<div class="slide">
+  <span class="eyebrow">Case in point</span>
+  <div class="placeholder" style="height:280px; width:100%; display:flex; align-items:center; justify-content:center;">Placeholder for tutorial example</div>
+</div>
+
+<!-- 4 : SHO - deepen, the messy stack -->
+<div class="slide">
+  <span class="eyebrow">It only gets worse</span>
+  <h3>Every step is another step closer to an existential crisis.</h3>
+  <div class="image-row">
+    <div class="img-ph png-ph"><img src="canvas.png" alt=""></div>
+    <div class="img-ph gif-ph"><img src="ron-swanson.gif" alt=""></div>
+  </div>
+</div>
+
+<!-- 5 : SHO cont — at scale -->
+<div class="slide">
+  <span class="eyebrow">now multiply that</span>
+  <h3>Its even worse if you need multiple tutorials</h3>
+  <div class="two-col" style="margin-top:0.6em;">
+    <div class="card">
+      <span class="muted" style="font-family:var(--mono); font-size:0.65em;">avg. steps per tutorial</span>
+      <div class="placeholder" style="margin-top:0.6em;">metric</div>
+    </div>
+    <div class="card">
+      <span class="muted" style="font-family:var(--mono); font-size:0.65em;">time per image, manually</span>
+      <div class="placeholder" style="margin-top:0.6em;">metric</div>
+    </div>
+  </div>
+</div>
+
+<!-- 6 : TEN - the reframe -->
+<div class="slide" >
+  <span class="eyebrow twist">Think of it differently</span>
+  <p class="big-line">A tutorial may have been<br>written for a person</br> but to an LLM it's <em>an unstructured spec.</em></p>
+</div>
+
+<!-- 7 : TEN cont — mechanism -->
+<div class="slide">
+  <span class="eyebrow twist">so we read it like one</span>
+  <h3>A Wild Fluxa Appears!</h3>
+  <div class="stack pipeline">
+    <div class="layer"><span class="n" style="color:var(--twist);">01</span>tutorial (text)</div>
+    <div class="arrow">→</div>
+    <div class="layer"><span class="n" style="color:var(--twist);">02</span>actionJSON</div>
+    <div class="arrow">→</div>
+    <div class="layer"><span class="n" style="color:var(--twist);">03</span>Photoshop API</div>
+  </div>
+</div>
+
+<!-- 8 : TEN cont — concrete translation -->
+<div class="slide">
+  <span class="eyebrow twist">same instruction, two languages</span>
+  <div class="two-col">
+    <div>
+      <span class="eyebrow twist">before</span>
+      <p class="muted">"Add a gradient map, warm tones, blend at around 40%, mask out the foreground."</p>
+    </div>
+    <div>
+      <span class="eyebrow twist">after</span>
+      <div class="code-block"><span class="k">{</span>
+  <span class="s">"action"</span>: <span class="s">"gradientMap"</span>,
+  <span class="s">"preset"</span>: <span class="s">"warm_01"</span>,
+  <span class="s">"blendMode"</span>: <span class="s">"normal"</span>,
+  <span class="s">"opacity"</span>: 40,
+  <span class="s">"mask"</span>: <span class="s">"foreground"</span>
+<span class="k">}</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 9 : KETSU - bring together -->
+<div class="slide">
+  <span class="eyebrow">the whole thing, at once</span>
+  <div class="pipe-io">
+    <div class="box">image<br><span class="placeholder" style="margin-top:0.5em;">input</span></div>
+    <div class="arrow">+</div>
+    <div class="box">tutorial<br><span class="placeholder" style="margin-top:0.5em;">input</span></div>
+    <div class="arrow">→</div>
+    <div class="box accent">Fluxa</div>
+    <div class="arrow">→</div>
+    <div class="box twist">image<br><span class="placeholder" style="margin-top:0.5em;">output</span></div>
+  </div>
+</div>
+
+<!-- 10 : KETSU cont — resolved stack, echoes slide 4 -->
+<div class="slide">
+  <span class="eyebrow">back to that same pile of steps</span>
+  <div class="stack resolved">
+    <div class="frame"><span>final image</span></div>
+  </div>
+  <p class="muted" style="text-align:center; margin-top:0.6em;">Same steps. Same tutorial. Nobody nudged an opacity slider.</p>
+</div>
+
+<!-- 11 : wider implications -->
+<div class="slide">
+  <span class="eyebrow">why this matters beyond one tutorial</span>
+  <h3>Any written procedure becomes an executable one.</h3>
+  <ul>
+    <li class="muted">Tutorials, style guides, brand playbooks; anything currently read and interpreted by hand</li>
+    <li class="muted"><span class="placeholder">roadmap item</span></li>
+    <li class="muted"><span class="placeholder">roadmap item</span></li>
+  </ul>
+</div>
+
+<!-- 12 : team / close -->
+<div class="slide">
+  <span class="eyebrow">built by</span>
+  <h3><span class="placeholder">team / names</span></h3>
+  <p class="muted" style="margin-top:0.6em;">Fluxa — tutorial in, edit out.</p>
+</div>
+
+<!-- 13 : Q&A -->
+<div class="slide">
+  <h1>Questions</h1>
+  <p class="muted"><span class="placeholder">contact / links</span></p>
+</div>
+
+</div>
+
+<div class="nav-ui"><div class="bar" id="bar"></div></div>
+<div class="counter" id="counter"></div>
+<div class="arrows"><button id="prev">&#8592;</button><button id="next">&#8594;</button></div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0;
+  var bar = document.getElementById('bar');
+  var counter = document.getElementById('counter');
+
+  function render(){
+    slides.forEach(function(s, idx){ s.classList.toggle('active', idx === i); });
+    bar.style.width = ((i) / (slides.length - 1) * 100) + '%';
+    counter.textContent = (i+1) + ' / ' + slides.length;
+  }
+  function go(delta){
+    i = Math.max(0, Math.min(slides.length - 1, i + delta));
+    render();
+  }
+
+  document.getElementById('next').addEventListener('click', function(){ go(1); });
+  document.getElementById('prev').addEventListener('click', function(){ go(-1); });
+
+  window.addEventListener('keydown', function(e){
+    if (['ArrowRight','ArrowDown','PageDown',' '].indexOf(e.key) > -1){ go(1); e.preventDefault(); }
+    if (['ArrowLeft','ArrowUp','PageUp'].indexOf(e.key) > -1){ go(-1); e.preventDefault(); }
+    if (e.key === 'Home'){ i = 0; render(); }
+    if (e.key === 'End'){ i = slides.length - 1; render(); }
+  });
+
+  var touchStartX = null;
+  window.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; });
+  window.addEventListener('touchend', function(e){
+    if (touchStartX === null) return;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50){ go(dx < 0 ? 1 : -1); }
+    touchStartX = null;
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
