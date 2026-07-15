@@ -279,15 +279,113 @@ def _build_inline_render_payload(file_path: str) -> InlineRenderPayload:
     )
 
 
+class NeedsGlowTargetError(Exception):
+    """Raised when a glow tutorial is detected but the user hasn't said what to glow."""
+
+    def __init__(self, suggested_object: Optional[str] = None):
+        self.suggested_object = suggested_object
+        super().__init__("glow tutorial detected; a glow_target is required")
+
+
+class NeedsTextError(Exception):
+    """Raised when a text-embed tutorial is detected but no text was provided."""
+
+    def __init__(self):
+        super().__init__("text-embed tutorial detected; text_content is required")
+
+
+class NeedsSecondImageError(Exception):
+    """Raised when a double-exposure tutorial is detected but only one image was given."""
+
+    def __init__(self):
+        super().__init__("double-exposure tutorial detected; a second image is required")
+
+
+def _build_glow(transcript, image_paths, glow_target, run_dir, detected_object):
+    """Glow branch. Needs a target object (asks the user if missing)."""
+    from fluxa.effects import build_glow_actions, build_glow_actions_for_cutout, GlowParams
+
+    if not glow_target:
+        raise NeedsGlowTargetError(detected_object)
+
+    LOGGER.info(f"Glow target: {glow_target!r}")
+    glow_params = GlowParams(
+        darken_background=110, blur_radii=[15.0, 60.0, 180.0], first_layer_opacity=80.0
+    )
+    try:
+        from fluxa.segmentation import segment_and_cutout
+
+        cutout = segment_and_cutout(image_paths[0], glow_target, out_dir=str(run_dir))
+        LOGGER.info("Glow via SAM/Florence object cutout")
+        return build_glow_actions_for_cutout(glow_params), [image_paths[0], cutout]
+    except Exception as e:
+        LOGGER.warning(f"Segmentation unavailable ({e}); falling back to autoCutout glow")
+        glow_params.isolate_with_autocutout = True
+        return build_glow_actions(glow_params), image_paths
+
+
+def _build_effect_pipeline(
+    transcript: str,
+    image_paths: List[str],
+    glow_target: Optional[str],
+    text_content: Optional[str],
+    run_dir: Path,
+) -> Optional[tuple[list, List[str]]]:
+    """
+    Detect a deterministic effect (glow, background blur, text embed, …) and build
+    its ActionJSON. Returns (actions, image_paths), or None to fall through to the
+    normal agent flow.
+
+    Raises NeedsGlowTargetError / NeedsTextError when a detected effect needs user
+    input that wasn't provided.
+    """
+    from fluxa.effects import (
+        classify_effect,
+        build_background_blur_actions,
+        build_text_embed_actions,
+        build_double_exposure_actions,
+    )
+
+    api_key = os.getenv("OPENAI_API_KEY")
+    result = classify_effect(transcript, api_key=api_key, model=MODEL)
+    effect = result.get("effect", "none")
+    LOGGER.info(f"Effect classifier: {effect!r} (object hint: {result.get('object')!r})")
+
+    if effect == "glow":
+        return _build_glow(transcript, image_paths, glow_target, run_dir, result.get("object"))
+
+    if effect == "background_blur":
+        # Subject is auto-detected (autoCutout); no user input needed.
+        LOGGER.info("Background blur: autoCutout subject → blur background")
+        return build_background_blur_actions(radius=40.0), image_paths
+
+    if effect == "text_embed":
+        if not text_content or not text_content.strip():
+            raise NeedsTextError()  # ask the user what word to embed
+        LOGGER.info(f"Text embed: placing {text_content!r} behind the subject")
+        return build_text_embed_actions(text_content.strip()), image_paths
+
+    if effect == "double_exposure":
+        # Two-image effect: subject photo + a texture/second image.
+        if len(image_paths) < 2:
+            raise NeedsSecondImageError()
+        LOGGER.info("Double exposure: clip 2nd image into subject + Screen blend")
+        return build_double_exposure_actions(), image_paths
+
+    return None
+
+
 def _run_pipeline(
     tutorial_url: str,
     image_paths: List[str],
     inline_render: bool = False,
+    glow_target: Optional[str] = None,
+    text_content: Optional[str] = None,
 ) -> PipelineResponse:
     """
     Run the full pipeline:
     1. Extract transcript from YouTube
-    2. Generate ActionJSON with deep agent
+    2. Generate ActionJSON with deep agent (or the deterministic glow builder)
     3. Apply actions via Adobe Photoshop API
     """
     job_id = uuid.uuid4().hex
@@ -312,8 +410,20 @@ def _run_pipeline(
         LOGGER.info("Step 1: Extracting YouTube transcript...")
         extracted = _extract_youtube_transcript(str(tutorial_url))
     
-    # Step 2: Generate actions (or use hardcoded JSON if flag is set)
-    if USE_HARDCODED_PENCIL_JSON and HARDCODED_JSON_PATH.exists():
+    # Step 1.5: Deterministic-effect detection (additive). If this is a known
+    # effect (glow, background blur, …) we build it in code; otherwise
+    # effect_pipeline is None and the normal agent flow runs unchanged.
+    effect_pipeline = None
+    if not (USE_HARDCODED_PENCIL_JSON and HARDCODED_JSON_PATH.exists()):
+        effect_pipeline = _build_effect_pipeline(
+            extracted["content"], image_paths, glow_target, text_content, run_dir
+        )
+
+    # Step 2: Generate actions (effect builder, hardcoded JSON, or the deep agent)
+    if effect_pipeline is not None:
+        LOGGER.info("Step 2: Using deterministic effect builder")
+        actions, image_paths = effect_pipeline
+    elif USE_HARDCODED_PENCIL_JSON and HARDCODED_JSON_PATH.exists():
         LOGGER.info(f"Step 2: Using hardcoded JSON from {HARDCODED_JSON_PATH}")
         with open(HARDCODED_JSON_PATH, 'r', encoding='utf-8') as f:
             # Read and parse JSON (pencil.json has comments, so we need to strip them)
@@ -419,52 +529,84 @@ async def health() -> HealthResponse:
     )
 
 
-@app.post("/apply", response_model=PipelineResponse, tags=["actions"])
+@app.post("/apply", tags=["actions"])
 async def apply_endpoint(
     tutorial_url: str = Form(..., description="YouTube tutorial URL"),
     inline_render: bool = Form(False, description="Include base64 encoded result in response"),
     images: List[UploadFile] = File(..., description="Input image files"),
-) -> PipelineResponse:
+    glow_target: Optional[str] = Form(None, description="For glow tutorials: which object to make glow"),
+    text_content: Optional[str] = Form(None, description="For text-embed tutorials: the word/text to embed"),
+):
     """
     Process images using a YouTube Photoshop tutorial.
-    
+
     This endpoint:
     1. Extracts the transcript from the YouTube video
-    2. Uses a deep agent to generate Photoshop ActionJSON
+    2. Uses a deep agent to generate Photoshop ActionJSON (or, for a detected glow
+       tutorial, the deterministic glow builder on the user-chosen object)
     3. Executes the actions via Adobe Photoshop API
     4. Returns the processed image (PNG preview for browser display)
-    
+
+    If a glow tutorial is detected and no `glow_target` was provided, returns
+    `{"status": "needs_glow_target", ...}` so the client can ask the user which
+    object to make glow, then resubmit with `glow_target`.
+
     Args:
         tutorial_url: YouTube video URL containing Photoshop tutorial
         inline_render: If true, include base64 encoded PNG preview in response
         images: One or more input images to process
-    
+        glow_target: For glow tutorials, the object to make glow (e.g. "peanut")
+
     Returns:
-        PipelineResponse with job details and download URL
+        PipelineResponse (as JSON), or a needs-input payload for glow tutorials.
     """
     if not images:
         raise HTTPException(status_code=400, detail="At least one image file is required.")
-    
+
     # Check environment
     env_status = _check_environment()
     if not env_status["openai"]:
         raise HTTPException(status_code=500, detail="OPENAI_API_KEY not configured")
     if not env_status["adobe"] or not env_status["r2"]:
         raise HTTPException(status_code=500, detail="Adobe/R2 credentials not configured")
-    
+
     upload_job_id = uuid.uuid4().hex
-    
+
     try:
         # Save uploaded images
         image_paths = await _save_uploaded_images(upload_job_id, images)
-        
+
         # Run the pipeline in a thread pool (blocking operations)
         return await run_in_threadpool(
             _run_pipeline,
             tutorial_url,
             image_paths,
             inline_render,
+            glow_target,
+            text_content,
         )
+    except NeedsGlowTargetError as exc:
+        # Not an error: ask the client to collect the glow target and resubmit.
+        return {
+            "status": "needs_glow_target",
+            "message": "This looks like a glow tutorial. Which object should glow?",
+            "suggested_object": exc.suggested_object,
+        }
+    except NeedsTextError:
+        # Not an error: ask the client for the word/text to embed and resubmit.
+        return {
+            "status": "needs_text",
+            "message": "This is a text-behind-subject effect. What word/text should be embedded?",
+        }
+    except NeedsSecondImageError:
+        # Not an error: this effect needs two images (subject + texture).
+        return {
+            "status": "needs_second_image",
+            "message": (
+                "This is a double-exposure effect — it needs two images: your subject "
+                "photo and a second (texture/landscape) image. Add a second image and try again."
+            ),
+        }
     except HTTPException:
         raise
     except ValueError as exc:

@@ -59,6 +59,7 @@ This index contains a complete list of ALL available operations with their exact
 ### Step 2: Identify operations from the transcript
 Analyze the tutorial transcript and match operations to files listed in the index:
 - "blur background" → `filters/gaussian_blur.md`
+- "glow" / "make it glow" / "light effect" / "glowing [object]" → `../composite_actions/glow_effect.md` (isolate object → duplicate → Linear Dodge → stacked Gaussian Blur)
 - "select subject" → `selection/select_subject.md`
 - "duplicate layer" → `layer_management/duplicate_layer.md`
 - "reduce fill" or "fill to 0%" → `layer_management/fill_opacity.md`
@@ -159,6 +160,59 @@ DOES NOT render. This is the #1 cause of broken results.
 
 If a step is purely manual brushwork with no blend-mode/selection equivalent, **skip it entirely**
 rather than emitting a mask that hides the layer.
+
+## 🚫 FORBIDDEN OPERATIONS (THESE SILENTLY DESTROY THE RENDER)
+
+1. **NEVER emit `mergeVisible`, `mergeLayers`, or `flatten`.** The API caller retrieves
+   the layered result itself. Tutorials constantly say "Ctrl+Alt+Shift+E to merge visible"
+   or "flatten the image" at the end — you MUST SKIP those steps. Merging bakes any layering
+   mistake into a flat image (this is the #1 cause of a solid-color output) and throws away
+   the editable layers.
+
+2. **NEVER create a full-canvas Solid Color fill layer on top of the stack.** A
+   `solidColorLayer` created as the current/top layer covers the ENTIRE image with one
+   flat color — and if a merge follows, the whole output becomes that color. Only ever use a
+   solid color fill as a **background sent to the back** (below the subject). If in doubt,
+   omit it.
+
+3. **NEVER substitute an arbitrary color for an eyedropper/Color-Picker step.** When a
+   tutorial says "choose the color from the image with the Color Picker" (or eyedrop a color),
+   that is an INTERACTIVE pick the API cannot do. Do NOT invent a color and do NOT copy the
+   example color from any documentation file. SKIP the color-fill step entirely — a missing
+   backdrop is fine; a full-canvas wrong-color wash is not.
+
+## 🌅 DOUBLE-EXPOSURE / CLIPPED-TEXTURE COMPOSITE (canonical pattern)
+
+When a tutorial composites a second image *inside the subject* — "select the subject, duplicate
+it, place the second image, clip it to the subject (create clipping mask), set blend mode to
+Screen, then paint on a mask to blend" — emit EXACTLY this and nothing more:
+
+```json
+[
+  { "_obj": "autoCutout", "sampleAllLayers": false },
+  { "_obj": "copyToLayer" },
+  { "_obj": "placeEvent",
+    "null": { "_kind": "local", "_path": "ACTION_JSON_OPTIONS_ADDITIONAL_IMAGES_0" },
+    "freeTransformCenterState": { "_enum": "quadCenterState", "_value": "QCSAverage" },
+    "offset": { "_obj": "offset",
+      "horizontal": { "_unit": "pixelsUnit", "_value": 0 },
+      "vertical": { "_unit": "pixelsUnit", "_value": 0 } } },
+  { "_obj": "groupEvent",
+    "_target": [ { "_enum": "ordinal", "_ref": "layer", "_value": "targetEnum" } ] },
+  { "_obj": "set",
+    "_target": [ { "_enum": "ordinal", "_ref": "layer", "_value": "targetEnum" } ],
+    "to": { "_obj": "layer", "mode": { "_enum": "blendMode", "_value": "screen" } } },
+  { "_obj": "set",
+    "_target": [ { "_enum": "ordinal", "_ref": "layer", "_value": "targetEnum" } ],
+    "to": { "_obj": "layer", "opacity": { "_unit": "percentUnit", "_value": 100.0 } } }
+]
+```
+
+- `groupEvent` = **create clipping mask** (clips the placed image to the subject silhouette
+  below it). This IS the double-exposure blend — the "soft brush on a layer mask" step is just
+  manual refinement; reproduce it with the clip + Screen blend and DO NOT add a
+  `revealAll`/`hideAll` mask.
+- Do NOT add a solid color fill, do NOT `mergeVisible`, do NOT add a camera-raw/no-op step.
 
 ## Output Format
 

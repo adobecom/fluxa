@@ -10,7 +10,6 @@ const submitButton = document.getElementById("submitButton");
 const dropzone = document.getElementById("dropzone");
 const dropzonePrompt = document.getElementById("dropzonePrompt");
 const dropzonePreview = document.getElementById("dropzonePreview");
-const fileList = document.getElementById("fileList");
 const restartButton = document.getElementById("restartButton");
 
 const baseApiUrl = window.FLUXA_API_BASE ?? "http://0.0.0.0:8000";
@@ -40,51 +39,42 @@ const mockApplyResponse = () =>
     }, 1200);
   });
 
-let dropzonePreviewUrl = null;
+let dropzonePreviewUrls = [];
 
 const renderFileList = (files) => {
-  fileList.innerHTML = "";
-
-  if (dropzonePreviewUrl) {
-    URL.revokeObjectURL(dropzonePreviewUrl);
-    dropzonePreviewUrl = null;
-  }
+  dropzonePreviewUrls.forEach((url) => URL.revokeObjectURL(url));
+  dropzonePreviewUrls = [];
+  dropzonePreview.innerHTML = "";
 
   if (!files.length) {
-    fileList.hidden = true;
     dropzonePreview.hidden = true;
     dropzonePrompt.hidden = false;
     dropzone.classList.remove("has-preview");
     return;
   }
 
-  dropzonePreviewUrl = URL.createObjectURL(files[0]);
-  dropzonePreview.src = dropzonePreviewUrl;
+  dropzonePreviewUrls = Array.from(files).map((file) =>
+    URL.createObjectURL(file),
+  );
+  dropzonePreviewUrls.forEach((url, index) => {
+    const tile = document.createElement("img");
+    tile.className = "dropzone-preview-tile";
+    tile.src = url;
+    tile.alt = files[index].name;
+    dropzonePreview.appendChild(tile);
+  });
   dropzonePreview.hidden = false;
   dropzonePrompt.hidden = true;
   dropzone.classList.add("has-preview");
-
-  if (files.length > 1) {
-    fileList.hidden = false;
-    Array.from(files).forEach((file) => {
-      const chip = document.createElement("span");
-      chip.className = "file-chip";
-
-      const name = document.createElement("span");
-      name.textContent = file.name;
-      chip.appendChild(name);
-
-      fileList.appendChild(chip);
-    });
-  } else {
-    fileList.hidden = true;
-  }
 };
+
+const MAX_IMAGES = 2;
 
 const setFiles = (files) => {
   const dataTransfer = new DataTransfer();
   Array.from(files)
     .filter((file) => file.type.startsWith("image/"))
+    .slice(0, MAX_IMAGES)
     .forEach((file) => dataTransfer.items.add(file));
   imageInput.files = dataTransfer.files;
   renderFileList(imageInput.files);
@@ -98,7 +88,13 @@ dropzone.addEventListener("keydown", (event) => {
   }
 });
 
-imageInput.addEventListener("change", () => renderFileList(imageInput.files));
+imageInput.addEventListener("change", () => {
+  if (imageInput.files.length > MAX_IMAGES) {
+    setFiles(imageInput.files);
+  } else {
+    renderFileList(imageInput.files);
+  }
+});
 
 ["dragenter", "dragover"].forEach((eventName) => {
   dropzone.addEventListener(eventName, (event) => {
@@ -195,6 +191,17 @@ const handleResult = (payload, beforeUrl) => {
     linkRow.className = "links";
     wrapper.appendChild(linkRow);
     gallery.appendChild(wrapper);
+
+    if (application?.download_url) {
+      const psdFilename =
+        application.output_path?.split("/").pop() ?? "rendered.psd";
+      const downloadLink = document.createElement("a");
+      downloadLink.className = "pill";
+      downloadLink.href = `${baseApiUrl}${application.download_url}`;
+      downloadLink.download = psdFilename;
+      downloadLink.textContent = "Download PSD";
+      linkRow.appendChild(downloadLink);
+    }
   };
 
   if (inlineRender) {
@@ -216,8 +223,8 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const files = imageInput.files;
-  if (!files.length) {
-    alert("Select at least one image.");
+  if (!files.length || files.length > MAX_IMAGES) {
+    alert(`Select 1 or ${MAX_IMAGES} images.`);
     return;
   }
 
@@ -226,27 +233,67 @@ form.addEventListener("submit", async (event) => {
   submitButton.disabled = true;
 
   try {
-    const formData = new FormData();
-    formData.append("tutorial_url", tutorialUrlInput.value.trim());
-    formData.append("inline_render", "true");
-    Array.from(files).forEach((file) =>
-      formData.append("images", file, file.name),
-    );
+    const buildFormData = (extra = {}) => {
+      const fd = new FormData();
+      fd.append("tutorial_url", tutorialUrlInput.value.trim());
+      fd.append("inline_render", "true");
+      Array.from(files).forEach((file) => fd.append("images", file, file.name));
+      if (extra.glowTarget) fd.append("glow_target", extra.glowTarget);
+      if (extra.textContent) fd.append("text_content", extra.textContent);
+      return fd;
+    };
 
-    let payload;
-    if (mockApply) {
-      payload = await mockApplyResponse();
-    } else {
+    const callApply = async (extra = {}) => {
+      if (mockApply) return await mockApplyResponse();
       const response = await fetch(`${baseApiUrl}/apply`, {
         method: "POST",
-        body: formData,
+        body: buildFormData(extra),
       });
-
       if (!response.ok) {
         throw new Error(`Pipeline failed. Status: ${response.status}`);
       }
+      return await response.json();
+    };
 
-      payload = await response.json();
+    let payload = await callApply();
+
+    // Glow tutorials: the backend asks which object should glow, then we resubmit.
+    if (payload && payload.status === "needs_glow_target") {
+      const suggested = payload.suggested_object || "";
+      const target = window.prompt(
+        "This looks like a glow tutorial. Which object should glow?",
+        suggested,
+      );
+      if (!target || !target.trim()) {
+        setStatus("Cancelled — no object chosen to glow.");
+        submitButton.disabled = false;
+        return;
+      }
+      setStatus(`Making “${target.trim()}” glow…`);
+      payload = await callApply({ glowTarget: target.trim() });
+    }
+
+    // Text-embed tutorials: the backend asks for the word to embed, then resubmit.
+    if (payload && payload.status === "needs_text") {
+      const text = window.prompt(
+        "This is a text-behind-subject effect. What word/text should be embedded?",
+        "",
+      );
+      if (!text || !text.trim()) {
+        setStatus("Cancelled — no text provided.");
+        submitButton.disabled = false;
+        return;
+      }
+      setStatus(`Embedding “${text.trim()}” behind the subject…`);
+      payload = await callApply({ textContent: text.trim() });
+    }
+
+    // Double-exposure: needs two images (subject + texture). Ask the user to add one.
+    if (payload && payload.status === "needs_second_image") {
+      alert(payload.message);
+      setStatus("Add a second image (subject + texture) and try again.");
+      submitButton.disabled = false;
+      return;
     }
 
     setStatus("Processing complete.");
