@@ -230,6 +230,75 @@ const handleResult = (payload, beforeUrl) => {
   }
 };
 
+// ---- Styled input dialog (replaces window.prompt) ----
+const inputDialog = document.getElementById("inputDialog");
+const dialogTitle = document.getElementById("dialogTitle");
+const dialogDesc = document.getElementById("dialogDesc");
+const dialogInput = document.getElementById("dialogInput");
+const dialogCancel = document.getElementById("dialogCancel");
+const dialogConfirm = document.getElementById("dialogConfirm");
+
+// Show a modal asking for one value. Resolves to the trimmed string, or null if
+// the user cancels (Esc / Cancel / backdrop click). Requires a non-empty value.
+const showInputDialog = ({
+  title,
+  description = "",
+  placeholder = "",
+  defaultValue = "",
+  confirmLabel = "Continue",
+}) =>
+  new Promise((resolve) => {
+    dialogTitle.textContent = title;
+    dialogDesc.textContent = description;
+    dialogDesc.hidden = !description;
+    dialogInput.value = defaultValue;
+    dialogInput.placeholder = placeholder;
+    dialogConfirm.textContent = confirmLabel;
+    inputDialog.hidden = false;
+    requestAnimationFrame(() => {
+      dialogInput.focus();
+      dialogInput.select();
+    });
+
+    const cleanup = () => {
+      inputDialog.hidden = true;
+      dialogConfirm.removeEventListener("click", onConfirm);
+      dialogCancel.removeEventListener("click", onCancel);
+      dialogInput.removeEventListener("keydown", onKey);
+      inputDialog.removeEventListener("mousedown", onBackdrop);
+    };
+    const finish = (value) => {
+      cleanup();
+      resolve(value);
+    };
+    const onConfirm = () => {
+      const value = dialogInput.value.trim();
+      if (!value) {
+        dialogInput.focus();
+        return; // require a value
+      }
+      finish(value);
+    };
+    const onCancel = () => finish(null);
+    const onKey = (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        onConfirm();
+      } else if (event.key === "Escape") {
+        event.preventDefault();
+        onCancel();
+      }
+    };
+    const onBackdrop = (event) => {
+      if (event.target === inputDialog) onCancel();
+    };
+
+    dialogConfirm.addEventListener("click", onConfirm);
+    dialogCancel.addEventListener("click", onCancel);
+    dialogInput.addEventListener("keydown", onKey);
+    inputDialog.addEventListener("mousedown", onBackdrop);
+  });
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -270,33 +339,38 @@ form.addEventListener("submit", async (event) => {
 
     // Glow tutorials: the backend asks which object should glow, then we resubmit.
     if (payload && payload.status === "needs_glow_target") {
-      const suggested = payload.suggested_object || "";
-      const target = window.prompt(
-        "This looks like a glow tutorial. Which object should glow?",
-        suggested,
-      );
-      if (!target || !target.trim()) {
+      const target = await showInputDialog({
+        title: "Which object should glow?",
+        description: "This looks like a glow tutorial. Name the object to make glow.",
+        placeholder: "e.g. peanut",
+        defaultValue: payload.suggested_object || "",
+        confirmLabel: "Glow it",
+      });
+      if (!target) {
         setStatus("Cancelled — no object chosen to glow.");
         submitButton.disabled = false;
         return;
       }
-      setStatus(`Making “${target.trim()}” glow…`);
-      payload = await callApply({ glowTarget: target.trim() });
+      setStatus(`Making “${target}” glow…`);
+      payload = await callApply({ glowTarget: target });
     }
 
     // Text-embed tutorials: the backend asks for the word to embed, then resubmit.
     if (payload && payload.status === "needs_text") {
-      const text = window.prompt(
-        "This is a text-behind-subject effect. What word/text should be embedded?",
-        "",
-      );
-      if (!text || !text.trim()) {
+      const text = await showInputDialog({
+        title: "What text to embed?",
+        description:
+          "This is a text-behind-subject effect. Enter the word or text to place behind the subject.",
+        placeholder: "e.g. DREAM",
+        confirmLabel: "Embed text",
+      });
+      if (!text) {
         setStatus("Cancelled — no text provided.");
         submitButton.disabled = false;
         return;
       }
-      setStatus(`Embedding “${text.trim()}” behind the subject…`);
-      payload = await callApply({ textContent: text.trim() });
+      setStatus(`Embedding “${text}” behind the subject…`);
+      payload = await callApply({ textContent: text });
     }
 
     // Double-exposure: needs two images (subject + texture). Ask the user to add one.

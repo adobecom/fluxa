@@ -97,6 +97,23 @@
       </section>
     </main>
 
+    <div id="inputDialog" class="dialog-overlay" hidden>
+      <div
+        class="dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="dialogTitle"
+      >
+        <h3 id="dialogTitle" class="dialog-title"></h3>
+        <p id="dialogDesc" class="dialog-desc"></p>
+        <input type="text" id="dialogInput" class="dialog-input" autocomplete="off" />
+        <div class="dialog-actions">
+          <button type="button" id="dialogCancel" class="dialog-btn ghost">Cancel</button>
+          <button type="button" id="dialogConfirm" class="dialog-btn primary">Continue</button>
+        </div>
+      </div>
+    </div>
+
     <script src="script.js" type="module"></script>
   </body>
 </html>
