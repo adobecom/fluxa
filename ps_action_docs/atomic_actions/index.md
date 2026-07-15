@@ -119,6 +119,7 @@ This index lists all available atomic actions for generating Photoshop ActionJSO
 | Create clipping mask | `layer_management/create_clipping_mask.md` |
 | Link layers | `layer_management/link_layers.md` |
 | Gaussian blur | `filters/gaussian_blur.md` |
+| Glow effect (make an object glow / light effect) | `../composite_actions/glow_effect.md` |
 | Desaturate | `adjustments/desaturate.md` |
 | Invert colors | `adjustments/levels_adjustment.md` (use curves/levels for invert) |
 | Select a tool (Gradient, Brush, etc.) | `tools/tool_selection.md` |

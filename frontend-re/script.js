@@ -233,27 +233,67 @@ form.addEventListener("submit", async (event) => {
   submitButton.disabled = true;
 
   try {
-    const formData = new FormData();
-    formData.append("tutorial_url", tutorialUrlInput.value.trim());
-    formData.append("inline_render", "true");
-    Array.from(files).forEach((file) =>
-      formData.append("images", file, file.name),
-    );
+    const buildFormData = (extra = {}) => {
+      const fd = new FormData();
+      fd.append("tutorial_url", tutorialUrlInput.value.trim());
+      fd.append("inline_render", "true");
+      Array.from(files).forEach((file) => fd.append("images", file, file.name));
+      if (extra.glowTarget) fd.append("glow_target", extra.glowTarget);
+      if (extra.textContent) fd.append("text_content", extra.textContent);
+      return fd;
+    };
 
-    let payload;
-    if (mockApply) {
-      payload = await mockApplyResponse();
-    } else {
+    const callApply = async (extra = {}) => {
+      if (mockApply) return await mockApplyResponse();
       const response = await fetch(`${baseApiUrl}/apply`, {
         method: "POST",
-        body: formData,
+        body: buildFormData(extra),
       });
-
       if (!response.ok) {
         throw new Error(`Pipeline failed. Status: ${response.status}`);
       }
+      return await response.json();
+    };
 
-      payload = await response.json();
+    let payload = await callApply();
+
+    // Glow tutorials: the backend asks which object should glow, then we resubmit.
+    if (payload && payload.status === "needs_glow_target") {
+      const suggested = payload.suggested_object || "";
+      const target = window.prompt(
+        "This looks like a glow tutorial. Which object should glow?",
+        suggested,
+      );
+      if (!target || !target.trim()) {
+        setStatus("Cancelled — no object chosen to glow.");
+        submitButton.disabled = false;
+        return;
+      }
+      setStatus(`Making “${target.trim()}” glow…`);
+      payload = await callApply({ glowTarget: target.trim() });
+    }
+
+    // Text-embed tutorials: the backend asks for the word to embed, then resubmit.
+    if (payload && payload.status === "needs_text") {
+      const text = window.prompt(
+        "This is a text-behind-subject effect. What word/text should be embedded?",
+        "",
+      );
+      if (!text || !text.trim()) {
+        setStatus("Cancelled — no text provided.");
+        submitButton.disabled = false;
+        return;
+      }
+      setStatus(`Embedding “${text.trim()}” behind the subject…`);
+      payload = await callApply({ textContent: text.trim() });
+    }
+
+    // Double-exposure: needs two images (subject + texture). Ask the user to add one.
+    if (payload && payload.status === "needs_second_image") {
+      alert(payload.message);
+      setStatus("Add a second image (subject + texture) and try again.");
+      submitButton.disabled = false;
+      return;
     }
 
     setStatus("Processing complete.");
