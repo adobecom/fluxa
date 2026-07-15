@@ -209,6 +209,7 @@ input[type="url"]:focus-visible {
 }
 
 .dropzone.has-preview {
+  height: 420px;
   padding: 0;
   border-style: solid;
 }
@@ -239,6 +240,8 @@ input[type="url"]:focus-visible {
 .dropzone-preview {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   gap: 2px;
 }
@@ -250,6 +253,7 @@ input[type="url"]:focus-visible {
 .dropzone-preview-tile {
   flex: 1;
   min-width: 0;
+  min-height: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
