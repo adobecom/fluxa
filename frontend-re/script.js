@@ -1,3 +1,14 @@
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'F') return;
+  (async () => {
+    try {
+      await document.body.requestFullscreen();
+    } catch (e) {
+      console.warn('Unable to go full screen', e);
+    }
+  })();
+});
+
 const form = document.getElementById("pipeline-form");
 const tutorialUrlInput = document.getElementById("tutorialUrl");
 const imageInput = document.getElementById("imageInput");
