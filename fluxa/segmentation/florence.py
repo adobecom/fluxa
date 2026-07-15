@@ -8,29 +8,30 @@ SAM-2 for segmentation.
 
 from __future__ import annotations
 
-import os
-from typing import Any, Dict, Tuple, Union
+from typing import Any, Dict, Tuple
 from unittest.mock import patch
 
 FLORENCE_CHECKPOINT = "microsoft/Florence-2-base"
 FLORENCE_OPEN_VOCABULARY_DETECTION_TASK = "<OPEN_VOCABULARY_DETECTION>"
 
 
-def _fixed_get_imports(filename: Union[str, os.PathLike]) -> list:
-    """Work around Florence-2 hard-importing flash_attn (not needed on CPU/MPS)."""
-    from transformers.dynamic_module_utils import get_imports
-
-    if not str(filename).endswith("/modeling_florence2.py"):
-        return get_imports(filename)
-    imports = get_imports(filename)
-    if "flash_attn" in imports:
-        imports.remove("flash_attn")
-    return imports
-
-
 def load_florence_model(device, checkpoint: str = FLORENCE_CHECKPOINT) -> Tuple[Any, Any]:
-    """Load the Florence-2 model + processor onto ``device``."""
+    """Load the Florence-2 model + processor onto ``device``.
+
+    Florence-2 hard-imports flash_attn (not needed / unavailable on CPU/MPS). We
+    patch ``get_imports`` to drop it — capturing the ORIGINAL function first so the
+    patched replacement doesn't recurse into itself.
+    """
     from transformers import AutoModelForCausalLM, AutoProcessor
+    from transformers.dynamic_module_utils import get_imports as _orig_get_imports
+
+    def _fixed_get_imports(filename) -> list:
+        if not str(filename).endswith("/modeling_florence2.py"):
+            return _orig_get_imports(filename)
+        imports = _orig_get_imports(filename)
+        if "flash_attn" in imports:
+            imports.remove("flash_attn")
+        return imports
 
     with patch("transformers.dynamic_module_utils.get_imports", _fixed_get_imports):
         model = (
